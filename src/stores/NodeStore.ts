@@ -12,10 +12,10 @@ export class NodeStore {
     public Y: number = 0;
 
     @observable
-    public Width: number = 0;
+    public Width: number = 300;
 
     @observable
-    public Height: number = 0;
+    public Height: number = 300;
 
     @computed
     public get Transform(): string {
