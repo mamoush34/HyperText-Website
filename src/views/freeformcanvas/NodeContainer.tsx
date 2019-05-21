@@ -64,7 +64,7 @@ export class NodeContainer extends React.Component<IProps> {
                     if (nodeStore instanceof StaticTextNodeStore) {
                         return (<TextNodeView key={nodeStore.Id} store={nodeStore as StaticTextNodeStore} resize={this.resizeNode} />)
                     } else if (nodeStore instanceof VideoNodeStore) {
-                        return (<VideoNodeView key={nodeStore.Id} store={nodeStore as VideoNodeStore} />)
+                        return (<VideoNodeView key={nodeStore.Id} store={nodeStore as VideoNodeStore} resize={this.resizeNode}/>)
                     }
                 })}
             </div>
