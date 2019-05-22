@@ -44,7 +44,7 @@ export class VideoNodeView extends React.Component<IProps> {
     render() {
         let store = this.props.store;
         return (
-            <div className="node text-node" style={{ transform: store.Transform, height:store.Height, width:store.Width}}>
+            <div className="node video-node" style={{ transform: store.Transform, height:store.Height, width:store.Width}}>
                 <div className="resizer resizer_bottom-right" onPointerDown={(e) => {this.onPointerDown(e);
                     this.clickedResizer = Resizer_Type.BOTTOM_RIGHT}}>
                 </div>

@@ -21,11 +21,17 @@
     "webpack-dev-server": "^3.1.14"
   },
   "dependencies": {
+    "@types/draft-js": "^0.10.32",
+    "@types/react-draft-wysiwyg": "^1.12.2",
+    "draft-js": "^0.10.5",
+    "draft.js": "^0.2.0",
+    "guid-typescript": "^1.0.9",
     "mobx": "^5.5.2",
     "mobx-react": "^5.3.5",
     "mobx-react-devtools": "^6.0.3",
     "node-sass": "^4.11.0",
     "react": "^16.5.2",
-    "react-dom": "^16.5.2"
+    "react-dom": "^16.5.2",
+    "react-draft-wysiwyg": "^1.13.2"
   }
 }

@@ -7,6 +7,10 @@ import { VideoNodeView } from "../nodes/VideoNodeView";
 import "./FreeFormCanvas.scss";
 import React = require("react");
 import { NodeStore } from "../../stores/NodeStore";
+import { ImageNodeStore } from "../../stores/ImageNodeStore";
+import { ImageNodeView } from "../nodes/ImageNodeView";
+import { PdfNodeStore } from "../../stores/PdfNodeStore";
+import { PdfNodeView } from "../nodes/PdfNodeView";
 
 interface IProps {
     store: NodeCollectionStore
@@ -65,6 +69,10 @@ export class NodeContainer extends React.Component<IProps> {
                         return (<TextNodeView key={nodeStore.Id} store={nodeStore as StaticTextNodeStore} resize={this.resizeNode} />)
                     } else if (nodeStore instanceof VideoNodeStore) {
                         return (<VideoNodeView key={nodeStore.Id} store={nodeStore as VideoNodeStore} resize={this.resizeNode}/>)
+                    } else if (nodeStore instanceof ImageNodeStore) {
+                        return (<ImageNodeView key={nodeStore.Id} store={nodeStore as ImageNodeStore} resize={this.resizeNode}/>)
+                    } else if (nodeStore instanceof PdfNodeStore) {
+                        return (<PdfNodeView key={nodeStore.Id} store={nodeStore as PdfNodeStore} resize={this.resizeNode}/>)
                     }
                 })}
             </div>

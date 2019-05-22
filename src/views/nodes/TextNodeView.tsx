@@ -6,6 +6,12 @@ import React = require("react");
 import { action, observable } from "mobx";
 import { Resizer_Type } from "../freeformcanvas/NodeContainer";
 import { NodeStore } from "../../stores/NodeStore";
+// import {Editor, EditorState, RichUtils} from 'draft-js';
+// import 'draft-js/dist/Draft.css';
+import { EditorState } from 'draft-js';
+import { Editor } from 'react-draft-wysiwyg';
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+
 
 interface IProps {
     store: StaticTextNodeStore;
@@ -16,8 +22,41 @@ interface IProps {
 @observer
 export class TextNodeView extends React.Component<IProps> {
 
+    constructor(props) {
+        super(props);
+        this.handleChange = this.handleChange.bind(this);
+        // this.state = {editorState: EditorState.createEmpty()};
+    }
+
+    
     private _isPointerDown = false;
     @observable private clickedResizer: Resizer_Type;
+    @observable editorState:EditorState = EditorState.createEmpty();
+
+    handleChange = (e: EditorState): void =>{
+        this.editorState = e;
+        //this.setState({editorState: e});
+    }
+
+    // handleKeyCommand = (command) => {
+    //     const newState = RichUtils.handleKeyCommand(this.editorState, command)
+    //     if (newState) {
+    //         this.handleChange(newState);
+    //         return 'handled';
+    //     }
+    //     return 'not-handled';
+    // }
+
+    // onItalicClick = () => {
+    //     this.handleChange(RichUtils.toggleInlineStyle(this.editorState, 'ITALIC'))
+    // }
+    // onBoldClick = () => {
+    //     this.handleChange(RichUtils.toggleInlineStyle(this.editorState, 'BOLD'))
+    // }
+    // onUnderlineClick = () => {
+    //     this.handleChange(RichUtils.toggleInlineStyle(this.editorState, 'UNDERLINE'))
+    // }
+
 
 
     onPointerDown = (e: React.PointerEvent): void => {
@@ -66,7 +105,18 @@ export class TextNodeView extends React.Component<IProps> {
                 <div className="scroll-box">
                     <div className="content">
                         <h3 className="title">{store.Title}</h3>
-                        <p className="paragraph">{store.Text}</p>
+                        {/* <button onClick={this.onUnderlineClick}>U</button>
+                        <button onClick={this.onBoldClick}><b>B</b></button>
+                        <button onClick={this.onItalicClick}><em>I</em></button>  */}
+                        {/* <Editor editorState={this.editorState}  handleKeyCommand={this.handleKeyCommand} onChange={(e) => this.handleChange(e)} /> */}
+                        <Editor
+                            toolbarOnFocus
+                            editorState={this.editorState}
+                            toolbarClassName="toolbarClassName"
+                            wrapperClassName="wrapperClassName"
+                            editorClassName="editorClassName"
+                            onEditorStateChange={this.handleChange}
+                        />
                     </div>
                 </div>
             </div>
