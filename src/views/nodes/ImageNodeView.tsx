@@ -6,6 +6,7 @@ import { observable } from "mobx";
 import { Resizer_Type } from "../freeformcanvas/NodeContainer";
 import { ImageNodeStore } from "../../stores/ImageNodeStore";
 import { NodeStore } from "../../stores/NodeStore";
+import ImageUpload from "../../imageupload/ImageUploader";
 
 interface IProps {
     store: ImageNodeStore;
@@ -60,8 +61,9 @@ export class ImageNodeView extends React.Component<IProps> {
                 <TopBar store={store} />
                 <div className="scroll-box">
                     <div className="content">
-                        <h3 className="title">{store.Title}</h3>
-                        <img src={`images/${store.Url}`}/>
+                        {/* <h3 className="title">{store.Title}</h3> */}
+                        {/* <img src={`images/${store.Url}`}/> */}
+                        <ImageUpload />
                     </div>
                 </div>
             </div>
