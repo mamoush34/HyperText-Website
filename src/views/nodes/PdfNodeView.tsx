@@ -6,6 +6,8 @@ import { observable } from "mobx";
 import { Resizer_Type } from "../freeformcanvas/NodeContainer";
 import { NodeStore } from "../../stores/NodeStore";
 import { PdfNodeStore } from "../../stores/PdfNodeStore";
+import { Document, Page } from 'react-pdf';
+
 
 interface IProps {
     store: PdfNodeStore;
@@ -15,9 +17,17 @@ interface IProps {
 
 @observer
 export class PdfNodeView extends React.Component<IProps> {
+     
+    //   onDocumentLoadSuccess = ({ numPages }) => {
+    //     this.setState({ numPages });
+    //   }
+
+    @observable pdfObject:{} = {numPages :null, pageNumber: 1};
 
     private _isPointerDown = false;
     @observable private clickedResizer: Resizer_Type;
+    @observable numPages:number;
+    @observable pageNumber:number = 1;
 
     onPointerDown = (e: React.PointerEvent): void => {
         e.stopPropagation();
@@ -38,6 +48,10 @@ export class PdfNodeView extends React.Component<IProps> {
     }
     resizeEvent = (e: PointerEvent) => {
         this.props.resize(e, this._isPointerDown, this.clickedResizer, this.props.store);
+    }
+
+    onDocumentLoadSuccess = ({numPages}) => {
+        this.pdfObject = {numPages};
     }
 
     render() {
@@ -61,6 +75,12 @@ export class PdfNodeView extends React.Component<IProps> {
                 <div className="scroll-box">
                     <div className="content">
                         <h3 className="title">{store.Title}</h3>
+                        <Document
+                            file="http://www.africau.edu/images/default/sample.pdf"
+                            onLoadSuccess={this.onDocumentLoadSuccess}
+                        >
+                        <Page pageNumber={this.pageNumber} />
+                        </Document>
                     </div>
                 </div>
             </div>

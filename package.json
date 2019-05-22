@@ -22,7 +22,9 @@
   },
   "dependencies": {
     "@types/draft-js": "^0.10.32",
+    "@types/react": "^16.8.18",
     "@types/react-draft-wysiwyg": "^1.12.2",
+    "@types/react-pdf": "^4.0.0",
     "draft-js": "^0.10.5",
     "draft.js": "^0.2.0",
     "guid-typescript": "^1.0.9",
@@ -33,6 +35,7 @@
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
     "react-draft-wysiwyg": "^1.13.2",
-    "react-images-upload": "^1.2.6"
+    "react-images-upload": "^1.2.6",
+    "react-pdf": "^4.0.5"
   }
 }
