@@ -10,6 +10,7 @@ import DashBar from './views/dashbar/dashbar';
 import { ImageNodeView } from './views/nodes/ImageNodeView';
 import { ImageNodeStore } from './stores/ImageNodeStore';
 import { PdfNodeStore } from './stores/PdfNodeStore';
+import { WebSiteNodeStore } from './stores/WebSiteNodeStore';
 
 
 const mainNodeCollection = new NodeCollectionStore();
@@ -35,7 +36,7 @@ for (let i = 0; i < 20; i++) {
     nodes.push(new VideoNodeStore({ X: Math.random() * maxX, Y: Math.random() * maxY, Title: "Video Node Title", Url: "http://cs.brown.edu/people/peichman/downloads/cted.mp4" }));
 }
 nodes.push(new ImageNodeStore({ X: 500, Y: 500, Title:"Image Node", Url:"news.jpg"}));
-nodes.push(new ImageNodeStore({ X: 100, Y: 500, Title:"Image Node", Url:"news.jpg"}));
+nodes.push(new WebSiteNodeStore({ X: 100, Y: 500, Title:"Web Node", Url:"https://www.google.com/search?igu=1"}));
 
 nodes.push(new PdfNodeStore({ X: 1200, Y: 500, Title:"Pdf Node", Url:""}));
 

@@ -11,6 +11,8 @@ import { ImageNodeStore } from "../../stores/ImageNodeStore";
 import { ImageNodeView } from "../nodes/ImageNodeView";
 import { PdfNodeStore } from "../../stores/PdfNodeStore";
 import { PdfNodeView } from "../nodes/PdfNodeView";
+import { WebSiteNodeStore } from "../../stores/WebSiteNodeStore";
+import { WebSiteNodeView } from "../nodes/WebSiteNodeView";
 
 interface IProps {
     store: NodeCollectionStore
@@ -73,6 +75,8 @@ export class NodeContainer extends React.Component<IProps> {
                         return (<ImageNodeView key={nodeStore.Id} store={nodeStore as ImageNodeStore} resize={this.resizeNode}/>)
                     } else if (nodeStore instanceof PdfNodeStore) {
                         return (<PdfNodeView key={nodeStore.Id} store={nodeStore as PdfNodeStore} resize={this.resizeNode}/>)
+                    } else if (nodeStore instanceof WebSiteNodeStore) {
+                        return (<WebSiteNodeView key={nodeStore.Id} store={nodeStore as WebSiteNodeStore} resize={this.resizeNode}/>)
                     }
                 })}
             </div>

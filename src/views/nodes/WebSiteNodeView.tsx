@@ -1,40 +1,26 @@
 import { observer } from "mobx-react";
+import { VideoNodeStore } from "../../stores/VideoNodeStore";
 import "./NodeView.scss";
 import { TopBar } from "./TopBar";
 import React = require("react");
 import { observable } from "mobx";
 import { Resizer_Type } from "../freeformcanvas/NodeContainer";
 import { NodeStore } from "../../stores/NodeStore";
-import { PdfNodeStore } from "../../stores/PdfNodeStore";
-import { Document, Page } from 'react-pdf';
-import 'react-pdf/dist/Page/AnnotationLayer.css';
+import { WebSiteNodeStore } from "../../stores/WebSiteNodeStore";
+import Iframe from 'react-iframe'
 
 
 interface IProps {
-    store: PdfNodeStore;
+    store: WebSiteNodeStore;
     resize: (e:PointerEvent, pointerFlag: boolean, clickedResizer: Resizer_Type, nodeStore: NodeStore) => void;
 
 }
 
-const options = {
-    cMapUrl: 'cmaps/',
-    cMapPacked: true,
-  };
-
 @observer
-export class PdfNodeView extends React.Component<IProps> {
-     
-    //   onDocumentLoadSuccess = ({ numPages }) => {
-    //     this.setState({ numPages });
-    //   }
-
-   // @observable pdfObject:{} = {numPages :null, pageNumber: 1};
+export class WebSiteNodeView extends React.Component<IProps> {
 
     private _isPointerDown = false;
     @observable private clickedResizer: Resizer_Type;
-    @observable numPages:number;
-    @observable pageNumber:number = 1;
-    @observable curPdf:File;
 
     onPointerDown = (e: React.PointerEvent): void => {
         e.stopPropagation();
@@ -57,19 +43,10 @@ export class PdfNodeView extends React.Component<IProps> {
         this.props.resize(e, this._isPointerDown, this.clickedResizer, this.props.store);
     }
 
-    onDocumentLoadSuccess = (numPages:{numPages:number}) => {
-        this.numPages = numPages.numPages;
-        console.log("NumberOfPages: " + this.numPages);
-    }
-
-    onFileChange = (event:React.ChangeEvent<HTMLInputElement>) => {
-        this.curPdf = event.target.files[0];
-    }
-
     render() {
         let store = this.props.store;
         return (
-            <div className="node pdf-node" style={{ transform: store.Transform, height:store.Height, width:store.Width}}>
+            <div className="node video-node" style={{ transform: store.Transform, height:store.Height, width:store.Width}}>
                 <div className="resizer resizer_bottom-right" onPointerDown={(e) => {this.onPointerDown(e);
                     this.clickedResizer = Resizer_Type.BOTTOM_RIGHT}}>
                 </div>
@@ -87,28 +64,17 @@ export class PdfNodeView extends React.Component<IProps> {
                 <div className="scroll-box">
                     <div className="content">
                         <h3 className="title">{store.Title}</h3>
-                        <div className="FileInputContainer">
-                            <label>Load from file:</label>
-                            <input
-                            type="file"
-                            onChange={this.onFileChange}
-                            />
-                        </div>
-                        <Document
-                            file={this.curPdf}
-                            onLoadSuccess={this.onDocumentLoadSuccess}
-                            options={options}
-                        >
-                        {
-                            Array.from(new Array(this.numPages), (el, index) => (
-                                <Page
-                                    key={`page_${index + 1}`}
-                                    pageNumber={index + 1}
-                                    width={store.Width - 30}
-                                />
-                            ))
-                        }
-                        </Document>
+                        <iframe 
+                            src={store.Url}
+                            width="100%"
+                            height="80%"
+                            id="firstFrame"
+                            className="iFrames"
+                            style={{display: "block"}}
+                            // // display="initial"
+                            // position="relative"
+                            >
+                            </iframe>
                     </div>
                 </div>
             </div>
