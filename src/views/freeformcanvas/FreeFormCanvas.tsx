@@ -43,21 +43,21 @@ export class FreeFormCanvas extends React.Component<IProps> {
 
     onWheelZoom = (e: React.WheelEvent) : void => {
         e.stopPropagation();
-        // e.preventDefault();
-        console.log("ScreenX: " + e.screenX);
-        console.log("ScreenY: " + e.screenY);
-        console.log("PageX: " + e.pageX);
-        console.log("PageY: " + e.pageY);
 
+        let store = this.props.store;
 
+        let xOffset = e.pageX / store.Scale - store.X / store.Scale;
+        let yOffset = e.pageY/ store.Scale - store.Y / store.Scale;
 
-        let xOffset = e.pageX;
-        let yOffset = e.pageY;
-        this.props.store.X += xOffset;
-        this.props.store.Y += yOffset;
-        this.props.store.Scale += (e.deltaY * 0.001);
-        this.props.store.X -= xOffset;
-        this.props.store.Y -= yOffset;
+        let scaleFactor = e.deltaY * 0.001;
+        if((store.Scale + scaleFactor) <= 0.01) {
+            return;
+        }
+        store.Scale += scaleFactor;
+
+        store.X = -(xOffset - e.pageX/ store.Scale) * store.Scale;
+        store.Y =  -(yOffset - e.pageY/ store.Scale) * store.Scale;
+
 
     }
 
