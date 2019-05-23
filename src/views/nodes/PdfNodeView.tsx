@@ -7,6 +7,8 @@ import { Resizer_Type } from "../freeformcanvas/NodeContainer";
 import { NodeStore } from "../../stores/NodeStore";
 import { PdfNodeStore } from "../../stores/PdfNodeStore";
 import { Document, Page } from 'react-pdf';
+import 'react-pdf/dist/Page/AnnotationLayer.css';
+
 
 
 interface IProps {
@@ -15,6 +17,11 @@ interface IProps {
 
 }
 
+const options = {
+    cMapUrl: 'cmaps/',
+    cMapPacked: true,
+  };
+
 @observer
 export class PdfNodeView extends React.Component<IProps> {
      
@@ -22,12 +29,13 @@ export class PdfNodeView extends React.Component<IProps> {
     //     this.setState({ numPages });
     //   }
 
-    @observable pdfObject:{} = {numPages :null, pageNumber: 1};
+   // @observable pdfObject:{} = {numPages :null, pageNumber: 1};
 
     private _isPointerDown = false;
     @observable private clickedResizer: Resizer_Type;
     @observable numPages:number;
     @observable pageNumber:number = 1;
+    @observable curPdf:File;
 
     onPointerDown = (e: React.PointerEvent): void => {
         e.stopPropagation();
@@ -50,8 +58,13 @@ export class PdfNodeView extends React.Component<IProps> {
         this.props.resize(e, this._isPointerDown, this.clickedResizer, this.props.store);
     }
 
-    onDocumentLoadSuccess = ({numPages}) => {
-        this.pdfObject = {numPages};
+    onDocumentLoadSuccess = (numPages:{numPages:number}) => {
+        this.numPages = numPages.numPages;
+        console.log("NumberOfPages: " + this.numPages);
+    }
+
+    onFileChange = (event:React.ChangeEvent<HTMLInputElement>) => {
+        this.curPdf = event.target.files[0];
     }
 
     render() {
@@ -75,11 +88,26 @@ export class PdfNodeView extends React.Component<IProps> {
                 <div className="scroll-box">
                     <div className="content">
                         <h3 className="title">{store.Title}</h3>
+                        <div className="FileInputContainer">
+                            <label>Load from file:</label>
+                            <input
+                            type="file"
+                            onChange={this.onFileChange}
+                            />
+                        </div>
                         <Document
-                            file="http://www.africau.edu/images/default/sample.pdf"
+                            file={this.curPdf}
                             onLoadSuccess={this.onDocumentLoadSuccess}
+                            options={options}
                         >
-                        <Page pageNumber={this.pageNumber} />
+                        {
+                            Array.from(new Array(this.numPages), (el, index) => (
+                                <Page
+                                    key={`page_${index + 1}`}
+                                    pageNumber={index + 1}
+                                />
+                            ))
+                        }
                         </Document>
                     </div>
                 </div>
