@@ -6,15 +6,15 @@ import React = require("react");
 import { action, observable } from "mobx";
 import { Resizer_Type } from "../freeformcanvas/NodeContainer";
 import { NodeStore } from "../../stores/NodeStore";
-// import {Editor, EditorState, RichUtils} from 'draft-js';
-// import 'draft-js/dist/Draft.css';
 import { EditorState } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import { NodeCollectionStore } from "../../stores/NodeCollectionStore";
 
 
 interface IProps {
     store: StaticTextNodeStore;
+    storeCollection: NodeCollectionStore;
     resize: (e:PointerEvent, pointerFlag: boolean, clickedResizer: Resizer_Type, nodeStore: NodeStore) => void;
 }
 
@@ -25,7 +25,6 @@ export class TextNodeView extends React.Component<IProps> {
     constructor(props) {
         super(props);
         this.handleChange = this.handleChange.bind(this);
-        // this.state = {editorState: EditorState.createEmpty()};
     }
 
     
@@ -35,27 +34,8 @@ export class TextNodeView extends React.Component<IProps> {
 
     handleChange = (e: EditorState): void =>{
         this.editorState = e;
-        //this.setState({editorState: e});
     }
 
-    // handleKeyCommand = (command) => {
-    //     const newState = RichUtils.handleKeyCommand(this.editorState, command)
-    //     if (newState) {
-    //         this.handleChange(newState);
-    //         return 'handled';
-    //     }
-    //     return 'not-handled';
-    // }
-
-    // onItalicClick = () => {
-    //     this.handleChange(RichUtils.toggleInlineStyle(this.editorState, 'ITALIC'))
-    // }
-    // onBoldClick = () => {
-    //     this.handleChange(RichUtils.toggleInlineStyle(this.editorState, 'BOLD'))
-    // }
-    // onUnderlineClick = () => {
-    //     this.handleChange(RichUtils.toggleInlineStyle(this.editorState, 'UNDERLINE'))
-    // }
 
 
 
@@ -81,6 +61,11 @@ export class TextNodeView extends React.Component<IProps> {
         document.removeEventListener("pointerup", this.onPointerUp);
     }
 
+    onRemoveNodeClick = ():void => {
+        let p = this.props;
+        p.storeCollection.removeNode(p.store);
+    }
+
     
     render() {
         let store = this.props.store;
@@ -100,15 +85,11 @@ export class TextNodeView extends React.Component<IProps> {
                         this.clickedResizer = Resizer_Type.TOP_LEFT}}>
                      </div>
                
-                
+                <div className="removeButton" onClick={this.onRemoveNodeClick}>X</div>
                 <TopBar store={store} />
                 <div className="scroll-box">
                     <div className="content">
                         <h3 className="title">{store.Title}</h3>
-                        {/* <button onClick={this.onUnderlineClick}>U</button>
-                        <button onClick={this.onBoldClick}><b>B</b></button>
-                        <button onClick={this.onItalicClick}><em>I</em></button>  */}
-                        {/* <Editor editorState={this.editorState}  handleKeyCommand={this.handleKeyCommand} onChange={(e) => this.handleChange(e)} /> */}
                         <Editor
                             toolbarOnFocus
                             editorState={this.editorState}

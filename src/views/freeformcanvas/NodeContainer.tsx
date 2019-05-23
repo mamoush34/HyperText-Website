@@ -68,15 +68,15 @@ export class NodeContainer extends React.Component<IProps> {
             <div className="node-container" onWheel={(e) => e.stopPropagation()}>
                 {this.props.store.Nodes.map(nodeStore => {
                     if (nodeStore instanceof StaticTextNodeStore) {
-                        return (<TextNodeView key={nodeStore.Id} store={nodeStore as StaticTextNodeStore} resize={this.resizeNode} />)
+                        return (<TextNodeView key={nodeStore.Id} storeCollection={this.props.store} store={nodeStore as StaticTextNodeStore} resize={this.resizeNode} />)
                     } else if (nodeStore instanceof VideoNodeStore) {
-                        return (<VideoNodeView key={nodeStore.Id} store={nodeStore as VideoNodeStore} resize={this.resizeNode}/>)
+                        return (<VideoNodeView key={nodeStore.Id} storeCollection={this.props.store} store={nodeStore as VideoNodeStore} resize={this.resizeNode}/>)
                     } else if (nodeStore instanceof ImageNodeStore) {
-                        return (<ImageNodeView key={nodeStore.Id} store={nodeStore as ImageNodeStore} resize={this.resizeNode}/>)
+                        return (<ImageNodeView key={nodeStore.Id} storeCollection={this.props.store} store={nodeStore as ImageNodeStore} resize={this.resizeNode}/>)
                     } else if (nodeStore instanceof PdfNodeStore) {
-                        return (<PdfNodeView key={nodeStore.Id} store={nodeStore as PdfNodeStore} resize={this.resizeNode}/>)
+                        return (<PdfNodeView key={nodeStore.Id} storeCollection={this.props.store} store={nodeStore as PdfNodeStore} resize={this.resizeNode}/>)
                     } else if (nodeStore instanceof WebSiteNodeStore) {
-                        return (<WebSiteNodeView key={nodeStore.Id} store={nodeStore as WebSiteNodeStore} resize={this.resizeNode}/>)
+                        return (<WebSiteNodeView key={nodeStore.Id} storeCollection={this.props.store} store={nodeStore as WebSiteNodeStore} resize={this.resizeNode}/>)
                     }
                 })}
             </div>

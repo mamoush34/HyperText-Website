@@ -18,4 +18,13 @@ export class NodeCollectionStore extends NodeStore {
     public AddNodes(stores: NodeStore[]): void {
         stores.forEach(store => this.Nodes.push(store));
     }
+    @action
+    public addNode(store: NodeStore): void {
+        this.Nodes.push(store);
+    }
+
+    @action
+    public removeNode(store: NodeStore): void {
+        this.Nodes.splice(this.Nodes.indexOf(store), 1);
+    }
 }

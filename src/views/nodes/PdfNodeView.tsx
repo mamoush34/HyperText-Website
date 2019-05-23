@@ -8,10 +8,12 @@ import { NodeStore } from "../../stores/NodeStore";
 import { PdfNodeStore } from "../../stores/PdfNodeStore";
 import { Document, Page } from 'react-pdf';
 import 'react-pdf/dist/Page/AnnotationLayer.css';
+import { NodeCollectionStore } from "../../stores/NodeCollectionStore";
 
 
 interface IProps {
     store: PdfNodeStore;
+    storeCollection: NodeCollectionStore;
     resize: (e:PointerEvent, pointerFlag: boolean, clickedResizer: Resizer_Type, nodeStore: NodeStore) => void;
 
 }
@@ -65,6 +67,10 @@ export class PdfNodeView extends React.Component<IProps> {
     onFileChange = (event:React.ChangeEvent<HTMLInputElement>) => {
         this.curPdf = event.target.files[0];
     }
+    onRemoveNodeClick = ():void => {
+        let p = this.props;
+        p.storeCollection.removeNode(p.store);
+    }
 
     render() {
         let store = this.props.store;
@@ -83,6 +89,7 @@ export class PdfNodeView extends React.Component<IProps> {
                      this.clickedResizer = Resizer_Type.TOP_LEFT}}>
                 </div>
 
+                <div className="removeButton" onClick={this.onRemoveNodeClick}>X</div>
                 <TopBar store={store} />
                 <div className="scroll-box">
                     <div className="content">

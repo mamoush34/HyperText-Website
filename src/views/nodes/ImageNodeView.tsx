@@ -7,9 +7,11 @@ import { Resizer_Type } from "../freeformcanvas/NodeContainer";
 import { ImageNodeStore } from "../../stores/ImageNodeStore";
 import { NodeStore } from "../../stores/NodeStore";
 import ImageUpload from "../../imageupload/ImageUploader";
+import { NodeCollectionStore } from "../../stores/NodeCollectionStore";
 
 interface IProps {
     store: ImageNodeStore;
+    storeCollection: NodeCollectionStore;
     resize: (e:PointerEvent, pointerFlag: boolean, clickedResizer: Resizer_Type, nodeStore: NodeStore) => void;
 
 }
@@ -41,6 +43,11 @@ export class ImageNodeView extends React.Component<IProps> {
         this.props.resize(e, this._isPointerDown, this.clickedResizer, this.props.store);
     }
 
+    onRemoveNodeClick = ():void => {
+        let p = this.props;
+        p.storeCollection.removeNode(p.store);
+    }
+
     render() {
         let store = this.props.store;
         return (
@@ -57,7 +64,7 @@ export class ImageNodeView extends React.Component<IProps> {
                 <div className="resizer resizer_top-left" onPointerDown={(e) => {this.onPointerDown(e);
                      this.clickedResizer = Resizer_Type.TOP_LEFT}}>
                 </div>
-
+                <div className="removeButton" onClick={this.onRemoveNodeClick}>X</div>
                 <TopBar store={store} />
                 <div className="scroll-box">
                     <div className="content">

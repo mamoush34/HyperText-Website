@@ -16,7 +16,7 @@ import { WebSiteNodeStore } from './stores/WebSiteNodeStore';
 const mainNodeCollection = new NodeCollectionStore();
 ReactDOM.render((
     <div>
-        <DashBar mainCollection={this.mainNodeCollection}/>
+        <DashBar mainCollection={mainNodeCollection}/>
         <h1>Dash Web</h1>
         <FreeFormCanvas store={mainNodeCollection} />
     </div>), document.getElementById('root'));

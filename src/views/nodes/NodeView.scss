@@ -6,6 +6,23 @@
     height: 300px;
     overflow: hidden;
 
+    .removeButton {
+        border-radius: 50%;
+        position: absolute;
+        width: 18px;
+        height: 18px;
+        right: 0px;
+        font-size: 12px;
+        border: 1px solid black;
+        background: white;
+        text-align: center;
+    }
+
+    .removeButton:hover{
+        cursor: pointer;
+        background: red;
+    }
+
         
     &.minimized {
         width: 30px;
