@@ -41,12 +41,32 @@ export class FreeFormCanvas extends React.Component<IProps> {
         this.props.store.Y += e.movementY;
     }
 
+    onWheelZoom = (e: React.WheelEvent) : void => {
+        e.stopPropagation();
+        // e.preventDefault();
+        console.log("ScreenX: " + e.screenX);
+        console.log("ScreenY: " + e.screenY);
+        console.log("PageX: " + e.pageX);
+        console.log("PageY: " + e.pageY);
+
+
+
+        let xOffset = e.pageX;
+        let yOffset = e.pageY;
+        this.props.store.X += xOffset;
+        this.props.store.Y += yOffset;
+        this.props.store.Scale += (e.deltaY * 0.001);
+        this.props.store.X -= xOffset;
+        this.props.store.Y -= yOffset;
+
+    }
+
     render() {
         let store = this.props.store;
         return (
-            <div className="freeformcanvas-container" onPointerDown={this.onPointerDown}>
+            <div className="freeformcanvas-container" onPointerDown={this.onPointerDown} onWheel={this.onWheelZoom}>
                 <div className="freeformcanvas" style={{ transform: store.Transform }}>
-                    <NodeContainer store={store} />
+                    <NodeContainer store={store}/>
                 </div>
             </div>
         );

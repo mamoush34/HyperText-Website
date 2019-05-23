@@ -65,7 +65,7 @@ export class NodeContainer extends React.Component<IProps> {
 
     render() {
         return (
-            <div className="node-container">
+            <div className="node-container" onWheel={(e) => e.stopPropagation()}>
                 {this.props.store.Nodes.map(nodeStore => {
                     if (nodeStore instanceof StaticTextNodeStore) {
                         return (<TextNodeView key={nodeStore.Id} store={nodeStore as StaticTextNodeStore} resize={this.resizeNode} />)
