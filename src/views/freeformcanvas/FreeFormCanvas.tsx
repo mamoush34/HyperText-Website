@@ -3,6 +3,7 @@ import { NodeCollectionStore } from "../../stores/NodeCollectionStore";
 import "./FreeFormCanvas.scss";
 import { NodeContainer } from "./NodeContainer";
 import React = require("react");
+import DashBar from "../dashbar/dashbar";
 
 interface IProps {
     store: NodeCollectionStore
@@ -64,7 +65,9 @@ export class FreeFormCanvas extends React.Component<IProps> {
     render() {
         let store = this.props.store;
         return (
-            <div className="freeformcanvas-container" onPointerDown={this.onPointerDown} onWheel={this.onWheelZoom}>
+            // `url(${`images/${filename}`})`
+            <div className="freeformcanvas-container" onPointerDown={this.onPointerDown} onWheel={this.onWheelZoom} style={{backgroundImage: 'url(' + require('../../images/canvas_background.jpg') + ')'}}>
+            <DashBar mainCollection={store}/>
                 <div className="freeformcanvas" style={{ transform: store.Transform }}>
                     <NodeContainer store={store}/>
                 </div>

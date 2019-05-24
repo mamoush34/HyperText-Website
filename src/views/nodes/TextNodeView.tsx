@@ -90,14 +90,14 @@ export class TextNodeView extends React.Component<IProps> {
                 <div className="scroll-box">
                     <div className="content">
                         <h3 className="title">{store.Title}</h3>
-                        <Editor
+                        {/* <Editor
                             toolbarOnFocus
                             editorState={this.editorState}
                             toolbarClassName="toolbarClassName"
                             wrapperClassName="wrapperClassName"
                             editorClassName="editorClassName"
                             onEditorStateChange={this.handleChange}
-                        />
+                        /> */}
                     </div>
                 </div>
             </div>
