@@ -2,6 +2,8 @@
     width: 100%;
     margin-bottom: 10px;
     height: 10%;
+    z-index: 1;
+    position: absolute;
 
     .node_adders {
         background: yellow;

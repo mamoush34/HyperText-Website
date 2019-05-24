@@ -17,6 +17,7 @@ const mainNodeCollection = new NodeCollectionStore();
 ReactDOM.render((
     <div>
         <h1 style={{top:0}}>Dash Web</h1>
+        <DashBar mainCollection={mainNodeCollection}/>
         <FreeFormCanvas store={mainNodeCollection} />
     </div>), document.getElementById('root'));
 

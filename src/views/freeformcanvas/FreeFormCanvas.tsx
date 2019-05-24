@@ -67,7 +67,6 @@ export class FreeFormCanvas extends React.Component<IProps> {
         return (
             // `url(${`images/${filename}`})`
             <div className="freeformcanvas-container" onPointerDown={this.onPointerDown} onWheel={this.onWheelZoom} style={{backgroundImage: 'url(' + require('../../images/canvas_background.jpg') + ')'}}>
-            <DashBar mainCollection={store}/>
                 <div className="freeformcanvas" style={{ transform: store.Transform }}>
                     <NodeContainer store={store}/>
                 </div>
