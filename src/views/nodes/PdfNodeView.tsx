@@ -36,7 +36,7 @@ export class PdfNodeView extends React.Component<IProps> {
     @observable private clickedResizer: Resizer_Type;
     @observable numPages:number;
     @observable pageNumber:number = 1;
-    @observable curPdf:File;
+    //@observable curPdf:File;
 
     onPointerDown = (e: React.PointerEvent): void => {
         e.stopPropagation();
@@ -61,11 +61,12 @@ export class PdfNodeView extends React.Component<IProps> {
 
     onDocumentLoadSuccess = (numPages:{numPages:number}) => {
         this.numPages = numPages.numPages;
-        console.log("NumberOfPages: " + this.numPages);
     }
 
     onFileChange = (event:React.ChangeEvent<HTMLInputElement>) => {
-        this.curPdf = event.target.files[0];
+       //this.curPdf = event.target.files[0];
+        let p = this.props;
+        p.store.setPdf(event.target.files[0]);
     }
     onRemoveNodeClick = ():void => {
         let p = this.props;
@@ -102,7 +103,7 @@ export class PdfNodeView extends React.Component<IProps> {
                             />
                         </div>
                         <Document
-                            file={this.curPdf}
+                            file={store.Pdf}
                             onLoadSuccess={this.onDocumentLoadSuccess}
                             options={options}
                         >

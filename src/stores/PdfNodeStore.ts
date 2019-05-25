@@ -12,6 +12,10 @@ export class PdfNodeStore extends NodeStore {
     public Title: string = "";
 
     @observable
-    public Url: string;
+    public Pdf: File;
+
+    setPdf(pdf: File) {
+        this.Pdf = pdf;
+    }
 
 }

@@ -41,7 +41,7 @@ for (let i = 0; i < 20; i++) {
 nodes.push(new ImageNodeStore({ X: 500, Y: 500, Title:"Image Node", Url:""}));
 nodes.push(new WebSiteNodeStore({ X: 100, Y: 500, Title:"Web Node", Url:"https://www.google.com/search?igu=1"}));
 
-nodes.push(new PdfNodeStore({ X: 1200, Y: 500, Title:"Pdf Node", Url:""}));
+nodes.push(new PdfNodeStore({ X: 1200, Y: 500, Title:"Pdf Node"}));
 
 
 mainNodeCollection.AddNodes(nodes);

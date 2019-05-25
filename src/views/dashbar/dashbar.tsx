@@ -36,11 +36,11 @@ export default class DashBar extends React.Component<DashBarProps> {
     }   
 
     onImageClick = () => {
-        this.props.mainCollection.addNode(new ImageNodeStore({ X: 500, Y: 500, Title:"Image Node", Url:"news.jpg"}));
+        this.props.mainCollection.addNode(new ImageNodeStore({ X: 500, Y: 500, Title:"Image Node", Url:""}));
     }
 
     onPdfClick = () => {
-        this.props.mainCollection.addNode(new PdfNodeStore({ X: 1200, Y: 500, Title:"Pdf Node", Url:""}));
+        this.props.mainCollection.addNode(new PdfNodeStore({ X: 1200, Y: 500, Title:"Pdf Node"}));
     }
 
     onWebPageClick = () => {
