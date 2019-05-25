@@ -32,7 +32,7 @@ export default class ImageUpload extends React.Component<ImageUploadProps> {
 
     render() {
       let imagePreview = null;
-      if (this.props.imageNode.Url) {
+      if (this.props.imageNode.Url != "") {
         imagePreview = (<img src={this.props.imageNode.Url} />);
       } else {
         imagePreview = (<div className="previewText">Please select an Image</div>);
