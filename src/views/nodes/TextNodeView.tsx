@@ -30,10 +30,11 @@ export class TextNodeView extends React.Component<IProps> {
     
     private _isPointerDown = false;
     @observable private clickedResizer: Resizer_Type;
-    @observable editorState:EditorState = EditorState.createEmpty();
+    //@observable editorState:EditorState = this.props.store.Text;
 
     handleChange = (e: EditorState): void =>{
-        this.editorState = e;
+        // this.editorState = e;
+        this.props.store.assignText(e);
     }
 
 
@@ -92,7 +93,7 @@ export class TextNodeView extends React.Component<IProps> {
                         <h3 className="title">{store.Title}</h3>
                         <Editor
                             toolbarOnFocus
-                            editorState={this.editorState}
+                            editorState={this.props.store.Text}
                             toolbarClassName="toolbarClassName"
                             wrapperClassName="wrapperClassName"
                             editorClassName="editorClassName"

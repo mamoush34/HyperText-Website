@@ -10,6 +10,7 @@ import { ImageNodeStore } from "../../stores/ImageNodeStore";
 import { PdfNodeStore } from "../../stores/PdfNodeStore";
 import { WebSiteNodeStore } from "../../stores/WebSiteNodeStore";
 import { Canvas_Type } from "../../Dashboard";
+import { EditorState } from "draft-js";
 
 interface DashBarProps {
     mainCollection: NodeCollectionStore,
@@ -30,7 +31,7 @@ export default class DashBar extends React.Component<DashBarProps> {
     }
 
     onTextClick = () => {
-        this.props.mainCollection.addNode(new StaticTextNodeStore({ X: Math.random() * this.maxX, Y: Math.random() * this.maxY, Title: "Text Node Title", Text: "Small Text"}));
+        this.props.mainCollection.addNode(new StaticTextNodeStore({ X: Math.random() * this.maxX, Y: Math.random() * this.maxY, Title: "Text Node Title", Text: EditorState.createEmpty()}));
         
     }   
 
