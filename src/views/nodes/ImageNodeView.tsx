@@ -70,7 +70,7 @@ export class ImageNodeView extends React.Component<IProps> {
                     <div className="content">
                         {/* <h3 className="title">{store.Title}</h3> */}
                         {/* <img src={`images/${store.Url}`}/> */}
-                        <ImageUpload />
+                        <ImageUpload imageNode ={store}/>
                     </div>
                 </div>
             </div>

@@ -2,11 +2,17 @@ import React = require("react");
 import { observer } from "mobx-react";
 import { observable } from "mobx";
 import './ImageUploader.scss';
+import { ImageNodeStore } from "../stores/ImageNodeStore";
+
+
+interface ImageUploadProps {
+  imageNode: ImageNodeStore
+}
 
 @observer
-export default class ImageUpload extends React.Component<{}> {
+export default class ImageUpload extends React.Component<ImageUploadProps> {
     @observable file:File;
-    @observable imagePreviewUrl:any;
+    //@observable imagePreviewUrl:string | ArrayBuffer;
     
     handleImageChange(e:React.ChangeEvent<HTMLInputElement>) {
       e.preventDefault();
@@ -17,7 +23,8 @@ export default class ImageUpload extends React.Component<{}> {
       reader.onloadend = () => {
        
         this.file = file;
-        this.imagePreviewUrl = reader.result;
+        this.props.imageNode.setImageUrl(reader.result);
+        //this.imagePreviewUrl = reader.result;
       }
   
       reader.readAsDataURL(file)
@@ -25,8 +32,8 @@ export default class ImageUpload extends React.Component<{}> {
 
     render() {
       let imagePreview = null;
-      if (this.imagePreviewUrl) {
-        imagePreview = (<img src={this.imagePreviewUrl} />);
+      if (this.props.imageNode.Url) {
+        imagePreview = (<img src={this.props.imageNode.Url} />);
       } else {
         imagePreview = (<div className="previewText">Please select an Image</div>);
       }

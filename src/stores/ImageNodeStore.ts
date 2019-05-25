@@ -12,6 +12,11 @@ export class ImageNodeStore extends NodeStore {
     public Title: string = "";
 
     @observable
-    public Url: string;
+    public Url: any;
+
+
+    setImageUrl(url: any) {
+        this.Url = url;
+    }
 
 }
