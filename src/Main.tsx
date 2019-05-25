@@ -11,17 +11,19 @@ import { ImageNodeView } from './views/nodes/ImageNodeView';
 import { ImageNodeStore } from './stores/ImageNodeStore';
 import { PdfNodeStore } from './stores/PdfNodeStore';
 import { WebSiteNodeStore } from './stores/WebSiteNodeStore';
+import { GridFormCanvas } from './views/gridformcanvas/GridFormCanvas';
+import { observable } from 'mobx';
+import Dashboard from './Dashboard';
 
 
 const mainNodeCollection = new NodeCollectionStore();
+
+
 ReactDOM.render((
+    
     <div>
-        <h1 style={{top:0}}>Dash Web</h1>
-        <DashBar mainCollection={mainNodeCollection}/>
-        <FreeFormCanvas store={mainNodeCollection} />
+        <Dashboard collection = {mainNodeCollection}/>
     </div>), document.getElementById('root'));
-
-
 
 // create a bunch of text and video nodes (you probably want to delete this at some point)
 let numNodes = 10;
