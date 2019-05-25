@@ -75,10 +75,10 @@ export default class DashBar extends React.Component<DashBarProps> {
                     <button className="node_adders" onClick={this.onWebPageClick}>
                         WebPageNode
                     </button>
-                    <button className="view_changers" onClick={this.onFreeFormClick}> 
+                    <button className="view_changers" onClick={this.onFreeFormClick} style={{top:5, right:5}}> 
                         FreeForm
                     </button>
-                    <button className="view_changers" onClick={this.onGridFormClick}> 
+                    <button className="view_changers" onClick={this.onGridFormClick} style={{top:5, right:80}}> 
                         GridForm
                     </button>
                 </div>
