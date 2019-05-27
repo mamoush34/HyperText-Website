@@ -82,7 +82,22 @@ export class WebSiteNodeView extends React.Component<IProps> {
                 <div className="scroll-box">
                     <div className="content">
                         <h3 className="title">{store.Title}</h3>
-                        <input type="text" placeholder="Please enter a link starting with https://" id="linkInput" ref={(el) => { if (el) this.websiteField = el }}/>
+                        <input 
+                            type="text" 
+                            placeholder="Please enter a link starting with https://" 
+                            id="linkInput" 
+                            ref={(el) => { if (el) { this.websiteField = el;}}} 
+                            onPointerDown={() => this.websiteField.focus()} 
+                            onKeyPress={this.onEnterPress}
+                            style ={{
+                                border: "1px solid black",
+                                borderRadius: 10,
+                                outline: "none",
+                                width: "50%",
+                                textAlign: "center"
+                            }}
+                            
+                        />
                         <iframe 
                             src={store.Url}
                             width="100%"
