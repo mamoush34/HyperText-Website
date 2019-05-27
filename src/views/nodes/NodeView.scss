@@ -5,6 +5,11 @@
     width: 300px;
     height: 300px;
     overflow: hidden;
+    background: burlywood;
+    border-radius: 10px;
+    border: 2px solid black;
+    outline: none;
+
 
     .removeButton {
         border-radius: 50%;
@@ -14,7 +19,7 @@
         right: 0px;
         font-size: 12px;
         border: 1px solid black;
-        background: white;
+        background: rgb(66, 49, 49);
         text-align: center;
     }
 

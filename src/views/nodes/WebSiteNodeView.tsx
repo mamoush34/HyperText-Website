@@ -23,6 +23,8 @@ export class WebSiteNodeView extends React.Component<IProps> {
 
     private _isPointerDown = false;
     @observable private clickedResizer: Resizer_Type;
+    @observable private websiteField: HTMLInputElement;
+
 
     onPointerDown = (e: React.PointerEvent): void => {
         e.stopPropagation();
@@ -49,6 +51,15 @@ export class WebSiteNodeView extends React.Component<IProps> {
         let p = this.props;
         p.storeCollection.removeNode(p.store);
     }
+    
+    onEnterPress = (e: React.KeyboardEvent): void => {
+        let p = this.props;
+        if(e.charCode == 13) {
+            p.store.setUrl(this.websiteField.value);
+            this.websiteField.value = "";
+        
+        }
+    }
 
     render() {
         let store = this.props.store;
@@ -71,6 +82,7 @@ export class WebSiteNodeView extends React.Component<IProps> {
                 <div className="scroll-box">
                     <div className="content">
                         <h3 className="title">{store.Title}</h3>
+                        <input type="text" placeholder="Please enter a link starting with https://" id="linkInput" ref={(el) => { if (el) this.websiteField = el }}/>
                         <iframe 
                             src={store.Url}
                             width="100%"

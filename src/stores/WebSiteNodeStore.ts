@@ -1,4 +1,4 @@
-import { observable } from "mobx";
+import { observable, action } from "mobx";
 import { NodeStore } from "./NodeStore";
 
 export class WebSiteNodeStore extends NodeStore {
@@ -13,5 +13,10 @@ export class WebSiteNodeStore extends NodeStore {
 
     @observable
     public Url: string;
+
+    @action
+    public setUrl(url:string) {
+        this.Url = url;
+    }
 
 }
