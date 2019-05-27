@@ -13,6 +13,8 @@ import { PdfNodeStore } from "../../stores/PdfNodeStore";
 import { PdfNodeView } from "../nodes/PdfNodeView";
 import { WebSiteNodeStore } from "../../stores/WebSiteNodeStore";
 import { WebSiteNodeView } from "../nodes/WebSiteNodeView";
+import { CollectionStore } from "../../stores/CollectionStore";
+import { CollectionStoreNodeView } from "../nodes/CollectionStoreNodeView";
 
 interface IProps {
     store: NodeCollectionStore
@@ -77,6 +79,8 @@ export class NodeContainer extends React.Component<IProps> {
                         return (<PdfNodeView key={nodeStore.Id} storeCollection={this.props.store} store={nodeStore as PdfNodeStore} resize={this.resizeNode}/>)
                     } else if (nodeStore instanceof WebSiteNodeStore) {
                         return (<WebSiteNodeView key={nodeStore.Id} storeCollection={this.props.store} store={nodeStore as WebSiteNodeStore} resize={this.resizeNode}/>)
+                    } else if (nodeStore instanceof CollectionStore) {
+                        return (<CollectionStoreNodeView key={nodeStore.Id} storeCollection={this.props.store} store={nodeStore as CollectionStore} resize= {this.resizeNode}/>)
                     }
                 })}
             </div>

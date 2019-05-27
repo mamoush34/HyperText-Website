@@ -28,6 +28,7 @@ export class TopBar extends React.Component<IProps> {
         this._isPointerDown = false;
         document.removeEventListener("pointermove", this.onPointerMove);
         document.removeEventListener("pointerup", this.onPointerUp);
+
     }
 
     onPointerMove = (e: PointerEvent): void => {
@@ -38,6 +39,8 @@ export class TopBar extends React.Component<IProps> {
         }
         this.props.store.X += e.movementX;
         this.props.store.Y += e.movementY;
+
+
     }
 
     render() {

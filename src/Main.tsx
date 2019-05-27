@@ -15,6 +15,7 @@ import { GridFormCanvas } from './views/gridformcanvas/GridFormCanvas';
 import { observable } from 'mobx';
 import Dashboard from './Dashboard';
 import { EditorState } from 'draft-js';
+import { CollectionStore } from './stores/CollectionStore';
 
 
 const mainNodeCollection = new NodeCollectionStore();
@@ -42,6 +43,11 @@ nodes.push(new ImageNodeStore({ X: 500, Y: 500, Title:"Image Node", Url:""}));
 nodes.push(new WebSiteNodeStore({ X: 100, Y: 500, Title:"Web Node", Url:"https://www.google.com/search?igu=1"}));
 
 nodes.push(new PdfNodeStore({ X: 1200, Y: 500, Title:"Pdf Node"}));
+
+
+let newCollection: CollectionStore = new CollectionStore({X:800, Y:500, Title:"Store Node"});
+newCollection.Nodes.addNode(new StaticTextNodeStore({ X: Math.random() * maxX, Y: Math.random() * maxY, Title: "Text Node Title", Text: EditorState.createEmpty() }));
+nodes.push(newCollection);
 
 
 mainNodeCollection.AddNodes(nodes);

@@ -45,8 +45,6 @@ export default class Dashboard extends React.Component<DashboardProps>{
             <div>
                 <h1 style={{top:0}}>Dash Web</h1>
                 <DashBar mainCollection={p.collection} view={this.changeView}/>
-                {/* <GridFormCanvas store={p.collection}/> */}
-                {/* <FreeFormCanvas store={p.collection} /> */}
                 {this.renderCanvas()}
 
             </div>

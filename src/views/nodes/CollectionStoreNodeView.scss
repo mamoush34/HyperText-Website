@@ -1,0 +1,97 @@
+.node {
+    position: absolute;
+    background: #cdcdcd;
+
+    width: 300px;
+    height: 300px;
+    overflow: hidden;
+
+    .removeButton {
+        border-radius: 50%;
+        position: absolute;
+        width: 18px;
+        height: 18px;
+        right: 0px;
+        font-size: 12px;
+        border: 1px solid black;
+        background: white;
+        text-align: center;
+    }
+
+    .removeButton:hover{
+        cursor: pointer;
+        background: red;
+    }
+
+        
+    &.minimized {
+        width: 30px;
+        height: 30px;
+    }
+
+    .top {
+        background: #232323;
+        height: 20px;
+        cursor: pointer;
+    }
+    
+    .resizer{
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        position: absolute;
+
+    }
+
+    .resizer_bottom-right {
+       
+        cursor: nwse-resize;
+        right: -5px;
+        bottom: -5px;
+    }
+
+    .resizer_top-right {
+       
+        right: -5px;
+        top: -5px;
+        cursor: nesw-resize;
+    }
+
+    .resizer_bottom-left {
+       
+        left: -5px;
+        bottom: -5px;
+        cursor: nesw-resize;
+    }
+
+    .resizer_top-left {
+       
+        left: -5px;
+        top: -5px;
+        cursor: nwse-resize;
+    }
+
+    .content {
+        padding: 20px 20px;
+        height: auto;
+        box-sizing: border-box;
+        text-align: center;
+
+    }
+
+    .scroll-box {
+        // overflow-y: scroll;
+        height: calc(100% - 20px);
+        .gridformcanvas-container {
+            position: absolute;
+            top: 20;
+            left: 0;
+            width: 100%;
+            height: calc(100% - 20px);
+            overflow: hidden;
+            background-size: cover;
+        
+        }
+    }
+}
+

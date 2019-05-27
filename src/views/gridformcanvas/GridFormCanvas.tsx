@@ -17,6 +17,7 @@ export class GridFormCanvas extends React.Component<IProps> {
     onPointerDown = (e: React.PointerEvent): void => {
         e.stopPropagation();
         e.preventDefault();
+
         this._isPointerDown = true;
         document.removeEventListener("pointermove", this.onPointerMove);
         document.addEventListener("pointermove", this.onPointerMove);
@@ -40,6 +41,7 @@ export class GridFormCanvas extends React.Component<IProps> {
         }
         this.props.store.X += e.movementX;
         this.props.store.Y += e.movementY;
+
     }
 
     onWheelZoom = (e: React.WheelEvent) : void => {
