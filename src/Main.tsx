@@ -47,6 +47,9 @@ nodes.push(new PdfNodeStore({ X: 1200, Y: 500, Title:"Pdf Node"}));
 
 let newCollection: CollectionStore = new CollectionStore({X:800, Y:500, Title:"Store Node"});
 newCollection.Nodes.addNode(new StaticTextNodeStore({ X: Math.random() * maxX, Y: Math.random() * maxY, Title: "Text Node Title", Text: EditorState.createEmpty() }));
+newCollection.Nodes.addNode(new StaticTextNodeStore({ X: Math.random() * maxX, Y: Math.random() * maxY, Title: "Text Node Title", Text: EditorState.createEmpty() }));
+newCollection.Nodes.addNode(new StaticTextNodeStore({ X: Math.random() * maxX, Y: Math.random() * maxY, Title: "Text Node Title", Text: EditorState.createEmpty() }));
+
 nodes.push(newCollection);
 
 

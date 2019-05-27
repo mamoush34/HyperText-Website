@@ -11,6 +11,7 @@ import { PdfNodeStore } from "../../stores/PdfNodeStore";
 import { WebSiteNodeStore } from "../../stores/WebSiteNodeStore";
 import { Canvas_Type } from "../../Dashboard";
 import { EditorState } from "draft-js";
+import { CollectionStore } from "../../stores/CollectionStore";
 
 interface DashBarProps {
     mainCollection: NodeCollectionStore,
@@ -47,6 +48,13 @@ export default class DashBar extends React.Component<DashBarProps> {
         this.props.mainCollection.addNode(new WebSiteNodeStore({ X: 100, Y: 500, Title:"Web Node", Url:"https://www.google.com/search?igu=1"}));
     }
 
+    onCanvasClick = () => {
+        let newCollection: CollectionStore = new CollectionStore({X:800, Y:500, Title:"Store Node"});
+        newCollection.Nodes.addNode(new StaticTextNodeStore({ X: Math.random() * 500, Y: Math.random() * 500, Title: "Text Node Title", Text: EditorState.createEmpty() }));
+
+        this.props.mainCollection.addNode(newCollection);
+    }
+
     onFreeFormClick = () => {
         this.props.view(Canvas_Type.FREE_FORM);
     }
@@ -74,6 +82,9 @@ export default class DashBar extends React.Component<DashBarProps> {
                     </button>
                     <button className="node_adders" onClick={this.onWebPageClick}>
                         WebPageNode
+                    </button>
+                    <button className="node_adders" onClick={this.onCanvasClick}>
+                        CanvasNode
                     </button>
                     <button className="view_changers" onClick={this.onFreeFormClick} style={{top:5, right:5}}> 
                         FreeForm
