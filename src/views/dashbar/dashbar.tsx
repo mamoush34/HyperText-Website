@@ -15,7 +15,8 @@ import { CollectionStore } from "../../stores/CollectionStore";
 
 interface DashBarProps {
     mainCollection: NodeCollectionStore,
-    view: (view:Canvas_Type) => void
+    view: (view:Canvas_Type) => void,
+    storeNodes: NodeCollectionStore
 }
 
 @observer
@@ -53,6 +54,7 @@ export default class DashBar extends React.Component<DashBarProps> {
         newCollection.Nodes.addNode(new StaticTextNodeStore({ X: Math.random() * 500, Y: Math.random() * 500, Title: "Text Node Title", Text: EditorState.createEmpty() }));
 
         this.props.mainCollection.addNode(newCollection);
+        this.props.storeNodes.addNode(newCollection);
     }
 
     onFreeFormClick = () => {

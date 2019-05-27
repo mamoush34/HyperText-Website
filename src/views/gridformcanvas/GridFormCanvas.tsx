@@ -7,6 +7,7 @@ import DashBar from "../dashbar/dashbar";
 
 interface IProps {
     store: NodeCollectionStore
+    storeNodes: NodeCollectionStore
 }
 
 @observer
@@ -70,7 +71,7 @@ export class GridFormCanvas extends React.Component<IProps> {
             // `url(${`images/${filename}`})`
             <div className="gridformcanvas-container" onPointerDown={this.onPointerDown} onWheel={this.onWheelZoom} style={{backgroundImage: 'url(' + require('../../images/canvas_background.jpg') + ')'}}>
                 <div className="gridformcanvas" style={{ transform: store.Transform }}>
-                    <NodeContainer store={store}/>
+                    <NodeContainer store={store} storeNodes={this.props.storeNodes}/>
                 </div>
             </div>
         );

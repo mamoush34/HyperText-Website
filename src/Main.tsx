@@ -19,12 +19,13 @@ import { CollectionStore } from './stores/CollectionStore';
 
 
 const mainNodeCollection = new NodeCollectionStore();
+const storeNodes = new NodeCollectionStore();
 
 
 ReactDOM.render((
     
     <div>
-        <Dashboard collection = {mainNodeCollection}/>
+        <Dashboard collection = {mainNodeCollection} storeNodes = {storeNodes}/>
     </div>), document.getElementById('root'));
 
 // create a bunch of text and video nodes (you probably want to delete this at some point)
@@ -49,6 +50,9 @@ let newCollection: CollectionStore = new CollectionStore({X:800, Y:500, Title:"S
 newCollection.Nodes.addNode(new StaticTextNodeStore({ X: Math.random() * maxX, Y: Math.random() * maxY, Title: "Text Node Title", Text: EditorState.createEmpty() }));
 newCollection.Nodes.addNode(new StaticTextNodeStore({ X: Math.random() * maxX, Y: Math.random() * maxY, Title: "Text Node Title", Text: EditorState.createEmpty() }));
 newCollection.Nodes.addNode(new StaticTextNodeStore({ X: Math.random() * maxX, Y: Math.random() * maxY, Title: "Text Node Title", Text: EditorState.createEmpty() }));
+
+storeNodes.addNode(newCollection);
+
 
 nodes.push(newCollection);
 

@@ -18,6 +18,7 @@ import { CollectionStoreNodeView } from "../nodes/CollectionStoreNodeView";
 
 interface IProps {
     store: NodeCollectionStore
+    storeNodes: NodeCollectionStore
 }
 
 export enum Resizer_Type {
@@ -70,17 +71,17 @@ export class NodeContainer extends React.Component<IProps> {
             <div className="node-container" onWheel={(e) => e.stopPropagation()}>
                 {this.props.store.Nodes.map(nodeStore => {
                     if (nodeStore instanceof StaticTextNodeStore) {
-                        return (<TextNodeView key={nodeStore.Id} storeCollection={this.props.store} store={nodeStore as StaticTextNodeStore} resize={this.resizeNode} />)
+                        return (<TextNodeView key={nodeStore.Id} storeCollection={this.props.store} store={nodeStore as StaticTextNodeStore} resize={this.resizeNode} storeNodes={this.props.storeNodes}/>)
                     } else if (nodeStore instanceof VideoNodeStore) {
-                        return (<VideoNodeView key={nodeStore.Id} storeCollection={this.props.store} store={nodeStore as VideoNodeStore} resize={this.resizeNode}/>)
+                        return (<VideoNodeView key={nodeStore.Id} storeCollection={this.props.store} store={nodeStore as VideoNodeStore} resize={this.resizeNode} storeNodes={this.props.storeNodes}/>)
                     } else if (nodeStore instanceof ImageNodeStore) {
-                        return (<ImageNodeView key={nodeStore.Id} storeCollection={this.props.store} store={nodeStore as ImageNodeStore} resize={this.resizeNode}/>)
+                        return (<ImageNodeView key={nodeStore.Id} storeCollection={this.props.store} store={nodeStore as ImageNodeStore} resize={this.resizeNode} storeNodes={this.props.storeNodes}/>)
                     } else if (nodeStore instanceof PdfNodeStore) {
-                        return (<PdfNodeView key={nodeStore.Id} storeCollection={this.props.store} store={nodeStore as PdfNodeStore} resize={this.resizeNode}/>)
+                        return (<PdfNodeView key={nodeStore.Id} storeCollection={this.props.store} store={nodeStore as PdfNodeStore} resize={this.resizeNode} storeNodes={this.props.storeNodes}/>)
                     } else if (nodeStore instanceof WebSiteNodeStore) {
-                        return (<WebSiteNodeView key={nodeStore.Id} storeCollection={this.props.store} store={nodeStore as WebSiteNodeStore} resize={this.resizeNode}/>)
+                        return (<WebSiteNodeView key={nodeStore.Id} storeCollection={this.props.store} store={nodeStore as WebSiteNodeStore} resize={this.resizeNode} storeNodes={this.props.storeNodes}/>)
                     } else if (nodeStore instanceof CollectionStore) {
-                        return (<CollectionStoreNodeView key={nodeStore.Id} storeCollection={this.props.store} store={nodeStore as CollectionStore} resize= {this.resizeNode}/>)
+                        return (<CollectionStoreNodeView key={nodeStore.Id} storeCollection={this.props.store} store={nodeStore as CollectionStore} resize= {this.resizeNode} storeNodes={this.props.storeNodes}/>)
                     }
                 })}
             </div>

@@ -8,6 +8,7 @@ import { observer } from "mobx-react";
 
 interface DashboardProps {
     collection: NodeCollectionStore
+    storeNodes: NodeCollectionStore
 }
 
 export enum Canvas_Type {
@@ -24,9 +25,9 @@ export default class Dashboard extends React.Component<DashboardProps>{
         let p = this.props;
         switch(this.chosenView) {
             case Canvas_Type.FREE_FORM:
-                return <FreeFormCanvas store={p.collection}/>;
+                return <FreeFormCanvas store={p.collection} storeNodes={p.storeNodes}/>;
             case Canvas_Type.GRID_FORM:
-                return <GridFormCanvas store={p.collection}/>;
+                return <GridFormCanvas store={p.collection} storeNodes={p.storeNodes}/>;
           
 
         }
@@ -44,7 +45,7 @@ export default class Dashboard extends React.Component<DashboardProps>{
         return (
             <div>
                 <h1 style={{top:0}}>Dash Web</h1>
-                <DashBar mainCollection={p.collection} view={this.changeView}/>
+                <DashBar mainCollection={p.collection} view={this.changeView} storeNodes={p.storeNodes}/>
                 {this.renderCanvas()}
 
             </div>

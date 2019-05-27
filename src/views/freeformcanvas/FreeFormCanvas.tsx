@@ -7,6 +7,7 @@ import DashBar from "../dashbar/dashbar";
 
 interface IProps {
     store: NodeCollectionStore
+    storeNodes: NodeCollectionStore
 }
 
 @observer
@@ -68,7 +69,7 @@ export class FreeFormCanvas extends React.Component<IProps> {
             // `url(${`images/${filename}`})`
             <div className="freeformcanvas-container" onPointerDown={this.onPointerDown} onWheel={this.onWheelZoom} style={{backgroundImage: 'url(' + require('../../images/canvas_background.jpg') + ')'}}>
                 <div className="freeformcanvas" style={{ transform: store.Transform }}>
-                    <NodeContainer store={store}/>
+                    <NodeContainer store={store} storeNodes={this.props.storeNodes}/>
                 </div>
             </div>
         );
