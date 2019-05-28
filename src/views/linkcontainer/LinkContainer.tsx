@@ -1,5 +1,6 @@
 import React = require("react");
 import { NodeStore } from "../../stores/NodeStore";
+import './LinkContainer.scss'
 
 interface LinkContainerProps {
     store: NodeStore

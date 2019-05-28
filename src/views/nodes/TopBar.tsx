@@ -11,7 +11,9 @@ interface IProps {
     storeNodes: NodeCollectionStore;
     bringFront: () => void;
     bringBack: () => void;
-    switchLinkMode: () => void;
+    switchLinkMode: () => boolean;
+    setLinkModeOpener: (store:NodeStore) => void;
+    setCurrentLinkList: (isLinkModeOpen: boolean) => void;
 }
 
 @observer
@@ -81,7 +83,14 @@ export class TopBar extends React.Component<IProps> {
     onLinkClink = (e: React.MouseEvent) => {
         e.stopPropagation();
         e.preventDefault();
-        this.props.switchLinkMode();
+        if(this.props.switchLinkMode()) {
+            this.props.setLinkModeOpener(this.props.store);
+            this.props.setCurrentLinkList(true);
+        } else {
+            this.props.setLinkModeOpener(undefined);
+            this.props.setCurrentLinkList(false);
+
+        }
     }
 
     render() {
