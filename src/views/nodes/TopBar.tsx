@@ -11,6 +11,7 @@ interface IProps {
     storeNodes: NodeCollectionStore;
     bringFront: () => void;
     bringBack: () => void;
+    switchLinkMode: () => void;
 }
 
 @observer
@@ -77,8 +78,28 @@ export class TopBar extends React.Component<IProps> {
             }
         })
     }
+    onLinkClink = (e: React.MouseEvent) => {
+        e.stopPropagation();
+        e.preventDefault();
+        this.props.switchLinkMode();
+    }
 
     render() {
-        return <div className="top" onPointerDown={this.onPointerDown}></div>
+        let p = this.props
+        return (
+            <div className="top" onPointerDown={this.onPointerDown}>
+                <button onClick={this.onLinkClink}
+                    style={{
+                    border: "1px solid black",
+                    borderRadius: "10px",
+                    textAlign:"center",
+                    position: "absolute",
+                    left: "43%",
+                    cursor: "pointer"
+                    }}>
+                    Link!
+                </button>
+            </div>
+        );
     }
 }

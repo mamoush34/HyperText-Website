@@ -15,6 +15,7 @@ import { WebSiteNodeStore } from "../../stores/WebSiteNodeStore";
 import { WebSiteNodeView } from "../nodes/WebSiteNodeView";
 import { CollectionStore } from "../../stores/CollectionStore";
 import { CollectionStoreNodeView } from "../nodes/CollectionStoreNodeView";
+import { observable, action } from "mobx";
 
 interface IProps {
     store: NodeCollectionStore
@@ -32,6 +33,8 @@ export enum Resizer_Type {
 
 @observer
 export class NodeContainer extends React.Component<IProps> {
+
+    @observable private linkMode: boolean = false;
 
     resizeNode = (e: PointerEvent, isPointerDown: boolean, clickedResizer: Resizer_Type, nodeStore: NodeStore): void => {
         e.stopPropagation();
@@ -64,6 +67,17 @@ export class NodeContainer extends React.Component<IProps> {
         
     
     }
+
+    @action
+    switchLinkMode = () => {
+        if(this.linkMode){ 
+            this.linkMode = false;
+        } else {
+            this.linkMode = true;
+        }
+        console.log("mode: ", this.linkMode);
+    }
+
     
 
     render() {
@@ -71,17 +85,17 @@ export class NodeContainer extends React.Component<IProps> {
             <div className="node-container" onWheel={(e) => e.stopPropagation()}>
                 {this.props.store.Nodes.map(nodeStore => {
                     if (nodeStore instanceof StaticTextNodeStore) {
-                        return (<TextNodeView key={nodeStore.Id} storeCollection={this.props.store} store={nodeStore as StaticTextNodeStore} resize={this.resizeNode} storeNodes={this.props.storeNodes}/>)
+                        return (<TextNodeView key={nodeStore.Id} storeCollection={this.props.store} store={nodeStore as StaticTextNodeStore} resize={this.resizeNode} storeNodes={this.props.storeNodes} linkMode={this.linkMode} switchLinkMode={this.switchLinkMode}/>)
                     } else if (nodeStore instanceof VideoNodeStore) {
-                        return (<VideoNodeView key={nodeStore.Id} storeCollection={this.props.store} store={nodeStore as VideoNodeStore} resize={this.resizeNode} storeNodes={this.props.storeNodes}/>)
+                        return (<VideoNodeView key={nodeStore.Id} storeCollection={this.props.store} store={nodeStore as VideoNodeStore} resize={this.resizeNode} storeNodes={this.props.storeNodes} linkMode={this.linkMode} switchLinkMode={this.switchLinkMode}/>)
                     } else if (nodeStore instanceof ImageNodeStore) {
-                        return (<ImageNodeView key={nodeStore.Id} storeCollection={this.props.store} store={nodeStore as ImageNodeStore} resize={this.resizeNode} storeNodes={this.props.storeNodes}/>)
+                        return (<ImageNodeView key={nodeStore.Id} storeCollection={this.props.store} store={nodeStore as ImageNodeStore} resize={this.resizeNode} storeNodes={this.props.storeNodes} linkMode={this.linkMode} switchLinkMode={this.switchLinkMode}/>)
                     } else if (nodeStore instanceof PdfNodeStore) {
-                        return (<PdfNodeView key={nodeStore.Id} storeCollection={this.props.store} store={nodeStore as PdfNodeStore} resize={this.resizeNode} storeNodes={this.props.storeNodes}/>)
+                        return (<PdfNodeView key={nodeStore.Id} storeCollection={this.props.store} store={nodeStore as PdfNodeStore} resize={this.resizeNode} storeNodes={this.props.storeNodes} linkMode={this.linkMode} switchLinkMode={this.switchLinkMode}/>)
                     } else if (nodeStore instanceof WebSiteNodeStore) {
-                        return (<WebSiteNodeView key={nodeStore.Id} storeCollection={this.props.store} store={nodeStore as WebSiteNodeStore} resize={this.resizeNode} storeNodes={this.props.storeNodes}/>)
+                        return (<WebSiteNodeView key={nodeStore.Id} storeCollection={this.props.store} store={nodeStore as WebSiteNodeStore} resize={this.resizeNode} storeNodes={this.props.storeNodes} linkMode={this.linkMode} switchLinkMode={this.switchLinkMode}/>)
                     } else if (nodeStore instanceof CollectionStore) {
-                        return (<CollectionStoreNodeView key={nodeStore.Id} storeCollection={this.props.store} store={nodeStore as CollectionStore} resize= {this.resizeNode} storeNodes={this.props.storeNodes}/>)
+                        return (<CollectionStoreNodeView key={nodeStore.Id} storeCollection={this.props.store} store={nodeStore as CollectionStore} resize= {this.resizeNode} storeNodes={this.props.storeNodes} linkMode={this.linkMode} switchLinkMode={this.switchLinkMode}/>)
                     }
                 })}
             </div>
