@@ -18,8 +18,8 @@ interface IProps {
     linkMode: boolean;
     setLinkModeOpener: (store:NodeStore) => void;
     linkModeOpener : NodeStore;
-    openerLinkList : Set<NodeStore>;
-    setOpenerArray: (nodeList: Set<NodeStore>) => void;
+    openerLinkList : NodeStore[];
+    setOpenerArray: (nodeList: NodeStore[]) => void;
 
 
 }
@@ -30,7 +30,7 @@ export class CollectionStoreNodeView extends React.Component<IProps> {
     private _isPointerDown = false;
     @observable private clickedResizer: Resizer_Type;
     @observable private nodeZIndex:number = 1;
-    @observable private nodeLinkList: Set<NodeStore> = new Set();
+    @observable private nodeLinkList: NodeStore[] = new Array();
 
 
     onPointerDown = (e: React.PointerEvent): void => {
@@ -82,9 +82,10 @@ export class CollectionStoreNodeView extends React.Component<IProps> {
         let p = this.props;
         if (p.linkMode) {
             if (p.linkModeOpener !== p.store) {
-                p.openerLinkList.add(p.store);
-                console.log("length: " , p.openerLinkList.size)
-
+                if(!p.openerLinkList.includes(p.store)) {
+                    p.openerLinkList.push(p.store);
+                    console.log("length: " , p.openerLinkList.length)
+                }
             }
         }
     }
@@ -106,7 +107,7 @@ export class CollectionStoreNodeView extends React.Component<IProps> {
                      this.clickedResizer = Resizer_Type.TOP_LEFT}}>
                 </div>
                 <div className="removeButton" onClick={this.onRemoveNodeClick}>X</div>
-                <TopBar store={store} storeNodes={this.props.storeNodes} instanceCollection={this.props.storeCollection} bringFront={this.bringFront} bringBack={this.bringBack} switchLinkMode={this.props.switchLinkMode} setLinkModeOpener={this.props.setLinkModeOpener} setCurrentLinkList={this.becomeCurrentOpenerList}/>
+                <TopBar store={store} storeNodes={this.props.storeNodes} instanceCollection={this.props.storeCollection} bringFront={this.bringFront} bringBack={this.bringBack} switchLinkMode={this.props.switchLinkMode} setLinkModeOpener={this.props.setLinkModeOpener} setCurrentLinkList={this.becomeCurrentOpenerList} linkMode={this.props.linkMode}/>
                 <div className="scroll-box">
                     <div className="content">
                         {/* <h3 className="title">{store.Title}</h3> */}

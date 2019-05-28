@@ -1,8 +1,15 @@
 .link-container {
     width: 150px;
     height: 50px;
+    overflow: scroll;
+
     .link-list {
         width: 100%;
-        overflow: scroll;
+        font-size: 12px;
+
+        li:hover {
+            color: blue;
+            cursor: pointer;
+        }
     }
 }

@@ -36,7 +36,7 @@ export class NodeContainer extends React.Component<IProps> {
 
     @observable private linkMode: boolean = false;
     @observable private linkModeOpener: NodeStore = undefined;
-    @observable private openerLinkList: Set<NodeStore>;
+    @observable private openerLinkList: NodeStore[];
 
     resizeNode = (e: PointerEvent, isPointerDown: boolean, clickedResizer: Resizer_Type, nodeStore: NodeStore): void => {
         e.stopPropagation();
@@ -85,7 +85,7 @@ export class NodeContainer extends React.Component<IProps> {
     }
 
     @action
-    setOpenerArray = (nodeList: Set<NodeStore>) => {
+    setOpenerArray = (nodeList: NodeStore[]) => {
         this.openerLinkList = nodeList;
     }
 

@@ -22,8 +22,8 @@ interface IProps {
     linkMode: boolean;
     setLinkModeOpener: (store:NodeStore) => void;
     linkModeOpener : NodeStore;
-    openerLinkList : Set<NodeStore>;
-    setOpenerArray: (nodeList: Set<NodeStore>) => void;
+    openerLinkList : NodeStore[];
+    setOpenerArray: (nodeList: NodeStore[]) => void;
 }
 
 
@@ -40,7 +40,7 @@ export class TextNodeView extends React.Component<IProps> {
     @observable private clickedResizer: Resizer_Type;
     //@observable editorState:EditorState = this.props.store.Text;
     @observable private nodeZIndex:number = 1;
-    @observable private nodeLinkList: Set<NodeStore> = new Set();
+    @observable private nodeLinkList: NodeStore[] = new Array();
 
 
     handleChange = (e: EditorState): void =>{
@@ -100,8 +100,10 @@ export class TextNodeView extends React.Component<IProps> {
         let p = this.props;
         if (p.linkMode) {
             if (p.linkModeOpener !== p.store) {
-                p.openerLinkList.add(p.store);
-                console.log("length: " , p.openerLinkList.size)
+                if(!p.openerLinkList.includes(p.store)) {
+                    p.openerLinkList.push(p.store);
+                    console.log("length: " , p.openerLinkList.length)
+                }
 
             }
         }
@@ -130,8 +132,8 @@ export class TextNodeView extends React.Component<IProps> {
                      </div>
                
                 <div className="removeButton" onClick={this.onRemoveNodeClick}>X</div>
-                <TopBar store={store} storeNodes={this.props.storeNodes} instanceCollection={this.props.storeCollection} bringFront={this.bringFront} bringBack={this.bringBack} switchLinkMode={this.props.switchLinkMode} setLinkModeOpener={this.props.setLinkModeOpener} setCurrentLinkList={this.becomeCurrentOpenerList}/>
-                <div style={{display: "inherit", position:"absolute", border:"2px solid black", borderRadius:"10px", outline:"none", background:"burlywood"}}><LinkContainer Nodes={this.nodeLinkList} /></div>
+                <TopBar store={store} storeNodes={this.props.storeNodes} instanceCollection={this.props.storeCollection} bringFront={this.bringFront} bringBack={this.bringBack} switchLinkMode={this.props.switchLinkMode} setLinkModeOpener={this.props.setLinkModeOpener} setCurrentLinkList={this.becomeCurrentOpenerList} linkMode={this.props.linkMode}/>
+                <div style={{display: "inherit", position:"absolute", border:"2px solid black", borderRadius:"10px", outline:"none", background:"burlywood"}}><LinkContainer Nodes={this.nodeLinkList} workspace={this.props.storeCollection}/></div>
                 <div className="scroll-box">
                     <div className="content">
                         <h3 className="title">{store.Title}</h3>

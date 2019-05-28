@@ -14,6 +14,7 @@ interface IProps {
     switchLinkMode: () => boolean;
     setLinkModeOpener: (store:NodeStore) => void;
     setCurrentLinkList: (isLinkModeOpen: boolean) => void;
+    linkMode:boolean;
 }
 
 @observer
@@ -104,7 +105,9 @@ export class TopBar extends React.Component<IProps> {
                     textAlign:"center",
                     position: "absolute",
                     left: "43%",
-                    cursor: "pointer"
+                    cursor: "pointer",
+                    background: p.linkMode ? "green" : "white",
+                    color: p.linkMode ? "white" : "black"
                     }}>
                     Link!
                 </button>
