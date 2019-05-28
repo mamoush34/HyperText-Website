@@ -10,6 +10,7 @@ import { EditorState } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { NodeCollectionStore } from "../../stores/NodeCollectionStore";
+import LinkContainer from "../linkcontainer/LinkContainer";
 
 
 interface IProps {
@@ -109,7 +110,10 @@ export class TextNodeView extends React.Component<IProps> {
     
     render() {
         let store = this.props.store;
+        console.log("I got called haha");
+
         return (
+          
             <div className="node text-node" style={{ transform: store.Transform, height: store.Height, width:store.Width, zIndex: this.nodeZIndex}} onClick={this.onLinkClick}>
                
                     <div className="resizer resizer_bottom-right" onPointerDown={(e) => {this.onPointerDown(e);
@@ -127,6 +131,7 @@ export class TextNodeView extends React.Component<IProps> {
                
                 <div className="removeButton" onClick={this.onRemoveNodeClick}>X</div>
                 <TopBar store={store} storeNodes={this.props.storeNodes} instanceCollection={this.props.storeCollection} bringFront={this.bringFront} bringBack={this.bringBack} switchLinkMode={this.props.switchLinkMode} setLinkModeOpener={this.props.setLinkModeOpener} setCurrentLinkList={this.becomeCurrentOpenerList}/>
+                <div style={{display: "inherit", position:"absolute", border:"2px solid black", borderRadius:"10px", outline:"none", background:"burlywood"}}><LinkContainer Nodes={this.nodeLinkList} /></div>
                 <div className="scroll-box">
                     <div className="content">
                         <h3 className="title">{store.Title}</h3>
@@ -141,6 +146,8 @@ export class TextNodeView extends React.Component<IProps> {
                     </div>
                 </div>
             </div>
+            
+          
         );
     }
 }
