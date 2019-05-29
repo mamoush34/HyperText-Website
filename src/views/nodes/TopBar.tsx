@@ -68,15 +68,16 @@ export class TopBar extends React.Component<IProps> {
                         console.log("Collection Id: ", col.Id);
                         console.log("Collection X: ", col.X);
                         console.log("Collection Y: ", col.Y);
-                        if(p.store === col) {
-                            "SORUN BURDA";
-                        }
                         console.log("Store Id: ", p.store.Id);
                         console.log("Store X: ", p.store.X);
                         console.log("Store Y: ", p.store.Y);
-                        p.instanceCollection.removeNode(p.store);
-                        col.Nodes.addNode(p.store);
-                        return;
+                        if(!col.Nodes.Nodes.includes(p.store)) {
+                            p.instanceCollection.removeNode(p.store);
+                            col.Nodes.addNode(p.store);
+                            return;
+                        } else {
+                            return;
+                        }
                     }
                 }
             }

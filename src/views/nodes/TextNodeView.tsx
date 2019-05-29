@@ -115,11 +115,13 @@ export class TextNodeView extends React.Component<IProps> {
 
     @action
     changeLinkBoxOpacity = () => {
+        console.log("This got called");
         if(this.isLinkBoxRendered) {
             this.isLinkBoxRendered = false;
 
         } else {
             this.isLinkBoxRendered = true;
+            console.log("This is set to true");
         }
     }
 
