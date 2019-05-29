@@ -9,9 +9,6 @@ export class ImageNodeStore extends NodeStore {
     }
 
     @observable
-    public Title: string = "";
-
-    @observable
     public Url: any;
 
 

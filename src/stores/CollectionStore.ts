@@ -12,8 +12,6 @@ export class CollectionStore extends NodeStore {
     @observable
     public Nodes: NodeCollectionStore = new NodeCollectionStore();
 
-    @observable
-    public Title: string = "";
-
+   
 
 }

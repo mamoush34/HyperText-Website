@@ -8,9 +8,7 @@ export class PdfNodeStore extends NodeStore {
         Object.assign(this, initializer);
     }
 
-    @observable
-    public Title: string = "";
-
+   
     @observable
     public Pdf: File;
 

@@ -32,7 +32,7 @@ export default class LinkContainer extends React.Component<LinkContainerProps> {
         return(
             <div className="link-container">
                 <div className="link-list">
-                    {this.props.Nodes.map(value => (<li className="link" onClick={() => this.onLinkClick(value)} key={value.Id}>{value.Id}</li>))}
+                    {this.props.Nodes.map(value => (<li className="link" onClick={() => this.onLinkClick(value)} key={value.Id}>{value.Title}</li>))}
                 </div>
                 
             </div>

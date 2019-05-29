@@ -84,6 +84,38 @@
         box-sizing: border-box;
         text-align: center;
 
+        ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+            color: white;
+            opacity: 1; /* Firefox */
+        }
+
+        .title {
+            position: relative;
+            font-size: 20px;
+            border: none;
+            background: none;
+            outline: none;
+            text-align: center;
+            color: white;
+            z-index: 1;
+            
+        }
+
+        .text-node, .image-node, .pdf-node, .video-node, .website-node {
+            ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+                color: black;
+                opacity: 1; /* Firefox */
+            }
+            .title {
+                font-size: 20px;
+                border: none;
+                background: none;
+                outline: none;
+                text-align: center;
+                color: black;
+            }
+        }
+
     }
 
     .scroll-box {

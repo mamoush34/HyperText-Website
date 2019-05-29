@@ -8,8 +8,7 @@ export class WebSiteNodeStore extends NodeStore {
         Object.assign(this, initializer);
     }
 
-    @observable
-    public Title: string = "";
+    
 
     @observable
     public Url: string;

@@ -10,12 +10,11 @@ export class StaticTextNodeStore extends NodeStore {
     }
 
     @observable
-    public Title: string = "";
-
-    @observable
     public Text: EditorState = EditorState.createEmpty();
 
     assignText(e: EditorState) {
         this.Text = e;
     }
+
+    
 }

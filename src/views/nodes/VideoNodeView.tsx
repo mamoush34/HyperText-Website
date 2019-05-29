@@ -33,6 +33,7 @@ export class VideoNodeView extends React.Component<IProps> {
     @observable private nodeZIndex:number = 1;
     // @observable private nodeLinkList: NodeStore[] = new Array();
     @observable private isLinkBoxRendered: boolean = false;
+    @observable private title: HTMLInputElement;
 
 
 
@@ -113,6 +114,14 @@ export class VideoNodeView extends React.Component<IProps> {
         return (null);
     }
 
+    onEnterPress = (e: React.KeyboardEvent): void => {
+        if(e.charCode == 13) {
+           this.title.blur();
+           this.props.store.assignTitle(this.title.value);
+        
+        }
+    }
+
     render() {
         let store = this.props.store;
         return (
@@ -135,7 +144,8 @@ export class VideoNodeView extends React.Component<IProps> {
 
                 <div className="scroll-box">
                     <div className="content">
-                        <h3 className="title">{store.Title}</h3>
+                         <input className="title" type="text" placeholder={store.Title} ref={(e) => this.title = e} onClick={() => this.title.focus()} onKeyPress={this.onEnterPress}/>
+
                         <video src={store.Url} controls />
                     </div>
                 </div>

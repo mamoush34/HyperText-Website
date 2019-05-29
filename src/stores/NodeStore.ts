@@ -17,6 +17,9 @@ export class NodeStore {
     @observable
     public Height: number = 400;
 
+    @observable
+    public Title: string = "";
+
     @computed
     public get Transform(): string {
         return "translate(" + this.X + "px, " + this.Y + "px)";
@@ -28,5 +31,9 @@ export class NodeStore {
     @action
     public addLinkNode(node: NodeStore) {
         this.linkedNodes.push(node);
+    }
+
+    assignTitle(title:string) {
+        this.Title = title;
     }
 }

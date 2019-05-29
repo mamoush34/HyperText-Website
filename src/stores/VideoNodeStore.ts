@@ -8,9 +8,7 @@ export class VideoNodeStore extends NodeStore {
         Object.assign(this, initializer);
     }
 
-    @observable
-    public Title: string;
-
+   
     @observable
     public Url: string;
 
