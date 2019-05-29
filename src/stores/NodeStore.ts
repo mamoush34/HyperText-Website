@@ -1,4 +1,4 @@
-import { computed, observable } from "mobx";
+import { computed, observable, action } from "mobx";
 import {Utils} from "../utils/Utils";
 
 export class NodeStore {
@@ -20,5 +20,13 @@ export class NodeStore {
     @computed
     public get Transform(): string {
         return "translate(" + this.X + "px, " + this.Y + "px)";
+    }
+
+    @observable 
+    public linkedNodes:NodeStore[] = new Array();
+
+    @action
+    public addLinkNode(node: NodeStore) {
+        this.linkedNodes.push(node);
     }
 }

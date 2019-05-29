@@ -36,7 +36,7 @@ export class NodeContainer extends React.Component<IProps> {
 
     @observable private linkMode: boolean = false;
     @observable private linkModeOpener: NodeStore = undefined;
-    @observable private openerLinkList: NodeStore[];
+    //@observable private openerLinkList: NodeStore[];
 
     resizeNode = (e: PointerEvent, isPointerDown: boolean, clickedResizer: Resizer_Type, nodeStore: NodeStore): void => {
         e.stopPropagation();
@@ -84,10 +84,10 @@ export class NodeContainer extends React.Component<IProps> {
         this.linkModeOpener = store;
     }
 
-    @action
-    setOpenerArray = (nodeList: NodeStore[]) => {
-        this.openerLinkList = nodeList;
-    }
+    // @action
+    // setOpenerArray = (nodeList: NodeStore[]) => {
+    //     this.openerLinkList = nodeList;
+    // }
 
     
 
@@ -96,17 +96,17 @@ export class NodeContainer extends React.Component<IProps> {
             <div className="node-container" onWheel={(e) => e.stopPropagation()}>
                 {this.props.store.Nodes.map(nodeStore => {
                     if (nodeStore instanceof StaticTextNodeStore) {
-                        return (<TextNodeView key={nodeStore.Id} storeCollection={this.props.store} store={nodeStore as StaticTextNodeStore} resize={this.resizeNode} storeNodes={this.props.storeNodes} linkMode={this.linkMode} switchLinkMode={this.switchLinkMode} setLinkModeOpener={this.setLinkModeOpener} linkModeOpener={this.linkModeOpener} openerLinkList={this.openerLinkList} setOpenerArray={this.setOpenerArray}/>)
+                        return (<TextNodeView key={nodeStore.Id} storeCollection={this.props.store} store={nodeStore as StaticTextNodeStore} resize={this.resizeNode} storeNodes={this.props.storeNodes} linkMode={this.linkMode} switchLinkMode={this.switchLinkMode} setLinkModeOpener={this.setLinkModeOpener} linkModeOpener={this.linkModeOpener} />)
                     } else if (nodeStore instanceof VideoNodeStore) {
-                        return (<VideoNodeView key={nodeStore.Id} storeCollection={this.props.store} store={nodeStore as VideoNodeStore} resize={this.resizeNode} storeNodes={this.props.storeNodes} linkMode={this.linkMode} switchLinkMode={this.switchLinkMode} setLinkModeOpener={this.setLinkModeOpener} linkModeOpener={this.linkModeOpener} openerLinkList={this.openerLinkList} setOpenerArray={this.setOpenerArray}/>)
+                        return (<VideoNodeView key={nodeStore.Id} storeCollection={this.props.store} store={nodeStore as VideoNodeStore} resize={this.resizeNode} storeNodes={this.props.storeNodes} linkMode={this.linkMode} switchLinkMode={this.switchLinkMode} setLinkModeOpener={this.setLinkModeOpener} linkModeOpener={this.linkModeOpener} />)
                     } else if (nodeStore instanceof ImageNodeStore) {
-                        return (<ImageNodeView key={nodeStore.Id} storeCollection={this.props.store} store={nodeStore as ImageNodeStore} resize={this.resizeNode} storeNodes={this.props.storeNodes} linkMode={this.linkMode} switchLinkMode={this.switchLinkMode} setLinkModeOpener={this.setLinkModeOpener} linkModeOpener={this.linkModeOpener} openerLinkList={this.openerLinkList} setOpenerArray={this.setOpenerArray}/>)
+                        return (<ImageNodeView key={nodeStore.Id} storeCollection={this.props.store} store={nodeStore as ImageNodeStore} resize={this.resizeNode} storeNodes={this.props.storeNodes} linkMode={this.linkMode} switchLinkMode={this.switchLinkMode} setLinkModeOpener={this.setLinkModeOpener} linkModeOpener={this.linkModeOpener} />)
                     } else if (nodeStore instanceof PdfNodeStore) {
-                        return (<PdfNodeView key={nodeStore.Id} storeCollection={this.props.store} store={nodeStore as PdfNodeStore} resize={this.resizeNode} storeNodes={this.props.storeNodes} linkMode={this.linkMode} switchLinkMode={this.switchLinkMode} setLinkModeOpener={this.setLinkModeOpener} linkModeOpener={this.linkModeOpener} openerLinkList={this.openerLinkList} setOpenerArray={this.setOpenerArray}/>)
+                        return (<PdfNodeView key={nodeStore.Id} storeCollection={this.props.store} store={nodeStore as PdfNodeStore} resize={this.resizeNode} storeNodes={this.props.storeNodes} linkMode={this.linkMode} switchLinkMode={this.switchLinkMode} setLinkModeOpener={this.setLinkModeOpener} linkModeOpener={this.linkModeOpener} />)
                     } else if (nodeStore instanceof WebSiteNodeStore) {
-                        return (<WebSiteNodeView key={nodeStore.Id} storeCollection={this.props.store} store={nodeStore as WebSiteNodeStore} resize={this.resizeNode} storeNodes={this.props.storeNodes} linkMode={this.linkMode} switchLinkMode={this.switchLinkMode} setLinkModeOpener={this.setLinkModeOpener} linkModeOpener={this.linkModeOpener} openerLinkList={this.openerLinkList} setOpenerArray={this.setOpenerArray}/>)
+                        return (<WebSiteNodeView key={nodeStore.Id} storeCollection={this.props.store} store={nodeStore as WebSiteNodeStore} resize={this.resizeNode} storeNodes={this.props.storeNodes} linkMode={this.linkMode} switchLinkMode={this.switchLinkMode} setLinkModeOpener={this.setLinkModeOpener} linkModeOpener={this.linkModeOpener} />)
                     } else if (nodeStore instanceof CollectionStore) {
-                        return (<CollectionStoreNodeView key={nodeStore.Id} storeCollection={this.props.store} store={nodeStore as CollectionStore} resize= {this.resizeNode} storeNodes={this.props.storeNodes} linkMode={this.linkMode} switchLinkMode={this.switchLinkMode} setLinkModeOpener={this.setLinkModeOpener} linkModeOpener={this.linkModeOpener} openerLinkList={this.openerLinkList} setOpenerArray={this.setOpenerArray}/>)
+                        return (<CollectionStoreNodeView key={nodeStore.Id} storeCollection={this.props.store} store={nodeStore as CollectionStore} resize= {this.resizeNode} storeNodes={this.props.storeNodes} linkMode={this.linkMode} switchLinkMode={this.switchLinkMode} setLinkModeOpener={this.setLinkModeOpener} linkModeOpener={this.linkModeOpener}/>)
                     }
                 })}
             </div>

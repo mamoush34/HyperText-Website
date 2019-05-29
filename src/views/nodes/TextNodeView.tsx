@@ -22,8 +22,8 @@ interface IProps {
     linkMode: boolean;
     setLinkModeOpener: (store:NodeStore) => void;
     linkModeOpener : NodeStore;
-    openerLinkList : NodeStore[];
-    setOpenerArray: (nodeList: NodeStore[]) => void;
+    // openerLinkList : NodeStore[];
+    // setOpenerArray: (nodeList: NodeStore[]) => void;
 }
 
 
@@ -40,7 +40,7 @@ export class TextNodeView extends React.Component<IProps> {
     @observable private clickedResizer: Resizer_Type;
     //@observable editorState:EditorState = this.props.store.Text;
     @observable private nodeZIndex:number = 1;
-    @observable private nodeLinkList: NodeStore[] = new Array();
+    // @observable private nodeLinkList: NodeStore[] = new Array();
     @observable private isLinkBoxRendered: boolean = false;
 
 
@@ -88,13 +88,13 @@ export class TextNodeView extends React.Component<IProps> {
         this.nodeZIndex = 1;
     }
 
-    becomeCurrentOpenerList = (isLinkModeOpen:boolean): void => {
-        if(isLinkModeOpen) {
-            this.props.setOpenerArray(this.nodeLinkList);
-        } else{
-            this.props.setOpenerArray(undefined);
-        }
-    }
+    // becomeCurrentOpenerList = (isLinkModeOpen:boolean): void => {
+    //     if(isLinkModeOpen) {
+    //         this.props.setOpenerArray(this.nodeLinkList);
+    //     } else{
+    //         this.props.setOpenerArray(undefined);
+    //     }
+    // }
 
     onLinkClick = (e: React.MouseEvent) => {
         e.stopPropagation();
@@ -102,9 +102,11 @@ export class TextNodeView extends React.Component<IProps> {
         let p = this.props;
         if (p.linkMode) {
             if (p.linkModeOpener !== p.store) {
-                if(!p.openerLinkList.includes(p.store)) {
-                    p.openerLinkList.push(p.store);
-                    console.log("length: " , p.openerLinkList.length)
+                if(!p.linkModeOpener.linkedNodes.includes(p.store)) {
+                    p.linkModeOpener.addLinkNode(p.store);
+                    console.log("length: " , p.linkModeOpener.linkedNodes.length)
+                    p.store.addLinkNode(p.linkModeOpener);
+
                 }
 
             }
@@ -123,7 +125,7 @@ export class TextNodeView extends React.Component<IProps> {
 
     renderLinkBox = () => {
         if(this.isLinkBoxRendered) {
-            return <div style={{display: "inherit", position:"absolute", border:"2px solid black", borderRadius:"10px", outline:"none", background:"burlywood", width: "25%", height: "calc(100% - 20px)", right: 0, boxSizing: "border-box"}}><LinkContainer Nodes={this.nodeLinkList} workspace={this.props.storeCollection}/></div>;
+            return <div style={{display: "inherit", position:"absolute", border:"2px solid black", borderRadius:"10px", outline:"none", background:"burlywood", width: "25%", height: "calc(100% - 20px)", right: 0, boxSizing: "border-box"}}><LinkContainer Nodes={this.props.store.linkedNodes} workspace={this.props.storeCollection}/></div>;
         }
         return (null);
     }
@@ -151,7 +153,7 @@ export class TextNodeView extends React.Component<IProps> {
                      </div>
                
                 <div className="removeButton" onClick={this.onRemoveNodeClick}>X</div>
-                <TopBar store={store} storeNodes={this.props.storeNodes} instanceCollection={this.props.storeCollection} bringFront={this.bringFront} bringBack={this.bringBack} switchLinkMode={this.props.switchLinkMode} setLinkModeOpener={this.props.setLinkModeOpener} setCurrentLinkList={this.becomeCurrentOpenerList} linkMode={this.props.linkMode} setLinkBoxVisible={this.changeLinkBoxOpacity}/>
+                <TopBar store={store} storeNodes={this.props.storeNodes} instanceCollection={this.props.storeCollection} bringFront={this.bringFront} bringBack={this.bringBack} switchLinkMode={this.props.switchLinkMode} setLinkModeOpener={this.props.setLinkModeOpener} linkMode={this.props.linkMode} setLinkBoxVisible={this.changeLinkBoxOpacity}/>
                 {this.renderLinkBox()}
 
                 {this.renderLinkBox()}

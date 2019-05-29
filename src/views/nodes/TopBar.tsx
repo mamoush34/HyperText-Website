@@ -13,7 +13,7 @@ interface IProps {
     bringBack: () => void;
     switchLinkMode: () => boolean;
     setLinkModeOpener: (store:NodeStore) => void;
-    setCurrentLinkList: (isLinkModeOpen: boolean) => void;
+    // setCurrentLinkList: (isLinkModeOpen: boolean) => void;
     setLinkBoxVisible: () => void;
     linkMode:boolean;
 }
@@ -87,10 +87,10 @@ export class TopBar extends React.Component<IProps> {
         e.preventDefault();
         if(this.props.switchLinkMode()) {
             this.props.setLinkModeOpener(this.props.store);
-            this.props.setCurrentLinkList(true);
+            // this.props.setCurrentLinkList(true);
         } else {
             this.props.setLinkModeOpener(undefined);
-            this.props.setCurrentLinkList(false);
+            // this.props.setCurrentLinkList(false);
 
         }
     }
