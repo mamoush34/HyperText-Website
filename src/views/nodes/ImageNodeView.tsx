@@ -2,12 +2,13 @@ import { observer } from "mobx-react";
 import "./NodeView.scss";
 import { TopBar } from "./TopBar";
 import React = require("react");
-import { observable } from "mobx";
+import { observable, action } from "mobx";
 import { Resizer_Type } from "../freeformcanvas/NodeContainer";
 import { ImageNodeStore } from "../../stores/ImageNodeStore";
 import { NodeStore } from "../../stores/NodeStore";
 import ImageUpload from "../../imageupload/ImageUploader";
 import { NodeCollectionStore } from "../../stores/NodeCollectionStore";
+import LinkContainer from "../linkcontainer/LinkContainer";
 
 interface IProps {
     store: ImageNodeStore;
@@ -30,6 +31,8 @@ export class ImageNodeView extends React.Component<IProps> {
     @observable private clickedResizer: Resizer_Type;
     @observable private nodeZIndex:number = 1;
     @observable private nodeLinkList: NodeStore[] = new Array();
+    @observable private isLinkBoxRendered: boolean = false;
+
 
 
 
@@ -90,6 +93,23 @@ export class ImageNodeView extends React.Component<IProps> {
         }
     }
 
+    @action
+    changeLinkBoxOpacity = () => {
+        if(this.isLinkBoxRendered) {
+            this.isLinkBoxRendered = false;
+
+        } else {
+            this.isLinkBoxRendered = true;
+        }
+    }
+
+    renderLinkBox = () => {
+        if(this.isLinkBoxRendered) {
+            return <div style={{display: "inherit", position:"absolute", border:"2px solid black", borderRadius:"10px", outline:"none", background:"burlywood", width: "25%", height: "calc(100% - 20px)", right: 0, boxSizing: "border-box"}}><LinkContainer Nodes={this.nodeLinkList} workspace={this.props.storeCollection}/></div>;
+        }
+        return (null);
+    }
+
     render() {
         let store = this.props.store;
         return (
@@ -107,7 +127,8 @@ export class ImageNodeView extends React.Component<IProps> {
                      this.clickedResizer = Resizer_Type.TOP_LEFT}}>
                 </div>
                 <div className="removeButton" onClick={this.onRemoveNodeClick}>X</div>
-                <TopBar store={store} storeNodes={this.props.storeNodes} instanceCollection={this.props.storeCollection} bringFront={this.bringFront} bringBack={this.bringBack} switchLinkMode={this.props.switchLinkMode} setLinkModeOpener={this.props.setLinkModeOpener} setCurrentLinkList={this.becomeCurrentOpenerList} linkMode={this.props.linkMode}/>
+                <TopBar store={store} storeNodes={this.props.storeNodes} instanceCollection={this.props.storeCollection} bringFront={this.bringFront} bringBack={this.bringBack} switchLinkMode={this.props.switchLinkMode} setLinkModeOpener={this.props.setLinkModeOpener} setCurrentLinkList={this.becomeCurrentOpenerList} linkMode={this.props.linkMode} setLinkBoxVisible={this.changeLinkBoxOpacity}/>
+                {this.renderLinkBox()}
                 <div className="scroll-box">
                     <div className="content">
                         {/* <h3 className="title">{store.Title}</h3> */}

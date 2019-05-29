@@ -41,6 +41,8 @@ export class TextNodeView extends React.Component<IProps> {
     //@observable editorState:EditorState = this.props.store.Text;
     @observable private nodeZIndex:number = 1;
     @observable private nodeLinkList: NodeStore[] = new Array();
+    @observable private isLinkBoxRendered: boolean = false;
+
 
 
     handleChange = (e: EditorState): void =>{
@@ -109,13 +111,30 @@ export class TextNodeView extends React.Component<IProps> {
         }
     }
 
+    @action
+    changeLinkBoxOpacity = () => {
+        if(this.isLinkBoxRendered) {
+            this.isLinkBoxRendered = false;
+
+        } else {
+            this.isLinkBoxRendered = true;
+        }
+    }
+
+    renderLinkBox = () => {
+        if(this.isLinkBoxRendered) {
+            return <div style={{display: "inherit", position:"absolute", border:"2px solid black", borderRadius:"10px", outline:"none", background:"burlywood", width: "25%", height: "calc(100% - 20px)", right: 0, boxSizing: "border-box"}}><LinkContainer Nodes={this.nodeLinkList} workspace={this.props.storeCollection}/></div>;
+        }
+        return (null);
+    }
+
     
     render() {
         let store = this.props.store;
         console.log("I got called haha");
 
         return (
-          
+            
             <div className="node text-node" style={{ transform: store.Transform, height: store.Height, width:store.Width, zIndex: this.nodeZIndex}} onClick={this.onLinkClick}>
                
                     <div className="resizer resizer_bottom-right" onPointerDown={(e) => {this.onPointerDown(e);
@@ -132,8 +151,10 @@ export class TextNodeView extends React.Component<IProps> {
                      </div>
                
                 <div className="removeButton" onClick={this.onRemoveNodeClick}>X</div>
-                <TopBar store={store} storeNodes={this.props.storeNodes} instanceCollection={this.props.storeCollection} bringFront={this.bringFront} bringBack={this.bringBack} switchLinkMode={this.props.switchLinkMode} setLinkModeOpener={this.props.setLinkModeOpener} setCurrentLinkList={this.becomeCurrentOpenerList} linkMode={this.props.linkMode}/>
-                <div style={{display: "inherit", position:"absolute", border:"2px solid black", borderRadius:"10px", outline:"none", background:"burlywood"}}><LinkContainer Nodes={this.nodeLinkList} workspace={this.props.storeCollection}/></div>
+                <TopBar store={store} storeNodes={this.props.storeNodes} instanceCollection={this.props.storeCollection} bringFront={this.bringFront} bringBack={this.bringBack} switchLinkMode={this.props.switchLinkMode} setLinkModeOpener={this.props.setLinkModeOpener} setCurrentLinkList={this.becomeCurrentOpenerList} linkMode={this.props.linkMode} setLinkBoxVisible={this.changeLinkBoxOpacity}/>
+                {this.renderLinkBox()}
+
+                {this.renderLinkBox()}
                 <div className="scroll-box">
                     <div className="content">
                         <h3 className="title">{store.Title}</h3>

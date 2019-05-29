@@ -1,13 +1,13 @@
 .node {
     position: absolute;
-    background: #cdcdcd;
+    background: none;
 
     width: 300px;
     height: 300px;
     overflow: hidden;
-    background: burlywood;
-    border-radius: 10px;
-    border: 2px solid black;
+    // background: burlywood;
+    // border-radius: 10px;
+    // border: 2px solid black;
     outline: none;
 
 
@@ -16,16 +16,17 @@
         position: absolute;
         width: 18px;
         height: 18px;
-        right: 0px;
+        right: 25%;
         font-size: 12px;
         border: 1px solid black;
-        background: rgb(66, 49, 49);
+        background: white;
         text-align: center;
     }
 
     .removeButton:hover{
         cursor: pointer;
         background: red;
+
     }
 
         
@@ -38,6 +39,8 @@
         background: #232323;
         height: 20px;
         cursor: pointer;
+        width: 75%;
+        box-sizing: border-box;
     }
     
     .resizer{
@@ -51,13 +54,13 @@
     .resizer_bottom-right {
        
         cursor: nwse-resize;
-        right: -5px;
+        right: 25%;
         bottom: -5px;
     }
 
     .resizer_top-right {
        
-        right: -5px;
+        right: 25%;
         top: -5px;
         cursor: nesw-resize;
     }
@@ -87,6 +90,13 @@
     .scroll-box {
         overflow-y: scroll;
         height: calc(100% - 20px);
+        width: 75%;
+        background: burlywood;
+        border-radius: 10px;
+        border-top-left-radius: 0px;
+        border-top-right-radius: 0px;
+        border: 2px solid black;
+        box-sizing: border-box;
     }
 }
 

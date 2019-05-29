@@ -14,6 +14,7 @@ interface IProps {
     switchLinkMode: () => boolean;
     setLinkModeOpener: (store:NodeStore) => void;
     setCurrentLinkList: (isLinkModeOpen: boolean) => void;
+    setLinkBoxVisible: () => void;
     linkMode:boolean;
 }
 
@@ -98,6 +99,17 @@ export class TopBar extends React.Component<IProps> {
         let p = this.props
         return (
             <div className="top" onPointerDown={this.onPointerDown}>
+                <button onClick={p.setLinkBoxVisible}
+                    style={{
+                    border: "1px solid black",
+                    borderRadius: "10px",
+                    textAlign:"center",
+                    position: "absolute",
+                    left: "0",
+                    cursor: "pointer",
+                    }}>
+                    See Links
+                </button>
                 <button onClick={this.onLinkClink}
                     style={{
                     border: "1px solid black",

@@ -19,11 +19,11 @@ export default class LinkContainer extends React.Component<LinkContainerProps> {
    onLinkClick = (node: NodeStore) => {
     let p = this.props;
     let xOffset:number = 600 - node.X;
-    let yOffset:number = 600 - node.Y
+    let yOffset:number = 300 - node.Y
     let newX:number = p.workspace.X + xOffset;
     let newY:number = p.workspace.Y - yOffset;
     p.workspace.setX(0 + xOffset);
-    p.workspace.setY(0 - yOffset);
+    p.workspace.setY(0 + yOffset);
    }
 
     render() {
