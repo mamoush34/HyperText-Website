@@ -40,6 +40,7 @@ export class TopBar extends React.Component<IProps> {
         this._isPointerDown = false;
         document.removeEventListener("pointermove", this.onPointerMove);
         document.removeEventListener("pointerup", this.onPointerUp);
+        this.checkDroppedOut(e);
         this.checkDropped();
         this.props.bringBack();
 
@@ -63,18 +64,22 @@ export class TopBar extends React.Component<IProps> {
             if (col.X <= p.store.X && p.store.X + p.store.Width <= col.X + col.Width) {
                 if (col.Y <= p.store.Y && p.store.Y + p.store.Height <= col.Y + col.Height) {
                     if(p.store !== col) {
-                        console.log("Called");
-                        console.log("Collection Title: ", col.Title);
-                        console.log("Collection Id: ", col.Id);
-                        console.log("Collection X: ", col.X);
-                        console.log("Collection Y: ", col.Y);
-                        console.log("Store Id: ", p.store.Title);
-                        console.log("Store X: ", p.store.X);
-                        console.log("Store Y: ", p.store.Y);
+                        // console.log("Called");
+                        // console.log("Collection Title: ", col.Title);
+                        // console.log("Collection Id: ", col.Id);
+                        // console.log("Collection X: ", col.X);
+                        // console.log("Collection Y: ", col.Y);
+                        // console.log("Store Id: ", p.store.Title);
+                        // console.log("Store X: ", p.store.X);
+                        // console.log("Store Y: ", p.store.Y);
                         if(!col.Nodes.Nodes.includes(p.store)) {
                             p.instanceCollection.removeNode(p.store);
                             p.store.X = 0;
                             p.store.Y = 0;
+                            col.Nodes.Scale = 1;
+                            col.Nodes.X = 0;
+                            col.Nodes.Y = 0;
+                            p.store.instanceCollection = col.Nodes;
                             col.Nodes.addNode(p.store);
                             return;
                         } else {
@@ -84,6 +89,58 @@ export class TopBar extends React.Component<IProps> {
                 }
             }
         })
+    }
+
+    checkDroppedOut = (e: PointerEvent):void => {
+        let p = this.props;
+        p.storeNodes.Nodes.forEach((node: CollectionStore) => {
+            if(node.Nodes.Nodes.includes(p.store)) {
+                let mouseX = (e.pageX - node.instanceCollection.X) / node.instanceCollection.Scale;
+                let mouseY = (e.pageY - node.instanceCollection.Y)/ node.instanceCollection.Scale;
+                let nodeX = node.X; //+ node.instanceCollection.X;
+                let nodeY = node.Y; //+ node.instanceCollection.Y;
+                console.log("Mouse X:", mouseX, " storeWidth: ", node.Width * 0.75, " node X: ", nodeX);
+                console.log("Mouse Y:", mouseY, " storeHeight: ", node.Height, " node Y: ", nodeY);
+
+                console.log("Scale of Node: ", node.instanceCollection.Scale);
+
+                if (mouseX < nodeX ) { 
+                    node.Nodes.removeNode(p.store);
+                    node.instanceCollection.addNode(p.store);
+                    p.store.X = node.X - p.store.Width;
+                    p.store.Y = mouseY;
+                    console.log("First Condition Called!");
+                    return;
+                }
+                if(mouseX > nodeX + (node.Width * 0.75)) {
+                    node.Nodes.removeNode(p.store);
+                    node.instanceCollection.addNode(p.store);
+                    p.store.X = node.X + node.Width;
+                    p.store.Y = mouseY;
+                    console.log("Second Condition Called!");
+
+                    return;
+                }
+                if(mouseY < nodeY) {
+                    node.Nodes.removeNode(p.store);
+                    node.instanceCollection.addNode(p.store);
+                    p.store.Y = node.Y - p.store.Height;
+                    p.store.X = mouseX;
+                    console.log("Third Condition Called!");
+
+                    return;
+                } 
+                if(mouseY > nodeY + node.Height) {
+                    node.Nodes.removeNode(p.store);
+                    node.instanceCollection.addNode(p.store);
+                    p.store.Y = node.Y + node.Height;
+                    p.store.X = mouseX;
+                    console.log("Fourth Condition Called!");
+
+                    return;
+                }
+            }
+        });
     }
     onLinkClink = (e: React.MouseEvent) => {
         e.stopPropagation();
@@ -96,6 +153,12 @@ export class TopBar extends React.Component<IProps> {
             // this.props.setCurrentLinkList(false);
 
         }
+    }
+
+    onRemoveNodeClick = ():void => {
+        let p = this.props;
+        p.instanceCollection.removeNode(p.store);
+        p.store.linkedNodes.forEach((node) => node.linkedNodes.splice(node.linkedNodes.indexOf(p.store), 1))
     }
 
     render() {
@@ -126,6 +189,7 @@ export class TopBar extends React.Component<IProps> {
                     }}>
                     Link!
                 </button>
+                <div className="removeButton" onClick={this.onRemoveNodeClick}>X</div>
             </div>
         );
     }

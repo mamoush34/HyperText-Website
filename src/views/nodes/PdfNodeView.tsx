@@ -166,7 +166,7 @@ export class PdfNodeView extends React.Component<IProps> {
                      this.clickedResizer = Resizer_Type.TOP_LEFT}}>
                 </div>
 
-                <div className="removeButton" onClick={this.onRemoveNodeClick}>X</div>
+                {/* <div className="removeButton" onClick={this.onRemoveNodeClick}>X</div> */}
                 <TopBar store={store} storeNodes={this.props.storeNodes} instanceCollection={this.props.storeCollection} bringFront={this.bringFront} bringBack={this.bringBack} switchLinkMode={this.props.switchLinkMode} setLinkModeOpener={this.props.setLinkModeOpener}  linkMode={this.props.linkMode} setLinkBoxVisible={this.changeLinkBoxOpacity}/>
                 {this.renderLinkBox()}
 

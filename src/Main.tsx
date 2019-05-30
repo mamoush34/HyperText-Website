@@ -34,22 +34,22 @@ let maxX = 10000;
 let maxY = 10000;
 let nodes = []
 for (let i = 0; i < numNodes; i++) {
-    nodes.push(new StaticTextNodeStore({ X: Math.random() * maxX, Y: Math.random() * maxY, Title: "Text Node Title", Text: EditorState.createEmpty() }));
+    nodes.push(new StaticTextNodeStore({ X: Math.random() * maxX, Y: Math.random() * maxY, Title: "Text Node Title", Text: EditorState.createEmpty(), instanceCollection: mainNodeCollection }));
 }
 
 for (let i = 0; i < 20; i++) {
-    nodes.push(new VideoNodeStore({ X: Math.random() * maxX, Y: Math.random() * maxY, Title: "Video Node Title", Url: "http://cs.brown.edu/people/peichman/downloads/cted.mp4" }));
+    nodes.push(new VideoNodeStore({ X: Math.random() * maxX, Y: Math.random() * maxY, Title: "Video Node Title", Url: "http://cs.brown.edu/people/peichman/downloads/cted.mp4", instanceCollection: mainNodeCollection }));
 }
-nodes.push(new ImageNodeStore({ X: 500, Y: 500, Title:"Image Node", Url:""}));
-nodes.push(new WebSiteNodeStore({ X: 100, Y: 500, Title:"Web Node", Url:"https://www.google.com/search?igu=1"}));
+nodes.push(new ImageNodeStore({ X: 500, Y: 500, Title:"Image Node", Url:"", instanceCollection: mainNodeCollection}));
+nodes.push(new WebSiteNodeStore({ X: 100, Y: 500, Title:"Web Node", Url:"https://www.google.com/search?igu=1", instanceCollection: mainNodeCollection}));
 
-nodes.push(new PdfNodeStore({ X: 1200, Y: 500, Title:"Pdf Node"}));
+nodes.push(new PdfNodeStore({ X: 1200, Y: 500, Title:"Pdf Node", instanceCollection: mainNodeCollection}));
 
 
-let newCollection: CollectionStore = new CollectionStore({X:800, Y:500, Title:"Store Node"});
-newCollection.Nodes.addNode(new StaticTextNodeStore({ X: Math.random() * maxX, Y: Math.random() * maxY, Title: "Text Node Title", Text: EditorState.createEmpty() }));
-newCollection.Nodes.addNode(new StaticTextNodeStore({ X: Math.random() * maxX, Y: Math.random() * maxY, Title: "Text Node Title", Text: EditorState.createEmpty() }));
-newCollection.Nodes.addNode(new StaticTextNodeStore({ X: Math.random() * maxX, Y: Math.random() * maxY, Title: "Text Node Title", Text: EditorState.createEmpty() }));
+let newCollection: CollectionStore = new CollectionStore({X:800, Y:500, Title:"Store Node", instanceCollection: mainNodeCollection});
+newCollection.Nodes.addNode(new StaticTextNodeStore({ X: Math.random() * maxX, Y: Math.random() * maxY, Title: "Text Node Title", Text: EditorState.createEmpty(), instanceCollection: newCollection.Nodes }));
+newCollection.Nodes.addNode(new StaticTextNodeStore({ X: Math.random() * maxX, Y: Math.random() * maxY, Title: "Text Node Title", Text: EditorState.createEmpty(), instanceCollection: newCollection.Nodes }));
+newCollection.Nodes.addNode(new StaticTextNodeStore({ X: Math.random() * maxX, Y: Math.random() * maxY, Title: "Text Node Title", Text: EditorState.createEmpty(), instanceCollection: newCollection.Nodes }));
 
 storeNodes.addNode(newCollection);
 

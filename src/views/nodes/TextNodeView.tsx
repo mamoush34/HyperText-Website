@@ -79,10 +79,6 @@ export class TextNodeView extends React.Component<IProps> {
         document.removeEventListener("pointerup", this.onPointerUp);
     }
 
-    onRemoveNodeClick = ():void => {
-        let p = this.props;
-        p.storeCollection.removeNode(p.store);
-    }
 
     bringFront = ():void => {
         this.nodeZIndex = 2;
@@ -147,8 +143,6 @@ export class TextNodeView extends React.Component<IProps> {
     
     render() {
         let store = this.props.store;
-        console.log("I got called haha");
-
         return (
             
             <div className="node text-node" style={{ transform: store.Transform, height: store.Height, width:store.Width, zIndex: this.nodeZIndex}} onClick={this.onLinkClick}>
@@ -166,7 +160,6 @@ export class TextNodeView extends React.Component<IProps> {
                         this.clickedResizer = Resizer_Type.TOP_LEFT}}>
                      </div>
                
-                <div className="removeButton" onClick={this.onRemoveNodeClick}>X</div>
                 <TopBar store={store} storeNodes={this.props.storeNodes} instanceCollection={this.props.storeCollection} bringFront={this.bringFront} bringBack={this.bringBack} switchLinkMode={this.props.switchLinkMode} setLinkModeOpener={this.props.setLinkModeOpener} linkMode={this.props.linkMode} setLinkBoxVisible={this.changeLinkBoxOpacity}/>
                 {this.renderLinkBox()}
 

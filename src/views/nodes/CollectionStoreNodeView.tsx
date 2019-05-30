@@ -140,7 +140,7 @@ export class CollectionStoreNodeView extends React.Component<IProps> {
                 <div className="resizer resizer_top-left" onPointerDown={(e) => {this.onPointerDown(e);
                      this.clickedResizer = Resizer_Type.TOP_LEFT}}>
                 </div>
-                <div className="removeButton" onClick={this.onRemoveNodeClick}>X</div>
+                {/* <div className="removeButton" onClick={this.onRemoveNodeClick}>X</div> */}
                 <TopBar store={store} storeNodes={this.props.storeNodes} instanceCollection={this.props.storeCollection} bringFront={this.bringFront} bringBack={this.bringBack} switchLinkMode={this.props.switchLinkMode} setLinkModeOpener={this.props.setLinkModeOpener}  linkMode={this.props.linkMode} setLinkBoxVisible={this.changeLinkBoxOpacity}/>
                 {this.renderLinkBox()}
                 <div className="scroll-box">

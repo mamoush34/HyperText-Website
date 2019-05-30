@@ -61,7 +61,6 @@ export class FreeFormCanvas extends React.Component<IProps> {
         store.X = -(xOffset - e.pageX/ store.Scale) * store.Scale;
         store.Y =  -(yOffset - e.pageY/ store.Scale) * store.Scale;
 
-
     }
 
     render() {

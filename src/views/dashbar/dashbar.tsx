@@ -27,31 +27,31 @@ export default class DashBar extends React.Component<DashBarProps> {
     
 
     onVideoClick = () => {
-        this.props.mainCollection.addNode(new VideoNodeStore({ X: Math.random() * this.maxX, Y: Math.random() * this.maxY, Title: "Video Node Title", Url: "http://cs.brown.edu/people/peichman/downloads/cted.mp4" }));
+        this.props.mainCollection.addNode(new VideoNodeStore({ X: Math.random() * this.maxX, Y: Math.random() * this.maxY, Title: "Video Node Title", Url: "http://cs.brown.edu/people/peichman/downloads/cted.mp4", instanceCollection: this.props.mainCollection }));
      
 
     }
 
     onTextClick = () => {
-        this.props.mainCollection.addNode(new StaticTextNodeStore({ X: Math.random() * this.maxX, Y: Math.random() * this.maxY, Title: "Text Node Title", Text: EditorState.createEmpty()}));
+        this.props.mainCollection.addNode(new StaticTextNodeStore({ X: Math.random() * this.maxX, Y: Math.random() * this.maxY, Title: "Text Node Title", Text: EditorState.createEmpty(), instanceCollection: this.props.mainCollection}));
         
     }   
 
     onImageClick = () => {
-        this.props.mainCollection.addNode(new ImageNodeStore({ X: 500, Y: 500, Title:"Image Node", Url:""}));
+        this.props.mainCollection.addNode(new ImageNodeStore({ X: 500, Y: 500, Title:"Image Node", Url:"", instanceCollection: this.props.mainCollection}));
     }
 
     onPdfClick = () => {
-        this.props.mainCollection.addNode(new PdfNodeStore({ X: 1200, Y: 500, Title:"Pdf Node"}));
+        this.props.mainCollection.addNode(new PdfNodeStore({ X: 1200, Y: 500, Title:"Pdf Node", instanceCollection: this.props.mainCollection}));
     }
 
     onWebPageClick = () => {
-        this.props.mainCollection.addNode(new WebSiteNodeStore({ X: 100, Y: 500, Title:"Web Node", Url:"https://www.google.com/search?igu=1"}));
+        this.props.mainCollection.addNode(new WebSiteNodeStore({ X: 100, Y: 500, Title:"Web Node", Url:"https://www.google.com/search?igu=1", instanceCollection: this.props.mainCollection}));
     }
 
     onCanvasClick = () => {
-        let newCollection: CollectionStore = new CollectionStore({X:800, Y:500, Title:"Store Node"});
-        newCollection.Nodes.addNode(new StaticTextNodeStore({ X: Math.random() * 500, Y: Math.random() * 500, Title: "Text Node Title", Text: EditorState.createEmpty() }));
+        let newCollection: CollectionStore = new CollectionStore({X:800, Y:500, Title:"Store Node", instanceCollection: this.props.mainCollection});
+        newCollection.Nodes.addNode(new StaticTextNodeStore({ X: Math.random() * 500, Y: Math.random() * 500, Title: "Text Node Title", Text: EditorState.createEmpty(), instanceCollection: newCollection.Nodes}));
 
         this.props.mainCollection.addNode(newCollection);
         this.props.storeNodes.addNode(newCollection);
