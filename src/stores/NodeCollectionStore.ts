@@ -36,4 +36,11 @@ export class NodeCollectionStore extends NodeStore {
         this.Y = yCord;
     }
 
+    @action
+    public resetTranslate() {
+        this.X = 0;
+        this.Y = 0;
+        this.Scale = 1;
+    }
+
 }

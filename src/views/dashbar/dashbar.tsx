@@ -58,10 +58,12 @@ export default class DashBar extends React.Component<DashBarProps> {
     }
 
     onFreeFormClick = () => {
+        this.props.mainCollection.resetTranslate();
         this.props.view(Canvas_Type.FREE_FORM);
     }
 
     onGridFormClick = () => {
+        this.props.mainCollection.resetTranslate();
         this.props.view(Canvas_Type.GRID_FORM);
     }
 
