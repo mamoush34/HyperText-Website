@@ -22,6 +22,7 @@ interface IProps {
     setLinkModeOpener: (store:NodeStore) => void;
     linkModeOpener : NodeStore;
     currentView: Canvas_Type;
+    
 
     // openerLinkList : NodeStore[];
     // setOpenerArray: (nodeList: NodeStore[]) => void;
@@ -37,6 +38,8 @@ export class VideoNodeView extends React.Component<IProps> {
     // @observable private nodeLinkList: NodeStore[] = new Array();
     @observable private isLinkBoxRendered: boolean = false;
     @observable private title: HTMLInputElement;
+    @observable private websiteField: HTMLInputElement;
+
 
 
 
@@ -125,6 +128,16 @@ export class VideoNodeView extends React.Component<IProps> {
         }
     }
 
+    onEnterUrlPress = (e: React.KeyboardEvent): void => {
+        let p = this.props;
+        if(e.charCode == 13) {
+            p.store.setUrl(this.websiteField.value);
+            this.websiteField.value = "";
+            this.websiteField.blur();
+        
+        }
+    }
+
     render() {
         let store = this.props.store;
         return (
@@ -148,7 +161,22 @@ export class VideoNodeView extends React.Component<IProps> {
                 <div className="scroll-box">
                     <div className="content">
                          <input className="title" type="text" placeholder={store.Title} ref={(e) => this.title = e} onClick={() => this.title.focus()} onKeyPress={this.onEnterPress}/>
-
+                         <input 
+                            type="text" 
+                            placeholder="Please enter a link starting with https://" 
+                            id="linkInput" 
+                            ref={(el) => { if (el) { this.websiteField = el;}}} 
+                            onPointerDown={() => this.websiteField.focus()} 
+                            onKeyPress={this.onEnterUrlPress}
+                            style ={{
+                                border: "1px solid black",
+                                borderRadius: 10,
+                                outline: "none",
+                                width: "50%",
+                                textAlign: "center"
+                            }}
+                            
+                        />
                         <video src={store.Url} controls />
                     </div>
                 </div>

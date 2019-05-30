@@ -78,6 +78,7 @@ export class WebSiteNodeView extends React.Component<IProps> {
         if(e.charCode == 13) {
             p.store.setUrl(this.websiteField.value);
             this.websiteField.value = "";
+            this,this.websiteField.blur();
         
         }
     }

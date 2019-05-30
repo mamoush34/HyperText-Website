@@ -46,6 +46,7 @@ export class TextNodeView extends React.Component<IProps> {
     // @observable private nodeLinkList: NodeStore[] = new Array();
     @observable private isLinkBoxRendered: boolean = false;
     @observable private title: HTMLInputElement;
+    @observable toolbarState: boolean = false;;
 
 
 
@@ -140,6 +141,29 @@ export class TextNodeView extends React.Component<IProps> {
         }
     }
 
+    renderEditor = () => {
+        if(this.toolbarState) {
+            return  <Editor
+            editorState={this.props.store.Text}
+            toolbarClassName="toolbarClassName"
+            wrapperClassName="wrapperClassName"
+            editorClassName="editorClassName"
+            onEditorStateChange={this.handleChange}
+            onBlur={() => this.toolbarState = false}
+            />;
+        } else {
+            return  <Editor
+            toolbarHidden
+            editorState={this.props.store.Text}
+            toolbarClassName="toolbarClassName"
+            wrapperClassName="wrapperClassName"
+            editorClassName="editorClassName"
+            onEditorStateChange={this.handleChange}
+            onFocus={() => this.toolbarState = true}
+            />;
+        }
+    }
+
     
     render() {
         let store = this.props.store;
@@ -168,14 +192,16 @@ export class TextNodeView extends React.Component<IProps> {
                     <div className="content">
                         {/* <h3 className="title">{store.Title}</h3> */}
                         <input className="title" type="text" placeholder={store.Title} ref={(e) => this.title = e} onClick={() => this.title.focus()} onKeyPress={this.onEnterPress}/>
-                        <Editor
+                        {/* <Editor
                             toolbarOnFocus
+                            {...this.toolbarState}
                             editorState={this.props.store.Text}
                             toolbarClassName="toolbarClassName"
                             wrapperClassName="wrapperClassName"
                             editorClassName="editorClassName"
                             onEditorStateChange={this.handleChange}
-                        />
+                        /> */}
+                        {this.renderEditor()}
                     </div>
                 </div>
             </div>

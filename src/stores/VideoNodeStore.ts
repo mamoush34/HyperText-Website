@@ -1,4 +1,4 @@
-import { observable } from "mobx";
+import { observable, action } from "mobx";
 import { NodeStore } from "./NodeStore";
 
 export class VideoNodeStore extends NodeStore {
@@ -12,4 +12,8 @@ export class VideoNodeStore extends NodeStore {
     @observable
     public Url: string;
 
+    @action
+    public setUrl(url:string) {
+        this.Url = url;
+    }
 }
