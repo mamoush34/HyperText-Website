@@ -9,6 +9,8 @@ import { NodeCollectionStore } from "../../stores/NodeCollectionStore";
 import { GridFormCanvas } from "../gridformcanvas/GridFormCanvas";
 import { CollectionStore } from "../../stores/CollectionStore";
 import LinkContainer from "../linkcontainer/LinkContainer";
+import { Canvas_Type } from "../../Dashboard";
+import { FreeFormCanvas } from "../freeformcanvas/FreeFormCanvas";
 
 interface IProps {
     store: CollectionStore;
@@ -19,6 +21,8 @@ interface IProps {
     linkMode: boolean;
     setLinkModeOpener: (store:NodeStore) => void;
     linkModeOpener : NodeStore;
+    currentView: Canvas_Type;
+
     // openerLinkList : NodeStore[];
     // setOpenerArray: (nodeList: NodeStore[]) => void;
 
@@ -107,7 +111,7 @@ export class CollectionStoreNodeView extends React.Component<IProps> {
 
     renderLinkBox = () => {
         if(this.isLinkBoxRendered) {
-            return <div style={{display: "inherit", position:"absolute", border:"2px solid black", borderRadius:"10px", outline:"none", background:"burlywood", width: "25%", height: "calc(100% - 20px)", right: 0, boxSizing: "border-box"}}><LinkContainer Nodes={this.props.store.linkedNodes} workspace={this.props.storeCollection}/></div>;
+            return <div style={{display: "inherit", position:"absolute", border:"2px solid black", borderRadius:"10px", outline:"none", background:"burlywood", width: "25%", height: "calc(100% - 20px)", right: 0, boxSizing: "border-box"}}><LinkContainer Nodes={this.props.store.linkedNodes} workspace={this.props.storeCollection} currentView={this.props.currentView}/></div>;
         }
         return (null);
     }
@@ -144,7 +148,7 @@ export class CollectionStoreNodeView extends React.Component<IProps> {
                     <input className="title" type="text" placeholder={store.Title} ref={(e) => this.title = e} onClick={() => this.title.focus()} onKeyPress={this.onEnterPress}/>
 
                         {/* <h3 className="title">{store.Title}</h3> */}
-                        <GridFormCanvas store={store.Nodes} storeNodes={this.props.storeNodes}/>
+                        <FreeFormCanvas store={store.Nodes} storeNodes={this.props.storeNodes}/>
                     </div>
                 </div>
             </div>

@@ -4,6 +4,7 @@ import "./FreeFormCanvas.scss";
 import { NodeContainer } from "./NodeContainer";
 import React = require("react");
 import DashBar from "../dashbar/dashbar";
+import { Canvas_Type } from "../../Dashboard";
 
 interface IProps {
     store: NodeCollectionStore
@@ -69,7 +70,7 @@ export class FreeFormCanvas extends React.Component<IProps> {
             // `url(${`images/${filename}`})`
             <div className="freeformcanvas-container" onPointerDown={this.onPointerDown} onWheel={this.onWheelZoom} style={{backgroundImage: 'url(' + require('../../images/canvas_background.jpg') + ')'}}>
                 <div className="freeformcanvas" style={{ transform: store.Transform }}>
-                    <NodeContainer store={store} storeNodes={this.props.storeNodes}/>
+                    <NodeContainer store={store} storeNodes={this.props.storeNodes} currentView={Canvas_Type.FREE_FORM}/>
                 </div>
             </div>
         );

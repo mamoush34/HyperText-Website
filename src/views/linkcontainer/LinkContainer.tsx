@@ -4,10 +4,13 @@ import './LinkContainer.scss'
 import { observer } from "mobx-react";
 import { observable, action } from "mobx";
 import { NodeCollectionStore } from "../../stores/NodeCollectionStore";
+import { Canvas_Type } from "../../Dashboard";
 
 interface LinkContainerProps {
     Nodes: NodeStore[]
     workspace: NodeCollectionStore
+    currentView: Canvas_Type;
+
 }
 
 
@@ -18,12 +21,26 @@ export default class LinkContainer extends React.Component<LinkContainerProps> {
 
    onLinkClick = (node: NodeStore) => {
     let p = this.props;
-    let xOffset:number = 600 - node.X;
-    let yOffset:number = 300 - node.Y
-    let newX:number = p.workspace.X + xOffset;
-    let newY:number = p.workspace.Y - yOffset;
-    p.workspace.setX(0 + xOffset);
-    p.workspace.setY(0 + yOffset);
+    let xOffset:number;
+    let yOffset:number;
+
+    if(p.currentView === Canvas_Type.GRID_FORM) {
+        let gridIndex = node.gridIndex + 1;
+        let row = Math.ceil(gridIndex / 5) - 1;
+        let col = (gridIndex % 5) - 1;
+        xOffset =  -(col * 550);
+        yOffset = - (row * 500);
+        p.workspace.setX(xOffset);
+        p.workspace.setY(yOffset);
+        p.workspace.Scale = 1;
+        
+    } else{
+        xOffset = 600 - node.X;
+        yOffset = 300 - node.Y
+        p.workspace.setX(xOffset);
+        p.workspace.setY(yOffset);
+        p.workspace.Scale = 1;
+    }
    }
 
     render() {

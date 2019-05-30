@@ -4,6 +4,7 @@ import "./GridFormCanvas.scss";
 import { NodeContainer } from "../freeformcanvas/NodeContainer";
 import React = require("react");
 import DashBar from "../dashbar/dashbar";
+import { Canvas_Type } from "../../Dashboard";
 
 interface IProps {
     store: NodeCollectionStore
@@ -71,7 +72,7 @@ export class GridFormCanvas extends React.Component<IProps> {
             // `url(${`images/${filename}`})`
             <div className="gridformcanvas-container" onPointerDown={this.onPointerDown} onWheel={this.onWheelZoom} style={{backgroundImage: 'url(' + require('../../images/canvas_background.jpg') + ')'}}>
                 <div className="gridformcanvas" style={{ transform: store.Transform }}>
-                    <NodeContainer store={store} storeNodes={this.props.storeNodes}/>
+                    <NodeContainer store={store} storeNodes={this.props.storeNodes} currentView={Canvas_Type.GRID_FORM}/>
                 </div>
             </div>
         );

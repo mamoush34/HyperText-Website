@@ -16,10 +16,12 @@ import { WebSiteNodeView } from "../nodes/WebSiteNodeView";
 import { CollectionStore } from "../../stores/CollectionStore";
 import { CollectionStoreNodeView } from "../nodes/CollectionStoreNodeView";
 import { observable, action } from "mobx";
+import { Canvas_Type } from "../../Dashboard";
 
 interface IProps {
     store: NodeCollectionStore
     storeNodes: NodeCollectionStore
+    currentView: Canvas_Type;
 }
 
 export enum Resizer_Type {
@@ -94,19 +96,22 @@ export class NodeContainer extends React.Component<IProps> {
     render() {
         return (
             <div className="node-container" onWheel={(e) => e.stopPropagation()}>
-                {this.props.store.Nodes.map(nodeStore => {
+                {this.props.store.Nodes.map((nodeStore, index) => {
+                    if(this.props.currentView === Canvas_Type.GRID_FORM) {
+                        nodeStore.setGridIndex(index);
+                    }
                     if (nodeStore instanceof StaticTextNodeStore) {
-                        return (<TextNodeView key={nodeStore.Id} storeCollection={this.props.store} store={nodeStore as StaticTextNodeStore} resize={this.resizeNode} storeNodes={this.props.storeNodes} linkMode={this.linkMode} switchLinkMode={this.switchLinkMode} setLinkModeOpener={this.setLinkModeOpener} linkModeOpener={this.linkModeOpener} />)
+                        return (<TextNodeView key={nodeStore.Id} storeCollection={this.props.store} store={nodeStore as StaticTextNodeStore} resize={this.resizeNode} storeNodes={this.props.storeNodes} linkMode={this.linkMode} switchLinkMode={this.switchLinkMode} setLinkModeOpener={this.setLinkModeOpener} linkModeOpener={this.linkModeOpener} currentView={this.props.currentView}/>)
                     } else if (nodeStore instanceof VideoNodeStore) {
-                        return (<VideoNodeView key={nodeStore.Id} storeCollection={this.props.store} store={nodeStore as VideoNodeStore} resize={this.resizeNode} storeNodes={this.props.storeNodes} linkMode={this.linkMode} switchLinkMode={this.switchLinkMode} setLinkModeOpener={this.setLinkModeOpener} linkModeOpener={this.linkModeOpener} />)
+                        return (<VideoNodeView key={nodeStore.Id} storeCollection={this.props.store} store={nodeStore as VideoNodeStore} resize={this.resizeNode} storeNodes={this.props.storeNodes} linkMode={this.linkMode} switchLinkMode={this.switchLinkMode} setLinkModeOpener={this.setLinkModeOpener} linkModeOpener={this.linkModeOpener} currentView={this.props.currentView}/>)
                     } else if (nodeStore instanceof ImageNodeStore) {
-                        return (<ImageNodeView key={nodeStore.Id} storeCollection={this.props.store} store={nodeStore as ImageNodeStore} resize={this.resizeNode} storeNodes={this.props.storeNodes} linkMode={this.linkMode} switchLinkMode={this.switchLinkMode} setLinkModeOpener={this.setLinkModeOpener} linkModeOpener={this.linkModeOpener} />)
+                        return (<ImageNodeView key={nodeStore.Id} storeCollection={this.props.store} store={nodeStore as ImageNodeStore} resize={this.resizeNode} storeNodes={this.props.storeNodes} linkMode={this.linkMode} switchLinkMode={this.switchLinkMode} setLinkModeOpener={this.setLinkModeOpener} linkModeOpener={this.linkModeOpener} currentView={this.props.currentView}/>)
                     } else if (nodeStore instanceof PdfNodeStore) {
-                        return (<PdfNodeView key={nodeStore.Id} storeCollection={this.props.store} store={nodeStore as PdfNodeStore} resize={this.resizeNode} storeNodes={this.props.storeNodes} linkMode={this.linkMode} switchLinkMode={this.switchLinkMode} setLinkModeOpener={this.setLinkModeOpener} linkModeOpener={this.linkModeOpener} />)
+                        return (<PdfNodeView key={nodeStore.Id} storeCollection={this.props.store} store={nodeStore as PdfNodeStore} resize={this.resizeNode} storeNodes={this.props.storeNodes} linkMode={this.linkMode} switchLinkMode={this.switchLinkMode} setLinkModeOpener={this.setLinkModeOpener} linkModeOpener={this.linkModeOpener} currentView={this.props.currentView}/>)
                     } else if (nodeStore instanceof WebSiteNodeStore) {
-                        return (<WebSiteNodeView key={nodeStore.Id} storeCollection={this.props.store} store={nodeStore as WebSiteNodeStore} resize={this.resizeNode} storeNodes={this.props.storeNodes} linkMode={this.linkMode} switchLinkMode={this.switchLinkMode} setLinkModeOpener={this.setLinkModeOpener} linkModeOpener={this.linkModeOpener} />)
+                        return (<WebSiteNodeView key={nodeStore.Id} storeCollection={this.props.store} store={nodeStore as WebSiteNodeStore} resize={this.resizeNode} storeNodes={this.props.storeNodes} linkMode={this.linkMode} switchLinkMode={this.switchLinkMode} setLinkModeOpener={this.setLinkModeOpener} linkModeOpener={this.linkModeOpener} currentView={this.props.currentView}/>)
                     } else if (nodeStore instanceof CollectionStore) {
-                        return (<CollectionStoreNodeView key={nodeStore.Id} storeCollection={this.props.store} store={nodeStore as CollectionStore} resize= {this.resizeNode} storeNodes={this.props.storeNodes} linkMode={this.linkMode} switchLinkMode={this.switchLinkMode} setLinkModeOpener={this.setLinkModeOpener} linkModeOpener={this.linkModeOpener}/>)
+                        return (<CollectionStoreNodeView key={nodeStore.Id} storeCollection={this.props.store} store={nodeStore as CollectionStore} resize= {this.resizeNode} storeNodes={this.props.storeNodes} linkMode={this.linkMode} switchLinkMode={this.switchLinkMode} setLinkModeOpener={this.setLinkModeOpener} linkModeOpener={this.linkModeOpener} currentView={this.props.currentView}/>)
                     }
                 })}
             </div>

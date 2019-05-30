@@ -1,5 +1,6 @@
 import { computed, observable, action } from "mobx";
 import {Utils} from "../utils/Utils";
+import { NodeCollectionStore } from "./NodeCollectionStore";
 
 export class NodeStore {
 
@@ -20,6 +21,9 @@ export class NodeStore {
     @observable
     public Title: string = "";
 
+    @observable
+    public gridIndex:number;
+
     @computed
     public get Transform(): string {
         return "translate(" + this.X + "px, " + this.Y + "px)";
@@ -33,7 +37,16 @@ export class NodeStore {
         this.linkedNodes.push(node);
     }
 
+    @action
     assignTitle(title:string) {
         this.Title = title;
     }
+
+    @action
+    setGridIndex(index:number) {
+        this.gridIndex = index;
+    }
+
+    @observable
+    public instanceCollection:NodeCollectionStore;
 }

@@ -60,19 +60,21 @@ export class TopBar extends React.Component<IProps> {
     checkDropped = ():void => {
         let p = this.props;
         p.storeNodes.Nodes.forEach((col:CollectionStore) => {
-            if (col.X <= p.store.X && p.store.X <= col.X + col.Width) {
-                if (col.Y <= p.store.Y && p.store.Y <= col.Y + col.Height) {
-                    if(!(p.store instanceof CollectionStore)) {
+            if (col.X <= p.store.X && p.store.X + p.store.Width <= col.X + col.Width) {
+                if (col.Y <= p.store.Y && p.store.Y + p.store.Height <= col.Y + col.Height) {
+                    if(p.store !== col) {
                         console.log("Called");
                         console.log("Collection Title: ", col.Title);
                         console.log("Collection Id: ", col.Id);
                         console.log("Collection X: ", col.X);
                         console.log("Collection Y: ", col.Y);
-                        console.log("Store Id: ", p.store.Id);
+                        console.log("Store Id: ", p.store.Title);
                         console.log("Store X: ", p.store.X);
                         console.log("Store Y: ", p.store.Y);
                         if(!col.Nodes.Nodes.includes(p.store)) {
                             p.instanceCollection.removeNode(p.store);
+                            p.store.X = 0;
+                            p.store.Y = 0;
                             col.Nodes.addNode(p.store);
                             return;
                         } else {

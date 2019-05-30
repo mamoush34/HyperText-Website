@@ -9,6 +9,7 @@ import { NodeStore } from "../../stores/NodeStore";
 import ImageUpload from "../../imageupload/ImageUploader";
 import { NodeCollectionStore } from "../../stores/NodeCollectionStore";
 import LinkContainer from "../linkcontainer/LinkContainer";
+import { Canvas_Type } from "../../Dashboard";
 
 interface IProps {
     store: ImageNodeStore;
@@ -19,6 +20,8 @@ interface IProps {
     linkMode: boolean;
     setLinkModeOpener: (store:NodeStore) => void;
     linkModeOpener : NodeStore;
+    currentView: Canvas_Type;
+
     // openerLinkList : NodeStore[];
     // setOpenerArray: (nodeList: NodeStore[]) => void;
 
@@ -108,7 +111,7 @@ export class ImageNodeView extends React.Component<IProps> {
 
     renderLinkBox = () => {
         if(this.isLinkBoxRendered) {
-            return <div style={{display: "inherit", position:"absolute", border:"2px solid black", borderRadius:"10px", outline:"none", background:"burlywood", width: "25%", height: "calc(100% - 20px)", right: 0, boxSizing: "border-box"}}><LinkContainer Nodes={this.props.store.linkedNodes} workspace={this.props.storeCollection}/></div>;
+            return <div style={{display: "inherit", position:"absolute", border:"2px solid black", borderRadius:"10px", outline:"none", background:"burlywood", width: "25%", height: "calc(100% - 20px)", right: 0, boxSizing: "border-box"}}><LinkContainer Nodes={this.props.store.linkedNodes} workspace={this.props.storeCollection} currentView={this.props.currentView}/></div>;
         }
         return (null);
     }
