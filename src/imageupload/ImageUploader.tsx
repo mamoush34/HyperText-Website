@@ -12,7 +12,6 @@ interface ImageUploadProps {
 @observer
 export default class ImageUpload extends React.Component<ImageUploadProps> {
     @observable file:File;
-    //@observable imagePreviewUrl:string | ArrayBuffer;
     
     handleImageChange(e:React.ChangeEvent<HTMLInputElement>) {
       e.preventDefault();
@@ -24,7 +23,6 @@ export default class ImageUpload extends React.Component<ImageUploadProps> {
        
         this.file = file;
         this.props.imageNode.setImageUrl(reader.result);
-        //this.imagePreviewUrl = reader.result;
       }
   
       reader.readAsDataURL(file)

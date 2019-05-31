@@ -10,7 +10,9 @@ interface IProps {
     store: NodeCollectionStore
     storeNodes: NodeCollectionStore
 }
-
+/**
+ * The class that models grid form viewed canvas.
+ */
 @observer
 export class GridFormCanvas extends React.Component<IProps> {
 
@@ -46,11 +48,17 @@ export class GridFormCanvas extends React.Component<IProps> {
 
     }
 
+    /**
+     * This function zooms the canvas in or out depending on yDelta relative to where mouse
+     * is.
+     */
     onWheelZoom = (e: React.WheelEvent) : void => {
         e.stopPropagation();
 
         let store = this.props.store;
 
+        //Offsets in both axis are calculated depending on mouse location and node location
+        //taking scale into account.
         let xOffset = e.pageX / store.Scale - store.X / store.Scale;
         let yOffset = e.pageY/ store.Scale - store.Y / store.Scale;
 
@@ -60,6 +68,8 @@ export class GridFormCanvas extends React.Component<IProps> {
         }
         store.Scale += scaleFactor;
 
+        //X and Y coordinates of the canvas gets moved depending on the offset, therefore
+        //creating a relative zooming look.
         store.X = -(xOffset - e.pageX/ store.Scale) * store.Scale;
         store.Y =  -(yOffset - e.pageY/ store.Scale) * store.Scale;
 
@@ -69,7 +79,6 @@ export class GridFormCanvas extends React.Component<IProps> {
     render() {
         let store = this.props.store;
         return (
-            // `url(${`images/${filename}`})`
             <div className="gridformcanvas-container" onPointerDown={this.onPointerDown} onWheel={this.onWheelZoom} style={{backgroundImage: 'url(' + require('../../images/canvas_background.jpg') + ')'}}>
                 <div className="gridformcanvas" style={{ transform: store.Transform }}>
                     <NodeContainer store={store} storeNodes={this.props.storeNodes} currentView={Canvas_Type.GRID_FORM}/>

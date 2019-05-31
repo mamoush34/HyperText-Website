@@ -23,10 +23,6 @@ interface IProps {
     linkModeOpener : NodeStore;
     currentView: Canvas_Type;
 
-    // openerLinkList : NodeStore[];
-    // setOpenerArray: (nodeList: NodeStore[]) => void;
-
-
 }
 
 @observer
@@ -34,9 +30,10 @@ export class CollectionStoreNodeView extends React.Component<IProps> {
 
     private _isPointerDown = false;
     @observable private clickedResizer: Resizer_Type;
+    //the z index styling given to the node.
     @observable private nodeZIndex:number = 1;
-    // @observable private nodeLinkList: NodeStore[] = new Array();
     @observable private isLinkBoxRendered: boolean = false;
+    //the editable title input element.
     @observable private title: HTMLInputElement;
 
 
@@ -61,29 +58,25 @@ export class CollectionStoreNodeView extends React.Component<IProps> {
         this.props.resize(e, this._isPointerDown, this.clickedResizer, this.props.store);
     }
 
-    onRemoveNodeClick = ():void => {
-        let p = this.props;
-        p.storeCollection.removeNode(p.store);
-        p.storeNodes.removeNode(p.store);
-    }
-
+ 
+    /**
+     * Function that brings the node clicked on into the front.
+     */
     bringFront = ():void => {
         this.nodeZIndex = 2;
     }
 
+    /**
+     * Function that brings the node back to back when user lets go off the click.
+     */
     bringBack = ():void => {
         this.nodeZIndex = 1;
     }
 
-    // becomeCurrentOpenerList = (isLinkModeOpen:boolean): void => {
-    //     if(isLinkModeOpen) {
-    //         //this.props.setOpenerArray(this.nodeLinkList);
-    //         this.props.setLinkModeOpener(this.props.store);
-    //     } else{
-    //         this.props.setLinkModeOpener(undefined);
-    //     }
-    // }
-
+    /**
+     * The function that is called when the view is get clicked on. It adds the 
+     * node to the links of the node that opened the link mode.
+     */
     onLinkClick = (e: React.MouseEvent) => {
         e.stopPropagation();
         e.preventDefault();
@@ -92,13 +85,16 @@ export class CollectionStoreNodeView extends React.Component<IProps> {
             if (p.linkModeOpener !== p.store) {
                 if(!p.linkModeOpener.linkedNodes.includes(p.store)) {
                     p.linkModeOpener.addLinkNode(p.store);
-                    console.log("length: " , p.linkModeOpener.linkedNodes.length)
                     p.store.addLinkNode(p.linkModeOpener);
                 }
             }
         }
     }
 
+    /**
+     * The function that is responsible of setting the condtion of rendering the link box, 
+     * when user clicks on the show links.
+     */
     @action
     changeLinkBoxOpacity = () => {
         if(this.isLinkBoxRendered) {
@@ -109,13 +105,32 @@ export class CollectionStoreNodeView extends React.Component<IProps> {
         }
     }
 
+    /**
+     * The function that is responsible of rending the link box depending on the condition of user's click.
+     */
     renderLinkBox = () => {
         if(this.isLinkBoxRendered) {
-            return <div style={{display: "inherit", position:"absolute", border:"2px solid black", borderRadius:"10px", outline:"none", background:"burlywood", width: "25%", height: "calc(100% - 20px)", right: 0, boxSizing: "border-box"}}><LinkContainer Nodes={this.props.store.linkedNodes} workspace={this.props.storeCollection} currentView={this.props.currentView}/></div>;
+            return <div 
+            style={{
+                display: "inherit",
+                position:"absolute",
+                border:"2px solid black",
+                borderRadius:"10px",
+                outline:"none",
+                background:"burlywood",
+                width: "25%",
+                height: "calc(100% - 20px)",
+                right: 0, boxSizing: "border-box"}}
+                >
+                <LinkContainer Nodes={this.props.store.linkedNodes} workspace={this.props.storeCollection} currentView={this.props.currentView}/>
+                </div>;
         }
         return (null);
     }
 
+    /**
+     * This function is called to assign the title user entered for the store on enter press.
+     */
     onEnterPress = (e: React.KeyboardEvent): void => {
         if(e.charCode == 13) {
            this.title.blur();
@@ -140,14 +155,11 @@ export class CollectionStoreNodeView extends React.Component<IProps> {
                 <div className="resizer resizer_top-left" onPointerDown={(e) => {this.onPointerDown(e);
                      this.clickedResizer = Resizer_Type.TOP_LEFT}}>
                 </div>
-                {/* <div className="removeButton" onClick={this.onRemoveNodeClick}>X</div> */}
                 <TopBar store={store} storeNodes={this.props.storeNodes} instanceCollection={this.props.storeCollection} bringFront={this.bringFront} bringBack={this.bringBack} switchLinkMode={this.props.switchLinkMode} setLinkModeOpener={this.props.setLinkModeOpener}  linkMode={this.props.linkMode} setLinkBoxVisible={this.changeLinkBoxOpacity}/>
                 {this.renderLinkBox()}
                 <div className="scroll-box">
                     <div className="content">
                     <input className="title" type="text" placeholder={store.Title} ref={(e) => this.title = e} onClick={() => this.title.focus()} onKeyPress={this.onEnterPress}/>
-
-                        {/* <h3 className="title">{store.Title}</h3> */}
                         <FreeFormCanvas store={store.Nodes} storeNodes={this.props.storeNodes}/>
                     </div>
                 </div>

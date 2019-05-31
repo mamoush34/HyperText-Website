@@ -21,6 +21,8 @@ export class NodeStore {
     @observable
     public Title: string = "";
 
+
+    //holds where the node is located in a grid
     @observable
     public gridIndex:number;
 
@@ -47,6 +49,7 @@ export class NodeStore {
         this.gridIndex = index;
     }
 
+    //holds only reference of which collection the node is in
     @observable
     public instanceCollection:NodeCollectionStore;
 }

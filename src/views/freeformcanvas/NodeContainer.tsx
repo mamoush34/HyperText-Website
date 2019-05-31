@@ -24,6 +24,7 @@ interface IProps {
     currentView: Canvas_Type;
 }
 
+//enums that represent which corner of the resizer is
 export enum Resizer_Type {
     BOTTOM_RIGHT = 0,
     BOTTOM_LEFT = 1,
@@ -36,10 +37,14 @@ export enum Resizer_Type {
 @observer
 export class NodeContainer extends React.Component<IProps> {
 
+    //storing the status of linking in a higher level like here to be able to pass to all views under it.
     @observable private linkMode: boolean = false;
+    //storing which nodeStore opened the linkMode so that keeping track of the which node to pair with clicks.
     @observable private linkModeOpener: NodeStore = undefined;
-    //@observable private openerLinkList: NodeStore[];
 
+    /**
+     * The method that resizes the nodes that is passed in according to correct resizer.
+     */
     resizeNode = (e: PointerEvent, isPointerDown: boolean, clickedResizer: Resizer_Type, nodeStore: NodeStore): void => {
         e.stopPropagation();
         e.preventDefault();
@@ -72,6 +77,9 @@ export class NodeContainer extends React.Component<IProps> {
     
     }
 
+    /**
+     * Function that is passed down to switch link mode on/off.
+     */
     @action
     switchLinkMode = () => {
         if(this.linkMode){ 
@@ -81,17 +89,13 @@ export class NodeContainer extends React.Component<IProps> {
         }
     }
 
+    /**
+     * Function that is passed down to views to set which node opened the link mode.
+     */
     @action
     setLinkModeOpener = (store: NodeStore) => {
         this.linkModeOpener = store;
     }
-
-    // @action
-    // setOpenerArray = (nodeList: NodeStore[]) => {
-    //     this.openerLinkList = nodeList;
-    // }
-
-    
 
     render() {
         return (

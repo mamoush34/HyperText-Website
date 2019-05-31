@@ -24,12 +24,11 @@ interface IProps {
     setLinkModeOpener: (store:NodeStore) => void;
     linkModeOpener : NodeStore;
     currentView: Canvas_Type;
-
-    // openerLinkList : NodeStore[];
-    // setOpenerArray: (nodeList: NodeStore[]) => void;
 }
 
-
+/**
+ * This class models the view for text node stores.
+ */
 @observer
 export class TextNodeView extends React.Component<IProps> {
 
@@ -41,22 +40,18 @@ export class TextNodeView extends React.Component<IProps> {
     
     private _isPointerDown = false;
     @observable private clickedResizer: Resizer_Type;
-    //@observable editorState:EditorState = this.props.store.Text;
     @observable private nodeZIndex:number = 1;
-    // @observable private nodeLinkList: NodeStore[] = new Array();
     @observable private isLinkBoxRendered: boolean = false;
     @observable private title: HTMLInputElement;
     @observable toolbarState: boolean = false;;
 
 
-
+    /**
+     * This function is called to store the text of the user in the nodes.
+     */
     handleChange = (e: EditorState): void =>{
-        // this.editorState = e;
         this.props.store.assignText(e);
     }
-
-
-
 
     onPointerDown = (e: React.PointerEvent): void => {
         e.stopPropagation();
@@ -80,23 +75,24 @@ export class TextNodeView extends React.Component<IProps> {
         document.removeEventListener("pointerup", this.onPointerUp);
     }
 
-
+     /**
+     * This functions is called to bring the clicked view to the front.
+     */
     bringFront = ():void => {
         this.nodeZIndex = 2;
     }
 
+     /**
+     * This function is called to let the view back when clicking is done.
+     */
     bringBack = ():void => {
         this.nodeZIndex = 1;
     }
 
-    // becomeCurrentOpenerList = (isLinkModeOpen:boolean): void => {
-    //     if(isLinkModeOpen) {
-    //         this.props.setOpenerArray(this.nodeLinkList);
-    //     } else{
-    //         this.props.setOpenerArray(undefined);
-    //     }
-    // }
-
+    /**
+     * The function that is called when the view is get clicked on. It adds the 
+     * node to the links of the node that opened the link mode.
+     */
     onLinkClick = (e: React.MouseEvent) => {
         e.stopPropagation();
         e.preventDefault();
@@ -114,6 +110,10 @@ export class TextNodeView extends React.Component<IProps> {
         }
     }
 
+     /**
+     * The function that is responsible of setting the condtion of rendering the link box, 
+     * when user clicks on the show links.
+     */
     @action
     changeLinkBoxOpacity = () => {
         console.log("This got called");
@@ -126,6 +126,9 @@ export class TextNodeView extends React.Component<IProps> {
         }
     }
 
+    /**
+     * The function that is responsible of rending the link box depending on the condition of user's click.
+     */
     renderLinkBox = () => {
         if(this.isLinkBoxRendered) {
             return <div style={{display: "inherit", position:"absolute", border:"2px solid black", borderRadius:"10px", outline:"none", background:"burlywood", width: "25%", height: "calc(100% - 20px)", right: 0, boxSizing: "border-box"}}><LinkContainer Nodes={this.props.store.linkedNodes} workspace={this.props.storeCollection} currentView={this.props.currentView}/></div>;
@@ -133,6 +136,9 @@ export class TextNodeView extends React.Component<IProps> {
         return (null);
     }
 
+    /**
+     * This function is called to assign the title user entered for the store on enter press.
+     */
     onEnterPress = (e: React.KeyboardEvent): void => {
         if(e.charCode == 13) {
            this.title.blur();
@@ -141,6 +147,10 @@ export class TextNodeView extends React.Component<IProps> {
         }
     }
 
+    /**
+     * This function is called to render the right editor depending on 
+     * focus, so that toolbox shows uo.
+     */
     renderEditor = () => {
         if(this.toolbarState) {
             return  <Editor
@@ -190,17 +200,7 @@ export class TextNodeView extends React.Component<IProps> {
                 {this.renderLinkBox()}
                 <div className="scroll-box">
                     <div className="content">
-                        {/* <h3 className="title">{store.Title}</h3> */}
                         <input className="title" type="text" placeholder={store.Title} ref={(e) => this.title = e} onClick={() => this.title.focus()} onKeyPress={this.onEnterPress}/>
-                        {/* <Editor
-                            toolbarOnFocus
-                            {...this.toolbarState}
-                            editorState={this.props.store.Text}
-                            toolbarClassName="toolbarClassName"
-                            wrapperClassName="wrapperClassName"
-                            editorClassName="editorClassName"
-                            onEditorStateChange={this.handleChange}
-                        /> */}
                         {this.renderEditor()}
                     </div>
                 </div>

@@ -22,10 +22,6 @@ interface IProps {
     setLinkModeOpener: (store:NodeStore) => void;
     linkModeOpener : NodeStore;
     currentView: Canvas_Type;
-    
-
-    // openerLinkList : NodeStore[];
-    // setOpenerArray: (nodeList: NodeStore[]) => void;
 
 }
 
@@ -35,13 +31,9 @@ export class VideoNodeView extends React.Component<IProps> {
     private _isPointerDown = false;
     @observable private clickedResizer: Resizer_Type;
     @observable private nodeZIndex:number = 1;
-    // @observable private nodeLinkList: NodeStore[] = new Array();
     @observable private isLinkBoxRendered: boolean = false;
     @observable private title: HTMLInputElement;
     @observable private websiteField: HTMLInputElement;
-
-
-
 
 
     onPointerDown = (e: React.PointerEvent): void => {
@@ -61,31 +53,29 @@ export class VideoNodeView extends React.Component<IProps> {
         document.removeEventListener("pointermove", this.resizeEvent);
         document.removeEventListener("pointerup", this.onPointerUp);
     }
+
     resizeEvent = (e: PointerEvent) => {
         this.props.resize(e, this._isPointerDown, this.clickedResizer, this.props.store);
     }
 
-    onRemoveNodeClick = ():void => {
-        let p = this.props;
-        p.storeCollection.removeNode(p.store);
-    }
-
+     /**
+     * This functions is called to bring the clicked view to the front.
+     */
     bringFront = ():void => {
         this.nodeZIndex = 2;
     }
 
+    /**
+     * This function is called to let the view back when clicking is done.
+     */
     bringBack = ():void => {
         this.nodeZIndex = 1;
     }
 
-    // becomeCurrentOpenerList = (isLinkModeOpen:boolean): void => {
-    //     if(isLinkModeOpen) {
-    //         this.props.setOpenerArray(this.nodeLinkList);
-    //     } else{
-    //         this.props.setOpenerArray(undefined);
-    //     }
-    // }
-
+    /**
+     * The function that is called when the view is get clicked on. It adds the 
+     * node to the links of the node that opened the link mode.
+     */
     onLinkClick = (e: React.MouseEvent) => {
         e.stopPropagation();
         e.preventDefault();
@@ -103,6 +93,10 @@ export class VideoNodeView extends React.Component<IProps> {
         }
     }
 
+     /**
+     * The function that is responsible of setting the condtion of rendering the link box, 
+     * when user clicks on the show links.
+     */
     @action
     changeLinkBoxOpacity = () => {
         if(this.isLinkBoxRendered) {
@@ -113,6 +107,9 @@ export class VideoNodeView extends React.Component<IProps> {
         }
     }
 
+     /**
+     * The function that is responsible of rending the link box depending on the condition of user's click.
+     */
     renderLinkBox = () => {
         if(this.isLinkBoxRendered) {
             return <div style={{display: "inherit", position:"absolute", border:"2px solid black", borderRadius:"10px", outline:"none", background:"burlywood", width: "25%", height: "calc(100% - 20px)", right: 0, boxSizing: "border-box"}}><LinkContainer Nodes={this.props.store.linkedNodes} workspace={this.props.storeCollection} currentView={this.props.currentView}/></div>;
@@ -120,6 +117,9 @@ export class VideoNodeView extends React.Component<IProps> {
         return (null);
     }
 
+     /**
+     * This function is called to assign the title user entered for the store on enter press.
+     */
     onEnterPress = (e: React.KeyboardEvent): void => {
         if(e.charCode == 13) {
            this.title.blur();
@@ -128,6 +128,9 @@ export class VideoNodeView extends React.Component<IProps> {
         }
     }
 
+    /**
+     * This function is called to assign a new url for the video source when pressed enter.
+     */
     onEnterUrlPress = (e: React.KeyboardEvent): void => {
         let p = this.props;
         if(e.charCode == 13) {

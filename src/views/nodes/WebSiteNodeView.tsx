@@ -24,13 +24,11 @@ interface IProps {
     setLinkModeOpener: (store:NodeStore) => void;
     linkModeOpener : NodeStore;
     currentView: Canvas_Type;
-
-    // openerLinkList : NodeStore[];
-    // setOpenerArray: (nodeList: NodeStore[]) => void;
-
-
 }
 
+/**
+ * This class is the class that models the nodes responsible for iframe embedding.
+ */
 @observer
 export class WebSiteNodeView extends React.Component<IProps> {
 
@@ -38,14 +36,9 @@ export class WebSiteNodeView extends React.Component<IProps> {
     @observable private clickedResizer: Resizer_Type;
     @observable private websiteField: HTMLInputElement;
     @observable private nodeZIndex:number = 1;
-    // @observable private nodeLinkList: NodeStore[] = new Array();
     @observable private isLinkBoxRendered: boolean = false;
     @observable private title: HTMLInputElement;
     @observable private iFrame: HTMLIFrameElement;
-
-
-
-
 
     onPointerDown = (e: React.PointerEvent): void => {
         e.stopPropagation();
@@ -68,11 +61,9 @@ export class WebSiteNodeView extends React.Component<IProps> {
         this.props.resize(e, this._isPointerDown, this.clickedResizer, this.props.store);
     }
 
-    onRemoveNodeClick = ():void => {
-        let p = this.props;
-        p.storeCollection.removeNode(p.store);
-    }
-    
+    /**
+     *  This is the function that gets called to assign a new url to the iFrame when pressed enter on the input.
+     */  
     onEnterPress = (e: React.KeyboardEvent): void => {
         let p = this.props;
         if(e.charCode == 13) {
@@ -83,22 +74,24 @@ export class WebSiteNodeView extends React.Component<IProps> {
         }
     }
 
+     /**
+     * This functions is called to bring the clicked view to the front.
+     */
     bringFront = ():void => {
         this.nodeZIndex = 2;
     }
 
+     /**
+     * This function is called to let the view back when clicking is done.
+     */
     bringBack = ():void => {
         this.nodeZIndex = 1;
     }
 
-    // becomeCurrentOpenerList = (isLinkModeOpen:boolean): void => {
-    //     if(isLinkModeOpen) {
-    //         this.props.setOpenerArray(this.nodeLinkList);
-    //     } else{
-    //         this.props.setOpenerArray(undefined);
-    //     }
-    // }
-
+    /**
+     * The function that is called when the view is get clicked on. It adds the 
+     * node to the links of the node that opened the link mode.
+     */
     onLinkClick = (e: React.MouseEvent) => {
         e.stopPropagation();
         e.preventDefault();
@@ -115,6 +108,10 @@ export class WebSiteNodeView extends React.Component<IProps> {
         }
     }
 
+     /**
+     * The function that is responsible of setting the condtion of rendering the link box, 
+     * when user clicks on the show links.
+     */
     @action
     changeLinkBoxOpacity = () => {
         if(this.isLinkBoxRendered) {
@@ -125,6 +122,9 @@ export class WebSiteNodeView extends React.Component<IProps> {
         }
     }
 
+    /**
+     * The function that is responsible of rending the link box depending on the condition of user's click.
+     */
     renderLinkBox = () => {
         if(this.isLinkBoxRendered) {
             return <div style={{display: "inherit", position:"absolute", border:"2px solid black", borderRadius:"10px", outline:"none", background:"burlywood", width: "25%", height: "calc(100% - 20px)", right: 0, boxSizing: "border-box"}}><LinkContainer Nodes={this.props.store.linkedNodes} workspace={this.props.storeCollection} currentView={this.props.currentView}/></div>;
@@ -132,6 +132,9 @@ export class WebSiteNodeView extends React.Component<IProps> {
         return (null);
     }
 
+    /**
+     * This function is called to assign the title user entered for the store on enter press.
+     */
     onEnterTitlePress = (e: React.KeyboardEvent): void => {
         if(e.charCode == 13) {
            this.title.blur();
@@ -156,7 +159,6 @@ export class WebSiteNodeView extends React.Component<IProps> {
                 <div className="resizer resizer_top-left" onPointerDown={(e) => {this.onPointerDown(e);
                      this.clickedResizer = Resizer_Type.TOP_LEFT}}>
                 </div>
-                {/* <div className="removeButton" onClick={this.onRemoveNodeClick}>X</div> */}
                 <TopBar store={store} storeNodes={this.props.storeNodes} instanceCollection={this.props.storeCollection} bringFront={this.bringFront} bringBack={this.bringBack} switchLinkMode={this.props.switchLinkMode} setLinkModeOpener={this.props.setLinkModeOpener} linkMode={this.props.linkMode} setLinkBoxVisible={this.changeLinkBoxOpacity}/>
                 {this.renderLinkBox()}
 

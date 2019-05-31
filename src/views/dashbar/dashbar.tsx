@@ -19,36 +19,55 @@ interface DashBarProps {
     storeNodes: NodeCollectionStore
 }
 
+/**
+ * The class models the dashbar located atop of initial view. It
+ * holds buttons.
+ */
 @observer
 export default class DashBar extends React.Component<DashBarProps> {
 
     private maxX:number = 200;
     private maxY:number = 200;
     
-
+    /**
+     * Creates new video node on click.
+     */
     onVideoClick = () => {
         this.props.mainCollection.addNode(new VideoNodeStore({ X: Math.random() * this.maxX, Y: Math.random() * this.maxY, Title: "Video Node Title", Url: "http://cs.brown.edu/people/peichman/downloads/cted.mp4", instanceCollection: this.props.mainCollection }));
-     
-
     }
 
+    /**
+     * Creates new text node on click.
+     */
     onTextClick = () => {
         this.props.mainCollection.addNode(new StaticTextNodeStore({ X: Math.random() * this.maxX, Y: Math.random() * this.maxY, Title: "Text Node Title", Text: EditorState.createEmpty(), instanceCollection: this.props.mainCollection}));
         
     }   
 
+    /**
+     * Creates new image node on click.
+     */
     onImageClick = () => {
         this.props.mainCollection.addNode(new ImageNodeStore({ X: 500, Y: 500, Title:"Image Node", Url:"", instanceCollection: this.props.mainCollection}));
     }
 
+    /**
+     * Creates new pdf node on click.
+     */
     onPdfClick = () => {
         this.props.mainCollection.addNode(new PdfNodeStore({ X: 1200, Y: 500, Title:"Pdf Node", instanceCollection: this.props.mainCollection}));
     }
 
+    /**
+     * Creates new iFrame node on click.
+     */
     onWebPageClick = () => {
         this.props.mainCollection.addNode(new WebSiteNodeStore({ X: 100, Y: 500, Title:"Web Node", Url:"https://www.google.com/search?igu=1", instanceCollection: this.props.mainCollection}));
     }
 
+    /**
+     * Creates new storage node on click.
+     */
     onCanvasClick = () => {
         let newCollection: CollectionStore = new CollectionStore({X:800, Y:500, Title:"Store Node", instanceCollection: this.props.mainCollection});
         newCollection.Nodes.addNode(new StaticTextNodeStore({ X: Math.random() * 500, Y: Math.random() * 500, Title: "Text Node Title", Text: EditorState.createEmpty(), instanceCollection: newCollection.Nodes}));
@@ -57,11 +76,17 @@ export default class DashBar extends React.Component<DashBarProps> {
         this.props.storeNodes.addNode(newCollection);
     }
 
+    /**
+     * Changes the canavs to free form on click.
+     */
     onFreeFormClick = () => {
         this.props.mainCollection.resetTranslate();
         this.props.view(Canvas_Type.FREE_FORM);
     }
 
+    /**
+     * Changes the canvas to grid form on click.
+     */
     onGridFormClick = () => {
         this.props.mainCollection.resetTranslate();
         this.props.view(Canvas_Type.GRID_FORM);

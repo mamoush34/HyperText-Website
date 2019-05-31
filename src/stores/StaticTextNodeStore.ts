@@ -1,4 +1,4 @@
-import { observable } from "mobx";
+import { observable, action } from "mobx";
 import { NodeStore } from "./NodeStore";
 import { EditorState } from "draft-js";
 
@@ -12,6 +12,7 @@ export class StaticTextNodeStore extends NodeStore {
     @observable
     public Text: EditorState = EditorState.createEmpty();
 
+    @action
     assignText(e: EditorState) {
         this.Text = e;
     }

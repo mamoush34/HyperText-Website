@@ -1,4 +1,4 @@
-import { observable } from "mobx";
+import { observable, action } from "mobx";
 import { NodeStore } from "./NodeStore";
 
 export class PdfNodeStore extends NodeStore {
@@ -12,6 +12,7 @@ export class PdfNodeStore extends NodeStore {
     @observable
     public Pdf: File;
 
+    @action
     setPdf(pdf: File) {
         this.Pdf = pdf;
     }

@@ -28,11 +28,13 @@ export class NodeCollectionStore extends NodeStore {
         this.Nodes.splice(this.Nodes.indexOf(store), 1);
     }
 
-    @action setX(xCord: number):void {
+    @action 
+    setX(xCord: number):void {
         this.X = xCord;
     }
 
-    @action setY(yCord: number):void {
+    @action 
+    setY(yCord: number):void {
         this.Y = yCord;
     }
 

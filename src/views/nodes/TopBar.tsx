@@ -13,11 +13,13 @@ interface IProps {
     bringBack: () => void;
     switchLinkMode: () => boolean;
     setLinkModeOpener: (store:NodeStore) => void;
-    // setCurrentLinkList: (isLinkModeOpen: boolean) => void;
     setLinkBoxVisible: () => void;
     linkMode:boolean;
 }
 
+/**
+ * This class models the top bar attached to the node views.
+ */
 @observer
 export class TopBar extends React.Component<IProps> {
 
@@ -58,20 +60,16 @@ export class TopBar extends React.Component<IProps> {
 
     }
 
+    /**
+     * This function is called to check if the node is dropped inside a nested store node, so it can
+     * be nested.
+     */
     checkDropped = ():void => {
         let p = this.props;
         p.storeNodes.Nodes.forEach((col:CollectionStore) => {
             if (col.X <= p.store.X && p.store.X + p.store.Width <= col.X + col.Width) {
                 if (col.Y <= p.store.Y && p.store.Y + p.store.Height <= col.Y + col.Height) {
                     if(p.store !== col) {
-                        // console.log("Called");
-                        // console.log("Collection Title: ", col.Title);
-                        // console.log("Collection Id: ", col.Id);
-                        // console.log("Collection X: ", col.X);
-                        // console.log("Collection Y: ", col.Y);
-                        // console.log("Store Id: ", p.store.Title);
-                        // console.log("Store X: ", p.store.X);
-                        // console.log("Store Y: ", p.store.Y);
                         if(!col.Nodes.Nodes.includes(p.store)) {
                             p.instanceCollection.removeNode(p.store);
                             p.store.X = 0;
@@ -91,74 +89,85 @@ export class TopBar extends React.Component<IProps> {
         })
     }
 
+    /**
+     * This function is called to check if a node nested in another node is dragged out, and if so
+     * it's taken out to parent collection with appropriate coordinates.
+     */
     checkDroppedOut = (e: PointerEvent):void => {
         let p = this.props;
         p.storeNodes.Nodes.forEach((node: CollectionStore) => {
             if(node.Nodes.Nodes.includes(p.store)) {
+                //mouse location respective of scaling calculated
                 let mouseX = (e.pageX - node.instanceCollection.X) / node.instanceCollection.Scale;
                 let mouseY = (e.pageY - node.instanceCollection.Y)/ node.instanceCollection.Scale;
-                let nodeX = node.X; //+ node.instanceCollection.X;
-                let nodeY = node.Y; //+ node.instanceCollection.Y;
-                console.log("Mouse X:", mouseX, " storeWidth: ", node.Width * 0.75, " node X: ", nodeX);
-                console.log("Mouse Y:", mouseY, " storeHeight: ", node.Height, " node Y: ", nodeY);
+                let nodeX = node.X; 
+                let nodeY = node.Y; 
 
-                console.log("Scale of Node: ", node.instanceCollection.Scale);
-
+                //left-side
                 if (mouseX < nodeX ) { 
                     node.Nodes.removeNode(p.store);
                     node.instanceCollection.addNode(p.store);
                     p.store.X = node.X - p.store.Width;
                     p.store.Y = mouseY;
-                    console.log("First Condition Called!");
                     return;
                 }
+                //right-side minus link container
                 if(mouseX > nodeX + (node.Width * 0.75)) {
                     node.Nodes.removeNode(p.store);
                     node.instanceCollection.addNode(p.store);
                     p.store.X = node.X + node.Width;
                     p.store.Y = mouseY;
-                    console.log("Second Condition Called!");
 
                     return;
                 }
+
+                //top side
                 if(mouseY < nodeY) {
                     node.Nodes.removeNode(p.store);
                     node.instanceCollection.addNode(p.store);
                     p.store.Y = node.Y - p.store.Height;
                     p.store.X = mouseX;
-                    console.log("Third Condition Called!");
 
                     return;
                 } 
+
+                //bottom side
                 if(mouseY > nodeY + node.Height) {
                     node.Nodes.removeNode(p.store);
                     node.instanceCollection.addNode(p.store);
                     p.store.Y = node.Y + node.Height;
                     p.store.X = mouseX;
-                    console.log("Fourth Condition Called!");
 
                     return;
                 }
             }
         });
     }
+
+    /**
+     * This is the method that is called to open the link mode for the node.
+     */
     onLinkClink = (e: React.MouseEvent) => {
         e.stopPropagation();
         e.preventDefault();
         if(this.props.switchLinkMode()) {
             this.props.setLinkModeOpener(this.props.store);
-            // this.props.setCurrentLinkList(true);
         } else {
             this.props.setLinkModeOpener(undefined);
-            // this.props.setCurrentLinkList(false);
-
         }
     }
 
+    /**
+     * Function responsible of removing the node from the collection and the store nodes
+     * that are kept track of. Also any links between it.
+     */
     onRemoveNodeClick = ():void => {
         let p = this.props;
         p.instanceCollection.removeNode(p.store);
         p.store.linkedNodes.forEach((node) => node.linkedNodes.splice(node.linkedNodes.indexOf(p.store), 1))
+        if(p.store instanceof CollectionStore) {
+            p.storeNodes.removeNode(p.store);
+        }
     }
 
     render() {

@@ -1,4 +1,4 @@
-import { observable } from "mobx";
+import { observable, action } from "mobx";
 import { NodeStore } from "./NodeStore";
 
 export class ImageNodeStore extends NodeStore {
@@ -11,7 +11,7 @@ export class ImageNodeStore extends NodeStore {
     @observable
     public Url: any;
 
-
+    @action
     setImageUrl(url: any) {
         this.Url = url;
     }
