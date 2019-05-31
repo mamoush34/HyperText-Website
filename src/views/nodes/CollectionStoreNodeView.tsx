@@ -160,7 +160,7 @@ export class CollectionStoreNodeView extends React.Component<IProps> {
                 <div className="scroll-box">
                     <div className="content">
                     <input className="title" type="text" placeholder={store.Title} ref={(e) => this.title = e} onClick={() => this.title.focus()} onKeyPress={this.onEnterPress}/>
-                        <FreeFormCanvas store={store.Nodes} storeNodes={this.props.storeNodes}/>
+                        <FreeFormCanvas store={store.Nodes} storeNodes={this.props.storeNodes} containerNode={store}/>
                     </div>
                 </div>
             </div>

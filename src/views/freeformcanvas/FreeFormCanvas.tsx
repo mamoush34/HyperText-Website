@@ -5,10 +5,13 @@ import { NodeContainer } from "./NodeContainer";
 import React = require("react");
 import DashBar from "../dashbar/dashbar";
 import { Canvas_Type } from "../../Dashboard";
+import { CollectionStore } from "../../stores/CollectionStore";
+import { node } from "prop-types";
 
 interface IProps {
     store: NodeCollectionStore
     storeNodes: NodeCollectionStore
+    containerNode: CollectionStore
 }
 
 /**
@@ -56,11 +59,25 @@ export class FreeFormCanvas extends React.Component<IProps> {
         e.stopPropagation();
 
         let store = this.props.store;
+        let p = this.props;
+
+        let mouseX: number;
+        let mouseY: number;
+
+        //relative zooming for nested collections by adjusting the origin
+        if(p.containerNode !== undefined) {
+            mouseX = ((e.pageX  - p.containerNode.instanceCollection.X) / p.containerNode.instanceCollection.Scale) - p.containerNode.X;
+            mouseY = ((e.pageY  - p.containerNode.instanceCollection.Y) / p.containerNode.instanceCollection.Scale) - p.containerNode.Y;
+        } else {
+            mouseX = e.pageX;
+            mouseY = e.pageY;
+        }
+
 
         //Offsets in both axis are calculated depending on mouse location and node location
         //taking scale into account.
-        let xOffset = e.pageX / store.Scale - store.X / store.Scale;
-        let yOffset = e.pageY/ store.Scale - store.Y / store.Scale;
+        let xOffset = mouseX / store.Scale - store.X / store.Scale;
+        let yOffset = mouseY/ store.Scale - store.Y / store.Scale;
 
         let scaleFactor = e.deltaY * 0.001;
         if((store.Scale + scaleFactor) <= 0.01) {
@@ -70,8 +87,8 @@ export class FreeFormCanvas extends React.Component<IProps> {
 
         //X and Y coordinates of the canvas gets moved depending on the offset, therefore
         //creating a relative zooming look.
-        store.X = -(xOffset - e.pageX/ store.Scale) * store.Scale;
-        store.Y =  -(yOffset - e.pageY/ store.Scale) * store.Scale;
+        store.X = -(xOffset - mouseX/ store.Scale) * store.Scale;
+        store.Y =  -(yOffset - mouseY/ store.Scale) * store.Scale;
 
     }
 

@@ -31,7 +31,7 @@ export default class Dashboard extends React.Component<DashboardProps>{
         let p = this.props;
         switch(this.chosenView) {
             case Canvas_Type.FREE_FORM:
-                return <FreeFormCanvas store={p.collection} storeNodes={p.storeNodes}/>;
+                return <FreeFormCanvas store={p.collection} storeNodes={p.storeNodes} containerNode={undefined}/>;
             case Canvas_Type.GRID_FORM:
                 return <GridFormCanvas store={p.collection} storeNodes={p.storeNodes}/>;
         }
