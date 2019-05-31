@@ -5,6 +5,8 @@ import { NodeContainer } from "../freeformcanvas/NodeContainer";
 import React = require("react");
 import DashBar from "../dashbar/dashbar";
 import { Canvas_Type } from "../../Dashboard";
+import * as Constants from '../../constants/Constants'
+
 
 interface IProps {
     store: NodeCollectionStore
@@ -62,8 +64,8 @@ export class GridFormCanvas extends React.Component<IProps> {
         let xOffset = e.pageX / store.Scale - store.X / store.Scale;
         let yOffset = e.pageY/ store.Scale - store.Y / store.Scale;
 
-        let scaleFactor = e.deltaY * 0.001;
-        if((store.Scale + scaleFactor) <= 0.01) {
+        let scaleFactor = e.deltaY * Constants.WHEEL_DELTA_FACTOR;
+        if((store.Scale + scaleFactor) <= Constants.SCALE_LIMIT) {
             return;
         }
         store.Scale += scaleFactor;

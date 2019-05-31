@@ -5,6 +5,8 @@ import { observer } from "mobx-react";
 import { observable, action } from "mobx";
 import { NodeCollectionStore } from "../../stores/NodeCollectionStore";
 import { Canvas_Type } from "../../Dashboard";
+import * as Constants from '../../constants/Constants'
+
 
 interface LinkContainerProps {
     Nodes: NodeStore[]
@@ -41,10 +43,10 @@ export default class LinkContainer extends React.Component<LinkContainerProps> {
         //Canvas zooms into the node as well.
         if(p.currentView === Canvas_Type.GRID_FORM) {
             let gridIndex = node.gridIndex + 1;
-            let row = Math.ceil(gridIndex / 5) - 1;
-            let col = (gridIndex % 5) - 1;
-            xOffset =  -(col * 550);
-            yOffset = - (row * 500);
+            let row = Math.ceil(gridIndex / Constants.GRID_COL_NUMBER) - 1;
+            let col = (gridIndex % Constants.GRID_COL_NUMBER) - 1;
+            xOffset =  -(col * Constants.GRID_LINK_X_FACTOR);
+            yOffset = - (row * Constants.GRID_LINK_Y_FACTOR);
             p.workspace.setX(xOffset);
             p.workspace.setY(yOffset);
             p.workspace.Scale = 1;
@@ -52,8 +54,8 @@ export default class LinkContainer extends React.Component<LinkContainerProps> {
         // It it's any other view they get followed depending on their coordinates and end up being on center.
         //Canvas zooms into the node as well.
         } else{
-            xOffset = 600 - node.X;
-            yOffset = 300 - node.Y
+            xOffset = Constants.FREE_LINK_X_FACTOR - node.X;
+            yOffset = Constants.FREE_LINK_Y_FACTOR - node.Y
             p.workspace.setX(xOffset);
             p.workspace.setY(yOffset);
             p.workspace.Scale = 1;

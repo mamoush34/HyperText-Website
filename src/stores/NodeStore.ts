@@ -1,6 +1,8 @@
 import { computed, observable, action } from "mobx";
 import {Utils} from "../utils/Utils";
 import { NodeCollectionStore } from "./NodeCollectionStore";
+import * as Constants from '../constants/Constants'
+
 
 export class NodeStore {
 
@@ -13,10 +15,10 @@ export class NodeStore {
     public Y: number = 0;
 
     @observable
-    public Width: number = 400;
+    public Width: number = Constants.NODE_DEFAULT_WIDTH;
 
     @observable
-    public Height: number = 400;
+    public Height: number = Constants.NODE_DEFAULT_HEIGHT;
 
     @observable
     public Title: string = "";

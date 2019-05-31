@@ -4,6 +4,8 @@ import "./NodeView.scss";
 import React = require("react");
 import { NodeCollectionStore } from "../../stores/NodeCollectionStore";
 import { CollectionStore } from "../../stores/CollectionStore";
+import * as Constants from '../../constants/Constants'
+
 
 interface IProps {
     store: NodeStore;
@@ -112,7 +114,7 @@ export class TopBar extends React.Component<IProps> {
                     return;
                 }
                 //right-side minus link container
-                if(mouseX > nodeX + (node.Width * 0.75)) {
+                if(mouseX > nodeX + (node.Width * Constants.NODE_TO_DIV_RATIO)) {
                     node.Nodes.removeNode(p.store);
                     node.instanceCollection.addNode(p.store);
                     p.store.X = node.X + node.Width;

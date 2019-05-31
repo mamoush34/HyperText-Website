@@ -11,6 +11,8 @@ import { CollectionStore } from "../../stores/CollectionStore";
 import LinkContainer from "../linkcontainer/LinkContainer";
 import { Canvas_Type } from "../../Dashboard";
 import { FreeFormCanvas } from "../freeformcanvas/FreeFormCanvas";
+import * as Constants from '../../constants/Constants'
+
 
 interface IProps {
     store: CollectionStore;
@@ -31,7 +33,7 @@ export class CollectionStoreNodeView extends React.Component<IProps> {
     private _isPointerDown = false;
     @observable private clickedResizer: Resizer_Type;
     //the z index styling given to the node.
-    @observable private nodeZIndex:number = 1;
+    @observable private nodeZIndex:number = Constants.NODE_DEFAULT_Z_INDEX;
     @observable private isLinkBoxRendered: boolean = false;
     //the editable title input element.
     @observable private title: HTMLInputElement;
@@ -63,14 +65,14 @@ export class CollectionStoreNodeView extends React.Component<IProps> {
      * Function that brings the node clicked on into the front.
      */
     bringFront = ():void => {
-        this.nodeZIndex = 2;
+        this.nodeZIndex = Constants.CLICKED_NODE_Z_INDEX;
     }
 
     /**
      * Function that brings the node back to back when user lets go off the click.
      */
     bringBack = ():void => {
-        this.nodeZIndex = 1;
+        this.nodeZIndex = Constants.NODE_DEFAULT_Z_INDEX;
     }
 
     /**

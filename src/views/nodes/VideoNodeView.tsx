@@ -10,6 +10,8 @@ import { NodeStore } from "../../stores/NodeStore";
 import { NodeCollectionStore } from "../../stores/NodeCollectionStore";
 import LinkContainer from "../linkcontainer/LinkContainer";
 import { Canvas_Type } from "../../Dashboard";
+import * as Constants from '../../constants/Constants'
+
 
 
 interface IProps {
@@ -30,7 +32,7 @@ export class VideoNodeView extends React.Component<IProps> {
 
     private _isPointerDown = false;
     @observable private clickedResizer: Resizer_Type;
-    @observable private nodeZIndex:number = 1;
+    @observable private nodeZIndex:number = Constants.NODE_DEFAULT_Z_INDEX;
     @observable private isLinkBoxRendered: boolean = false;
     @observable private title: HTMLInputElement;
     @observable private websiteField: HTMLInputElement;
@@ -62,14 +64,14 @@ export class VideoNodeView extends React.Component<IProps> {
      * This functions is called to bring the clicked view to the front.
      */
     bringFront = ():void => {
-        this.nodeZIndex = 2;
+        this.nodeZIndex = Constants.CLICKED_NODE_Z_INDEX;
     }
 
     /**
      * This function is called to let the view back when clicking is done.
      */
     bringBack = ():void => {
-        this.nodeZIndex = 1;
+        this.nodeZIndex = Constants.NODE_DEFAULT_Z_INDEX;
     }
 
     /**
