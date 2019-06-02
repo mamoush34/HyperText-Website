@@ -1,5 +1,4 @@
 import { observer } from "mobx-react";
-import { VideoNodeStore } from "../../stores/VideoNodeStore";
 import "./NodeView.scss";
 import { TopBar } from "./TopBar";
 import React = require("react");
@@ -7,7 +6,6 @@ import { observable, action } from "mobx";
 import { Resizer_Type } from "../freeformcanvas/NodeContainer";
 import { NodeStore } from "../../stores/NodeStore";
 import { WebSiteNodeStore } from "../../stores/WebSiteNodeStore";
-import Iframe from 'react-iframe'
 import { NodeCollectionStore } from "../../stores/NodeCollectionStore";
 import LinkContainer from "../linkcontainer/LinkContainer";
 import { Canvas_Type } from "../../Dashboard";

@@ -3,10 +3,8 @@ import { NodeCollectionStore } from "../../stores/NodeCollectionStore";
 import "./FreeFormCanvas.scss";
 import { NodeContainer } from "./NodeContainer";
 import React = require("react");
-import DashBar from "../dashbar/dashbar";
 import { Canvas_Type } from "../../Dashboard";
 import { CollectionStore } from "../../stores/CollectionStore";
-import { node } from "prop-types";
 import * as Constants from '../../constants/Constants'
 
 

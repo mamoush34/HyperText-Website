@@ -107,7 +107,6 @@ export class PdfNodeView extends React.Component<IProps> {
      */
     onLinkClick = (e: React.MouseEvent) => {
         e.stopPropagation();
-        // e.preventDefault();
         let p = this.props;
         if (p.linkMode) {
             if (p.linkModeOpener !== p.store) {

@@ -1,9 +1,7 @@
 import React = require("react");
 import { NodeCollectionStore } from "../../stores/NodeCollectionStore";
 import { StaticTextNodeStore } from "../../stores/StaticTextNodeStore";
-import { observable } from "mobx";
 import { observer } from "mobx-react";
-import { NodeStore } from "../../stores/NodeStore";
 import { VideoNodeStore } from "../../stores/VideoNodeStore";
 import './dashbar.scss'
 import { ImageNodeStore } from "../../stores/ImageNodeStore";

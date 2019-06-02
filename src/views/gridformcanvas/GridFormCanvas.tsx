@@ -3,10 +3,8 @@ import { NodeCollectionStore } from "../../stores/NodeCollectionStore";
 import "./GridFormCanvas.scss";
 import { NodeContainer } from "../freeformcanvas/NodeContainer";
 import React = require("react");
-import DashBar from "../dashbar/dashbar";
 import { Canvas_Type } from "../../Dashboard";
 import * as Constants from '../../constants/Constants'
-import { action } from "mobx";
 
 
 interface IProps {

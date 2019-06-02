@@ -4,7 +4,6 @@ import "./NodeView.scss";
 import React = require("react");
 import { NodeCollectionStore } from "../../stores/NodeCollectionStore";
 import { CollectionStore } from "../../stores/CollectionStore";
-import * as Constants from '../../constants/Constants'
 
 
 interface IProps {

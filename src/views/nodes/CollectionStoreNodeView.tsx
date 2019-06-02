@@ -6,7 +6,6 @@ import { observable, action } from "mobx";
 import { Resizer_Type } from "../freeformcanvas/NodeContainer";
 import { NodeStore } from "../../stores/NodeStore";
 import { NodeCollectionStore } from "../../stores/NodeCollectionStore";
-import { GridFormCanvas } from "../gridformcanvas/GridFormCanvas";
 import { CollectionStore } from "../../stores/CollectionStore";
 import LinkContainer from "../linkcontainer/LinkContainer";
 import { Canvas_Type } from "../../Dashboard";
@@ -56,6 +55,7 @@ export class CollectionStoreNodeView extends React.Component<IProps> {
         document.removeEventListener("pointermove", this.resizeEvent);
         document.removeEventListener("pointerup", this.onPointerUp);
     }
+
     resizeEvent = (e: PointerEvent) => {
         this.props.resize(e, this._isPointerDown, this.clickedResizer, this.props.store);
     }

@@ -2,7 +2,6 @@ import React = require("react");
 import { NodeStore } from "../../stores/NodeStore";
 import './LinkContainer.scss'
 import { observer } from "mobx-react";
-import { observable, action } from "mobx";
 import { NodeCollectionStore } from "../../stores/NodeCollectionStore";
 import { Canvas_Type } from "../../Dashboard";
 import * as Constants from '../../constants/Constants'
