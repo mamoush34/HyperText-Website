@@ -122,7 +122,9 @@ export class CollectionStoreNodeView extends React.Component<IProps> {
                 background:"burlywood",
                 width: "25%",
                 height: "calc(100% - 20px)",
-                right: 0, boxSizing: "border-box"}}
+                right: 0, boxSizing: "border-box",
+                zIndex: 1
+            }}
                 >
                 <LinkContainer Nodes={this.props.store.linkedNodes} workspace={this.props.storeCollection} currentView={this.props.currentView}/>
                 </div>;
@@ -159,7 +161,7 @@ export class CollectionStoreNodeView extends React.Component<IProps> {
                 </div>
                 <TopBar store={store} storeNodes={this.props.storeNodes} instanceCollection={this.props.storeCollection} bringFront={this.bringFront} bringBack={this.bringBack} switchLinkMode={this.props.switchLinkMode} setLinkModeOpener={this.props.setLinkModeOpener}  linkMode={this.props.linkMode} setLinkBoxVisible={this.changeLinkBoxOpacity}/>
                 {this.renderLinkBox()}
-                <div className="scroll-box">
+                <div className="scroll-box" style={{width: this.isLinkBoxRendered ? "75%" : "100%"}}>
                     <div className="content">
                     <input className="title" type="text" placeholder={store.Title} ref={(e) => this.title = e} onClick={() => this.title.focus()} onKeyPress={this.onEnterPress}/>
                         <FreeFormCanvas store={store.Nodes} storeNodes={this.props.storeNodes} containerNode={store}/>

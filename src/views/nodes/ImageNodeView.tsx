@@ -85,7 +85,6 @@ export class ImageNodeView extends React.Component<IProps> {
             if (p.linkModeOpener !== p.store) {
                 if(!p.linkModeOpener.linkedNodes.includes(p.store)) {
                     p.linkModeOpener.addLinkNode(p.store);
-                    console.log("length: " , p.linkModeOpener.linkedNodes.length)
                     p.store.addLinkNode(p.linkModeOpener);
 
                 }
@@ -147,7 +146,7 @@ export class ImageNodeView extends React.Component<IProps> {
                 </div>
                 <TopBar store={store} storeNodes={this.props.storeNodes} instanceCollection={this.props.storeCollection} bringFront={this.bringFront} bringBack={this.bringBack} switchLinkMode={this.props.switchLinkMode} setLinkModeOpener={this.props.setLinkModeOpener}  linkMode={this.props.linkMode} setLinkBoxVisible={this.changeLinkBoxOpacity}/>
                 {this.renderLinkBox()}
-                <div className="scroll-box">
+                <div className="scroll-box" style={{width: this.isLinkBoxRendered ? "75%" : "100%"}}>
                     <div className="content">
                     <input className="title" type="text" placeholder={store.Title} ref={(e) => this.title = e} onClick={() => this.title.focus()} onKeyPress={this.onEnterPress}/>
                         <ImageUpload imageNode ={store}/>

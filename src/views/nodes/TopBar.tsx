@@ -64,7 +64,7 @@ export class TopBar extends React.Component<IProps> {
 
     /**
      * This function is called to check if the node is dropped inside a nested store node, so it can
-     * be nested.
+     * be nested. The node that is dropped should have all of its area contained in the store node.
      */
     checkDropped = ():void => {
         let p = this.props;
@@ -93,7 +93,10 @@ export class TopBar extends React.Component<IProps> {
 
     /**
      * This function is called to check if a node nested in another node is dragged out, and if so
-     * it's taken out to parent collection with appropriate coordinates.
+     * it's taken out to parent collection with appropriate coordinates. It's checked if the user 
+     * takes out the mouse out of the area of store node, while clicking TopBar of the node, so that
+     * reading the behavior of dropping out. Coordinates given to dropped out node depends on the one of
+     * x,y coordinate of the mouse to decide with respective height or width.
      */
     checkDroppedOut = (e: PointerEvent):void => {
         let p = this.props;
@@ -113,8 +116,8 @@ export class TopBar extends React.Component<IProps> {
                     p.store.Y = mouseY;
                     return;
                 }
-                //right-side minus link container
-                if(mouseX > nodeX + (node.Width * Constants.NODE_TO_DIV_RATIO)) {
+                //right-side 
+                if(mouseX > nodeX + node.Width ) {
                     node.Nodes.removeNode(p.store);
                     node.instanceCollection.addNode(p.store);
                     p.store.X = node.X + node.Width;

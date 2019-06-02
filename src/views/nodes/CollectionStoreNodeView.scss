@@ -12,7 +12,7 @@
         position: absolute;
         width: 18px;
         height: 18px;
-        right:25%;
+        right:0;
         font-size: 12px;
         border: 1px solid black;
         background: white;
@@ -34,7 +34,7 @@
         background: #232323;
         height: 20px;
         cursor: pointer;
-        width: 75%;
+        width: 100%;
         box-sizing: border-box
     }
     
@@ -50,13 +50,13 @@
     .resizer_bottom-right {
        
         cursor: nwse-resize;
-        right: 25%;
+        right: -5px;
         bottom: -5px;
     }
 
     .resizer_top-right {
        
-        right: 25%;
+        right: -5px;
         top: -5px;
         cursor: nesw-resize;
     }
@@ -117,7 +117,6 @@
 
     .scroll-box {
         height: calc(100% - 20px);
-        width: 75%;
         background: burlywood;
         border-radius: 10px;
         border-top-left-radius: 0px;
@@ -128,7 +127,7 @@
             position: absolute;
             top: 20;
             left: 0;
-            width: 75%;
+            width: 100%;
             height: calc(100% - 20px);
             overflow: hidden;
             background-size: cover;

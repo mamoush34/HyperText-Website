@@ -54,8 +54,8 @@ export default class LinkContainer extends React.Component<LinkContainerProps> {
         // It it's any other view they get followed depending on their coordinates and end up being on center.
         //Canvas zooms into the node as well.
         } else{
-            xOffset = Constants.FREE_LINK_X_FACTOR - node.X;
-            yOffset = Constants.FREE_LINK_Y_FACTOR - node.Y
+            xOffset = (window.screen.width / Constants.FREE_LINK_FACTOR) - node.X;
+            yOffset = (window.screen.height / Constants.FREE_LINK_FACTOR) - node.Y
             p.workspace.setX(xOffset);
             p.workspace.setY(yOffset);
             p.workspace.Scale = 1;

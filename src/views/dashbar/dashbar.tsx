@@ -25,22 +25,30 @@ interface DashBarProps {
  */
 @observer
 export default class DashBar extends React.Component<DashBarProps> {
-
-    private maxX:number = 200;
-    private maxY:number = 200;
     
     /**
      * Creates new video node on click.
      */
     onVideoClick = () => {
-        this.props.mainCollection.addNode(new VideoNodeStore({ X: Math.random() * this.maxX, Y: Math.random() * this.maxY, Title: "Video Node Title", Url: "http://cs.brown.edu/people/peichman/downloads/cted.mp4", instanceCollection: this.props.mainCollection }));
+        let p = this.props;
+        let scaledScrenX = window.screen.width / p.mainCollection.Scale;
+        let scaledScrenY = window.screen.height / p.mainCollection.Scale;
+        let newX = (p.mainCollection.X / -p.mainCollection.Scale) + (scaledScrenX / 2);
+        let newY = (p.mainCollection.Y/ -p.mainCollection.Scale) + (scaledScrenY / 2);
+
+        this.props.mainCollection.addNode(new VideoNodeStore({ X: newX, Y: newY, Title: "Video Node Title", Url: "http://cs.brown.edu/people/peichman/downloads/cted.mp4", instanceCollection: this.props.mainCollection }));
     }
 
     /**
      * Creates new text node on click.
      */
     onTextClick = () => {
-        this.props.mainCollection.addNode(new StaticTextNodeStore({ X: Math.random() * this.maxX, Y: Math.random() * this.maxY, Title: "Text Node Title", Text: EditorState.createEmpty(), instanceCollection: this.props.mainCollection}));
+        let p = this.props;
+        let scaledScrenX = window.screen.width / p.mainCollection.Scale;
+        let scaledScrenY = window.screen.height / p.mainCollection.Scale;
+        let newX = (p.mainCollection.X / -p.mainCollection.Scale) + (scaledScrenX / 2);
+        let newY = (p.mainCollection.Y/ -p.mainCollection.Scale) + (scaledScrenY / 2);
+        this.props.mainCollection.addNode(new StaticTextNodeStore({ X: newX, Y: newY, Title: "Text Node Title", Text: EditorState.createEmpty(), instanceCollection: this.props.mainCollection}));
         
     }   
 
@@ -48,29 +56,48 @@ export default class DashBar extends React.Component<DashBarProps> {
      * Creates new image node on click.
      */
     onImageClick = () => {
-        this.props.mainCollection.addNode(new ImageNodeStore({ X: 500, Y: 500, Title:"Image Node", Url:"", instanceCollection: this.props.mainCollection}));
+        let p = this.props;
+        let scaledScrenX = window.screen.width / p.mainCollection.Scale;
+        let scaledScrenY = window.screen.height / p.mainCollection.Scale;
+        let newX = (p.mainCollection.X / -p.mainCollection.Scale) + (scaledScrenX / 2);
+        let newY = (p.mainCollection.Y/ -p.mainCollection.Scale) + (scaledScrenY / 2);
+        this.props.mainCollection.addNode(new ImageNodeStore({ X: newX, Y: newY, Title:"Image Node", Url:"", instanceCollection: this.props.mainCollection}));
     }
 
     /**
      * Creates new pdf node on click.
      */
     onPdfClick = () => {
-        this.props.mainCollection.addNode(new PdfNodeStore({ X: 1200, Y: 500, Title:"Pdf Node", instanceCollection: this.props.mainCollection}));
+        let p = this.props;
+        let scaledScrenX = window.screen.width / p.mainCollection.Scale;
+        let scaledScrenY = window.screen.height / p.mainCollection.Scale;
+        let newX = (p.mainCollection.X / -p.mainCollection.Scale) + (scaledScrenX / 2);
+        let newY = (p.mainCollection.Y/ -p.mainCollection.Scale) + (scaledScrenY / 2);
+        this.props.mainCollection.addNode(new PdfNodeStore({ X: newX, Y: newY, Title:"Pdf Node", instanceCollection: this.props.mainCollection}));
     }
 
     /**
      * Creates new iFrame node on click.
      */
     onWebPageClick = () => {
-        this.props.mainCollection.addNode(new WebSiteNodeStore({ X: 100, Y: 500, Title:"Web Node", Url:"https://www.google.com/search?igu=1", instanceCollection: this.props.mainCollection}));
+        let p = this.props;
+        let scaledScrenX = window.screen.width / p.mainCollection.Scale;
+        let scaledScrenY = window.screen.height / p.mainCollection.Scale;
+        let newX = (p.mainCollection.X / -p.mainCollection.Scale) + (scaledScrenX / 2);
+        let newY = (p.mainCollection.Y/ -p.mainCollection.Scale) + (scaledScrenY / 2);
+        this.props.mainCollection.addNode(new WebSiteNodeStore({ X: newX, Y: newY, Title:"Web Node", Url:"https://www.bbc.com/", instanceCollection: this.props.mainCollection}));
     }
 
     /**
      * Creates new storage node on click.
      */
     onCanvasClick = () => {
-        let newCollection: CollectionStore = new CollectionStore({X:800, Y:500, Title:"Store Node", instanceCollection: this.props.mainCollection});
-        newCollection.Nodes.addNode(new StaticTextNodeStore({ X: Math.random() * 500, Y: Math.random() * 500, Title: "Text Node Title", Text: EditorState.createEmpty(), instanceCollection: newCollection.Nodes}));
+        let p = this.props;
+        let scaledScrenX = window.screen.width / p.mainCollection.Scale;
+        let scaledScrenY = window.screen.height / p.mainCollection.Scale;
+        let newX = (p.mainCollection.X / -p.mainCollection.Scale) + (scaledScrenX / 2);
+        let newY = (p.mainCollection.Y/ -p.mainCollection.Scale) + (scaledScrenY / 2);
+        let newCollection: CollectionStore = new CollectionStore({X:newX, Y:newY, Title:"Store Node", instanceCollection: this.props.mainCollection});
 
         this.props.mainCollection.addNode(newCollection);
         this.props.storeNodes.addNode(newCollection);
@@ -97,30 +124,30 @@ export default class DashBar extends React.Component<DashBarProps> {
         return(
             <div>
                 <div className="dashRect">
-                    <button className="node_adders" onClick={this.onVideoClick}>
+                    <a className="node_adders" onClick={this.onVideoClick}>
                         VideoNode
-                    </button>
-                    <button className="node_adders" onClick={this.onTextClick}>
+                    </a>
+                    <a className="node_adders" onClick={this.onTextClick}>
                         TextNode
-                    </button>
-                    <button className="node_adders" onClick={this.onImageClick}>
+                    </a>
+                    <a className="node_adders" onClick={this.onImageClick}>
                         ImageNode
-                    </button>
-                    <button className="node_adders" onClick={this.onPdfClick}>
+                    </a>
+                    <a className="node_adders" onClick={this.onPdfClick}>
                         PdfNode
-                    </button>
-                    <button className="node_adders" onClick={this.onWebPageClick}>
+                    </a>
+                    <a className="node_adders" onClick={this.onWebPageClick}>
                         WebPageNode
-                    </button>
-                    <button className="node_adders" onClick={this.onCanvasClick}>
+                    </a>
+                    <a className="node_adders" onClick={this.onCanvasClick}>
                         CanvasNode
-                    </button>
-                    <button className="view_changers" onClick={this.onFreeFormClick} style={{top:5, right:5}}> 
+                    </a>
+                    <a className="view_changers" onClick={this.onFreeFormClick} style={{top:5, right:5}}> 
                         FreeForm
-                    </button>
-                    <button className="view_changers" onClick={this.onGridFormClick} style={{top:5, right:80}}> 
+                    </a>
+                    <a className="view_changers" onClick={this.onGridFormClick} style={{top:5, right:100}}> 
                         GridForm
-                    </button>
+                    </a>
                 </div>
             </div>
         );

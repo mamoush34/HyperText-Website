@@ -51,7 +51,8 @@ export class NodeStore {
         this.gridIndex = index;
     }
 
-    //holds only reference of which collection the node is in
+    //holds only reference of which collection the node is in, never been
+    //used directly when props could be passed in.
     @observable
     public instanceCollection:NodeCollectionStore;
 }

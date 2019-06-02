@@ -50,7 +50,7 @@ export default class Dashboard extends React.Component<DashboardProps>{
         let p = this.props;
         return (
             <div>
-                <h1 style={{top:0}}>Dash Web</h1>
+                <h1>Dash Web</h1>
                 <DashBar mainCollection={p.collection} view={this.changeView} storeNodes={p.storeNodes}/>
                 {this.renderCanvas()}
             </div>

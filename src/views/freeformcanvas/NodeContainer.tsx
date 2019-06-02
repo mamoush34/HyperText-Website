@@ -37,6 +37,8 @@ export enum Resizer_Type {
 @observer
 export class NodeContainer extends React.Component<IProps> {
 
+    //Both of the linkMode and linkModeOpener variables are in here, so that user won't be able to link across
+    //different collections. Also made sure linking closes, when user changes view.
     //storing the status of linking in a higher level like here to be able to pass to all views under it.
     @observable private linkMode: boolean = false;
     //storing which nodeStore opened the linkMode so that keeping track of the which node to pair with clicks.

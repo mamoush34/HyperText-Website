@@ -6,6 +6,7 @@ import React = require("react");
 import DashBar from "../dashbar/dashbar";
 import { Canvas_Type } from "../../Dashboard";
 import * as Constants from '../../constants/Constants'
+import { action } from "mobx";
 
 
 interface IProps {
@@ -77,14 +78,14 @@ export class GridFormCanvas extends React.Component<IProps> {
 
 
     }
-
+   
     render() {
         let store = this.props.store;
         return (
             <div className="gridformcanvas-container" onPointerDown={this.onPointerDown} onWheel={this.onWheelZoom} style={{backgroundImage: 'url(' + require('../../images/canvas_background.jpg') + ')'}}>
                 <div className="gridformcanvas" style={{ transform: store.Transform }}>
                     <NodeContainer store={store} storeNodes={this.props.storeNodes} currentView={Canvas_Type.GRID_FORM}/>
-                </div>
+                </div>       
             </div>
         );
     }

@@ -4,8 +4,21 @@
     height: 10%;
     z-index: 1;
     position: absolute;
+    pointer-events: none;
 
-    .node_adders {
+
+    a {
+        -webkit-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+        -moz-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+        -ms-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+        -o-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+        transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+        box-sizing: border-box;
+        pointer-events: auto;
+
+    }
+
+    a.node_adders {
         background: yellow;
         color: black;
         border-radius: 15px;
@@ -13,9 +26,13 @@
         margin: 10px;
         padding: 10px;
         outline: none;
+        position: relative;
+        top: 20px;
+
+
     }
 
-    .view_changers {
+    a.view_changers {
         top: 5px;
         right: 5px;
         position: absolute;
@@ -26,5 +43,14 @@
         margin: 10px;
         padding: 10px;
         outline: none;
+
+    }
+
+    a:hover {
+        color: white;
+        box-shadow: purple 0 0px 0px 40px inset;
+        cursor: pointer;
+
+
     }
 }

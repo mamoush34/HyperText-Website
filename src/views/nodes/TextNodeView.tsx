@@ -103,7 +103,6 @@ export class TextNodeView extends React.Component<IProps> {
             if (p.linkModeOpener !== p.store) {
                 if(!p.linkModeOpener.linkedNodes.includes(p.store)) {
                     p.linkModeOpener.addLinkNode(p.store);
-                    console.log("length: " , p.linkModeOpener.linkedNodes.length)
                     p.store.addLinkNode(p.linkModeOpener);
 
                 }
@@ -118,13 +117,11 @@ export class TextNodeView extends React.Component<IProps> {
      */
     @action
     changeLinkBoxOpacity = () => {
-        console.log("This got called");
         if(this.isLinkBoxRendered) {
             this.isLinkBoxRendered = false;
 
         } else {
             this.isLinkBoxRendered = true;
-            console.log("This is set to true");
         }
     }
 
@@ -151,7 +148,9 @@ export class TextNodeView extends React.Component<IProps> {
 
     /**
      * This function is called to render the right editor depending on 
-     * focus, so that toolbox shows uo.
+     * focus, so that toolbox shows up. It makes sure that a version
+     * without toolbox is rendered with user's entered text, when user
+     * switches focus.
      */
     renderEditor = () => {
         if(this.toolbarState) {
@@ -200,7 +199,7 @@ export class TextNodeView extends React.Component<IProps> {
                 {this.renderLinkBox()}
 
                 {this.renderLinkBox()}
-                <div className="scroll-box">
+                <div className="scroll-box" style={{width: this.isLinkBoxRendered ? "75%" : "100%"}}>
                     <div className="content">
                         <input className="title" type="text" placeholder={store.Title} ref={(e) => this.title = e} onClick={() => this.title.focus()} onKeyPress={this.onEnterPress}/>
                         {this.renderEditor()}
